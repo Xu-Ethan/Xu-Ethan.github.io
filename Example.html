@@ -1,0 +1,115 @@
+<div style=" padding: 100px;">
+In the examples provided below, we demonstrated how to format and present notes using HTML and LaTeX. These markup languages offer flexibility and versatility in representing various types of content, such as text, tables, mathematical formulas, and logical deductions. By combining HTML and LaTeX, we can create comprehensive and visually pleasing notes that cover a wide range of topics. These notes can be stored and shared with others. Whether you prefer the flexibility of HTML or the precision of LaTeX, taking notes using these markup languages ensures that you have a well-structured and accessible resource for your studies. The following are some basic examples. The right half screen is the output while the respective input can be found on the left half screen.
+</div>
+<div style="display: flex; justify-content: space-between;">
+    <div style="width: 45%; text-align: center;">
+        <h1>HTML:</h1>
+        <h2 style="text-align: center;">Text</h2>
+        <p>Hello World</p>
+        <h2 style="text-align: center;">Color</h2>
+        <p style="color: red;">Red</p>
+        <p style="color: green;">Green</p>
+        <p style="color: blue;">Blue</p><br>        <h2 style="text-align: center;">Table</h2>
+        <table style="text-align: center; margin: 0 auto;">
+            <tbody><tr>
+                <th>p</th>
+                <th>q</th>
+                <th>p AND q</th>
+            </tr>
+            <tr>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td>0</td>
+                <td>1</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>0</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>
+        </tbody></table>
+    </div>
+    <div style="width: 45%; text-align: center;">
+        <h1>$\LaTeX:$</h1>
+        <h2 style="text-align: center;">Text</h2>
+        $$\text{Hello World}$$
+        <h2 style="text-align: center;">Color</h2>
+        $\color{red}{\text{Red}}\\$<br>        $\color{green}{\text{Green}}\\$<br>        $\color{blue}{\text{Blue}}$<br>        <style>
+            table {
+                border-collapse: collapse;
+                margin: 0 auto; /* Added margin property to center the table */
+            }
+            th, td {
+                border: 1px solid white;
+                padding: 8px;
+                text-align: center;
+            }
+        </style><br>        <h2 style="text-align: center;">Table</h2>
+        $$\begin{array}{|c|c|c|}
+            \hline
+            p &amp; q &amp; p \land q \\\hline
+            0 &amp; 0 &amp; 0 \\\hline
+            0 &amp; 1 &amp; 0 \\\hline
+            1 &amp; 0 &amp; 0 \\\hline
+            1 &amp; 1 &amp; 1 \\\hline
+            \hline
+        \end{array}$$
+    </div>
+</div>
+<h1 style="text-align: center;">More $\LaTeX$ Examples:</h1>
+<h2 style="text-align: center;">Mathematical/Physical Formulas</h2>
+$$\displaystyle i \hbar \frac{ \partial \psi }{\partial t}
+=\frac{\hbar c}{i}
+\left(\alpha_1 \frac{\partial \psi}
+{\partial x^1} +\alpha_2 \frac{\partial \psi}
+{\partial x^2} +\alpha_3 \frac{\partial \psi}
+{\partial x^3}\right)
++\alpha_4 m c^2 \psi$$
+<h2 style="text-align: center;">Logical Deductions</h2>
+$$\def\fitch#1#2{\quad\begin{array}{|l}#1\\\hline#2\end{array}}\fitch{~~1.~(\forall xP(x))\to Q}
+{\fitch{~~2.~\neg(\forall xP(x)\lor\neg\forall xP(x))}{
+\fitch{~~3.~\forall xP(x)}{~~
+4.~(\forall xP(x))\lor(\neg(\forall x P(x)))\hspace{10ex}{\lor}~\textsf{Intro}~3\\~~
+5.~\bot\hspace{32.6ex}{\bot}~\textsf{Intro}~2,4}\\~~
+6.~\neg(\forall xP(x))\hspace{27.2ex}{\neg}~\textsf{Intro}~3-5\\~~
+7.~(\forall xP(x))\lor(\neg(\forall xP(x)))\hspace{13.5ex}{\lor}~\textsf{Intro}~6\\~~
+8.~\bot\hspace{36.4ex}{\bot}~\textsf{Intro}~2,7}\\~~
+9.~(\forall xP(x))\lor(\neg(\forall xP(x)))\hspace{17ex}{\neg}~\textsf{Intro}~2-8\\
+\fitch{~~
+10.~\forall xP(x)}{
+\fitch{~~
+11.~P(a)}{~~
+12.~Q\hspace{31.5ex}{\to}~\textsf{Elim}~1,10}\\~~
+13.~P(a)\to Q\hspace{26.5ex}{\to}~\textsf{Intro}~11-12\\~~
+14.~\exists x(P(x)\to Q)\hspace{23.1ex}{\exists}~\textsf{Intro}~13
+}\\\fitch{~~
+15.~\neg(\forall xP(x))}{\fitch{~~
+16.~\neg\exists x(P(x)\to Q)}{\fitch{~~
+17.~\boxed{a}}{\fitch{~~
+18.~\neg P(a)}{\fitch{~~
+19.~P(a)}{~~
+20.~\bot\hspace{21ex}{\bot}~\textsf{Intro}~18,19~\\~~
+21.~Q\hspace{21ex}{\bot}~\textsf{Elim}~20~}\\~~
+22.~P(a)\to Q\hspace{16ex}{\to}\textsf{Intro}~19-21~\\~~
+23.~\exists x(P(x)\to Q)\hspace{12ex}{\exists}~\textsf{Intro}~22~\\~~
+24.~\bot\hspace{25ex}{\bot}~\textsf{Intro}~16,23~}\\~~
+25.~\neg\neg P(a)\hspace{22.5ex}{\neg}~\textsf{Intro}~18-24~\\~~
+26.~P(a)\hspace{25.5ex}{\neg}~\textsf{Elim}~25~}\\~~
+27.~\forall xP(x)\hspace{26.5ex}{\forall}~\textsf{Intro}~17-26~\\~~
+28.~\bot\hspace{32ex}{\bot}~\textsf{Intro}~15,27~}\\~~
+29.~\exists x(P(x)\to Q)\hspace{22.5ex}{\neg}~\textsf{Intro}~16-28~}\\~~
+30.~\exists x(P(x)\to Q)\hspace{26ex}{\lor}~\textsf{Elim}~9,10-14,15-29}$$
+<h2 style="text-align: center;">Boxed section</h2>
+$$\def\box#1#2{\boxed{\underline{\text{#1}}\\#2}}
+\box{Def. Integrable Function Single Variable}
+{\text{A function $f:[a,b]\to\mathbb{R}$ is integrable if it is bounded and $\underline{I^b_a}f=\overline{I^b_a}f.$ When this hold,}\\
+\text{we define }\int_a^bf(x)dx=\underline{I^b_a}f=\overline{I^b_a}f, \text{ the integral of $f$ over $[a,b]$.}}$$

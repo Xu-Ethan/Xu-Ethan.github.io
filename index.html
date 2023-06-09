@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MyNote</title>
+    <style>
+        body {
+            display: flex;
+            height: 100vh;
+            margin: 0;
+            background-color: #222;
+            color: #eee;
+        }
+
+        #sidebar {
+            flex: 0 0 200px;
+            background-color: #333;
+            padding: 10px;
+            box-sizing: border-box;
+            overflow: hidden;
+            transition: flex 0.5s;
+            position: relative;
+        }
+
+        #sidebar.collapsed {
+            flex: 0 0 0;
+        }
+
+        #arrow-button {
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 10px;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+            font-size: 16px;
+            width: 30px;
+            position: absolute;
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+
+        #arrow-button:before {
+            content: '\25B6';
+        }
+
+        #sidebar.collapsed #arrow-button:before {
+            content: '\25C0';
+        }
+
+        #export-button,
+        #import-button,
+        #insert-button,
+        #preview-button,
+        #image-button,
+        #example-button {
+            color: white;
+            border: none;
+            padding: 10px;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+            font-size: 16px;
+            margin-bottom: 10px;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+
+        #export-button:hover,
+        #import-button:hover,
+        #insert-button:hover,
+        #preview-button:hover,
+        #image-button:hover,
+        #example-button:hover {
+            background-color: #555;
+        }
+
+        #export-button:active,
+        #import-button:active,
+        #insert-button:active,
+        #preview-button:active,
+        #image-button:active,
+        #example-button:active {
+            background-color: #777;
+        }
+
+        #export-button {
+            background-color: #337ab7;
+        }
+
+        #import-button {
+            background-color: #337ab7;
+        }
+
+        #insert-button {
+            background-color: #337ab7;
+        }
+
+        #preview-button {
+            background-color: #4CAF50;
+        }
+
+        #image-button {
+            background-color: #f0ad4e;
+        }
+
+        #example-button {
+            background-color: #d9534f;
+        }
+
+        #file-input {
+            display: none;
+        }
+
+        #import-button-label {
+            background-color: #337ab7;
+            color: white;
+            border: none;
+            padding: 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        #input-container,
+        #output-container {
+            flex: 1;
+            height: 100%;
+            overflow: auto;
+            box-sizing: border-box;
+            padding: 10px;
+            background-color: #222;
+            color: #eee;
+        }
+
+        #input-container {
+            border-right: 1px solid #ccc;
+        }
+
+        #input {
+            width: 99%;
+            height: 99%;
+            resize: none;
+            /* Disable textarea resizing */
+            background-color: #222;
+            color: #eee;
+        }
+
+        .arrow-left:before {
+            content: '\25C0';
+        }
+
+        #output-container {
+            height: calc(100% - 20px);
+        }
+
+        #output {
+            height: 100%;
+        }
+
+        .preview-mode {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            background-color: #222;
+        }
+
+        .preview-mode #output-container {
+            height: 100%;
+        }
+
+        .preview-mode #output {
+            height: 100%;
+        }
+    </style>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: { inlineMath: [["$", "$"], ["\\(", "\\)"]], processEscapes: true }
+        });
+    </script>
+    <script
+        type="text/javascript"
+        charset="utf-8"
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    ></script>
+    <script>
+        function compile() {
+            var input = document.getElementById("input").value;
+            var output = document.getElementById("output");
+            var formattedInput = input.replace(/\n\n/g, "<br>");
+            output.innerHTML = formattedInput;
+            MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+
+            // Store input in local storage
+            localStorage.setItem("inputText", input);
+        }
+
+        function exportOutput() {
+            var input = document.getElementById("input").value;
+            var processedInput = input.replace(/\n\n/g, "<br>");
+            var htmlContent =
+                '<!DOCTYPE html>\n<html>\n<head>\n    <title>Exported Output</title>\n    <style>\n        body {\n            display: flex;\n            justify-content: center;\n            align-items: center;\n            height: 100vh;\n            margin: 0;\n            background-color: #222;\n            color: #eee;\n        }\n\n        #output-container {\n            flex: 1;\n            height: 100%;\n            overflow: auto;\n            box-sizing: border-box;\n            padding: 10px;\n            background-color: #222;\n            color: #eee;\n        }\n    <\/style>\n    <script type="text/x-mathjax-config">\n        MathJax.Hub.Config({\n            tex2jax: { inlineMath: [["$", "$"], ["\\\\(", "\\\\)"]], processEscapes: true }\n        });\n    <\/script>\n    <script type="text/javascript" charset="utf-8" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>\n<\/head>\n<body>\n' +
+                '<div id="output-container">' +
+                processedInput +
+                '<\/div>\n<\/body>\n<\/html>';
+            var filename = "output.html";
+            var element = document.createElement("a");
+            element.setAttribute(
+                "href",
+                "data:text/html;charset=utf-8," + encodeURIComponent(htmlContent)
+            );
+            element.setAttribute("download", filename);
+            element.style.display = "none";
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
+        }
+
+        function handleFileSelect(evt) {
+            var files = evt.target.files; // FileList object
+            if (files.length > 0) {
+                var reader = new FileReader();
+                reader.onload = function (file) {
+                    var importedHTML = file.target.result;
+                    var parser = new DOMParser();
+                    var doc = parser.parseFromString(importedHTML, "text/html");
+                    var importedContent = doc.getElementById("output-container").innerHTML.trim();
+                    document.getElementById("input").value = importedContent;
+                    compile();
+                };
+                reader.readAsText(files[0]);
+            }
+        }
+
+        function toggleSidebar() {
+            var sidebar = document.getElementById("sidebar");
+            sidebar.classList.toggle("collapsed");
+
+            var arrowButton = document.getElementById("arrow-button");
+            arrowButton.classList.toggle("arrow-left");
+        }
+
+        function addYouTubeVideo(url) {
+            var videoUrl = url;
+            if (videoUrl) {
+                var videoCode = extractYouTubeVideoCode(videoUrl);
+                var htmlCode =
+                    '<iframe width="100%" height="99.5%" src="https://www.youtube.com/embed/' +
+                    videoCode +
+                    '" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+                var input = document.getElementById("input");
+                input.value += htmlCode;
+                compile();
+            }
+        }
+
+        function addWebsite(url) {
+            var websiteUrl = url;
+            if (websiteUrl) {
+                var htmlCode =
+                    '<iframe src="' +
+                    websiteUrl +
+                    '" width="100%" height="100%" frameborder="0"></iframe>';
+                var input = document.getElementById("input");
+                input.value += htmlCode;
+                compile();
+            }
+        }
+
+        function addImage(url) {
+            var imageUrl = url;
+            if (imageUrl) {
+                var htmlCode = '<img src="' + imageUrl + '">';
+                var input = document.getElementById("input");
+                input.value += htmlCode;
+                compile();
+            }
+        }
+
+        function extractYouTubeVideoCode(url) {
+            var match = url.match(
+                /^(?:https?:\/\/)?(?:www\.)?youtu(?:be\.com|\.be)\/(?:watch\?v=|embed\/|v\/)?([^&?/]+)/i
+            );
+            return match && match[1] ? match[1] : null;
+        }
+
+        function insert() {
+            var url = prompt("Enter the URL:");
+            if (url) {
+                if (isYouTubeVideoUrl(url)) {
+                    addYouTubeVideo(url);
+                } else if (isImageUrl(url)) {
+                    addImage(url);
+                } else {
+                    addWebsite(url);
+                }
+            }
+        }
+
+        function isYouTubeVideoUrl(url) {
+            return url.includes("youtube.com") || url.includes("youtu.be");
+        }
+
+        function isImageUrl(url) {
+            return /\.(jpeg|jpg|gif|png)$/.test(url);
+        }
+
+        function togglePreview() {
+            var outputContainer = document.getElementById("output-container");
+            outputContainer.classList.toggle("preview-mode");
+
+            if (outputContainer.classList.contains("preview-mode")) {
+                document.documentElement.requestFullscreen().catch((err) => {
+                    alert(
+                        `Error attempting to enable full-screen mode: ${err.message} (${err.name})`
+                    );
+                });
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        document.addEventListener("fullscreenchange", () => {
+            var outputContainer = document.getElementById("output-container");
+            var previewButton = document.getElementById("preview-button");
+
+            if (document.fullscreenElement) {
+                outputContainer.classList.add("preview-mode");
+                previewButton.innerHTML = "Exit Preview";
+            } else {
+                outputContainer.classList.remove("preview-mode");
+                previewButton.innerHTML = "Preview";
+            }
+        });
+
+        window.onload = function () {
+            var input = document.getElementById("input");
+
+            // Load input from local storage if available
+            var savedInput = localStorage.getItem("inputText");
+            if (savedInput) {
+                input.value = savedInput;
+            }
+
+            input.addEventListener("input", compile);
+            compile(); // Trigger initial compilation
+
+            var fileInput = document.getElementById("file-input");
+            fileInput.addEventListener("change", handleFileSelect, false);
+
+            var arrowButton = document.getElementById("arrow-button");
+            arrowButton.addEventListener("click", toggleSidebar, false);
+
+            var insertButton = document.getElementById("insert-button");
+            insertButton.addEventListener("click", insert);
+
+            var previewButton = document.getElementById("preview-button");
+            previewButton.addEventListener("click", togglePreview);
+
+            var imageButton = document.getElementById("image-button");
+            imageButton.addEventListener("click", function () {
+                var imageUrl = prompt("Enter the image URL:");
+                if (imageUrl) {
+                    addImage(imageUrl);
+                }
+            });
+
+            var exampleButton = document.getElementById("example-button");
+            exampleButton.addEventListener("click", function () {
+                fetch("Example.html")
+                    .then((response) => response.text())
+                    .then((html) => {
+                        input.value = html;
+                        compile();
+                    });
+            });
+        };
+    </script>
+</head>
+<body>
+    <div id="sidebar" class="collapsed">
+        <button id="arrow-button"></button>
+        <input type="file" id="file-input">
+        <button id="preview-button">Preview</button>
+        <button id="import-button" onclick="document.getElementById('file-input').click()">Import</button>
+        <button id="export-button" onclick="exportOutput()">Export</button>
+        <button id="insert-button">Insert</button>
+        <button id="image-button">Image</button>
+        <button id="example-button">Example</button>
+    </div>
+    <div id="input-container">
+        <textarea id="input" rows="10" cols="40"></textarea>
+    </div>
+    <div id="output-container">
+        <div id="output"></div>
+    </div>
+</body>
+</html>
