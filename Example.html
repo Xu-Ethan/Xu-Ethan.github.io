@@ -1,65 +1,188 @@
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-  <script>
-    MathJax = {
-      tex: {
-        inlineMath: [['$', '$'], ['\\(', '\\)']],
-        displayMath: [['$$', '$$'], ['\\[', '\\]']],
-        processEscapes: true,
-      },
-      options: {
-        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-      },
-    };
-  </script>
+<!DOCTYPE html>
+<html lang="en">
 
-
-<h1 style="text-align: center;">$\LaTeX$ Examples:</h1>
-
-<h2 style="text-align: center;">Table</h2>
-     $$\begin{array}{|c|c|c|}
-            \hline
-            p &amp; q &amp; p \land q \\\hline
-            0 &amp; 0 &amp; 0 \\\hline
-            0 &amp; 1 &amp; 0 \\\hline
-            1 &amp; 0 &amp; 0 \\\hline
-            1 &amp; 1 &amp; 1 \\\hline
-            \hline
-        \end{array}$$
-
-
-<h2 style="text-align: center;">Mathematical/Physical Formulas</h2>
-$$\displaystyle i \hbar \frac{ \partial \psi }{\partial t}
-=\frac{\hbar c}{i}
-\left(\alpha_1 \frac{\partial \psi}
-{\partial x^1} +\alpha_2 \frac{\partial \psi}
-{\partial x^2} +\alpha_3 \frac{\partial \psi}
-{\partial x^3}\right)
-+\alpha_4 m c^2 \psi$$
-
-
-<h2 style="text-align: center;">Logical Deductions</h2>
-$$\def\fitch#1#2{\quad\begin{array}{|l}#1\\\hline#2\end{array}}
-\fitch{\forall x(\exists y~Q(x,y)\to P(x))}
-{\fitch{\boxed{a}}
-{\exists y~Q(a,y)\to P(a)\\
-\fitch{\boxed{b}~Q(a,b)}
-{\exists y~Q(a,y)\\
-P(a)}\\
-\forall y~(Q(a,y)\to P(a))}\\
-\forall x\forall y~(Q(x,y)\to P(x))}$$
-
-<h1 style="text-align: center;">HTML Examples:</h1>
-<h2 style="text-align: center;">Background: <button onclick="changeBackgroundColor()">Change Color</button></h2>
-  <script>
-    function changeBackgroundColor() {
-      var red = Math.floor(Math.random() * 256);
-      var green = Math.floor(Math.random() * 256);
-      var blue = Math.floor(Math.random() * 256);
-      var rgbColor = 'rgb(' + red + ', ' + green + ', ' + blue + ')';
-      document.body.style.backgroundColor = rgbColor;
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Example</title>
+  <style>
+    /* Global styles */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      color: #333;
     }
-  </script>
 
+    /* Header styles */
+    header {
+      background-color: #333;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
 
+    h1 {
+      margin: 0;
+      font-size: 36px;
+    }
 
+    /* Navigation styles */
+    nav {
+      background-color: #666;
+      padding: 10px;
+      text-align: center;
+    }
+
+    nav ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    nav ul li {
+      display: inline-block;
+      margin: 0 10px;
+    }
+
+    nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 18px;
+    }
+
+    /* Main content styles */
+    main {
+      padding: 20px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    /* Footer styles */
+    footer {
+      background-color: #333;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+
+    /* Media queries for responsive design */
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 24px;
+      }
+
+      nav ul li {
+        display: block;
+        margin: 10px 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Example</h1>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Services</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          displayMath: [['$$', '$$'], ['\\[', '\\]']],
+          processEscapes: true,
+        },
+        options: {
+          skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        },
+      };
+    </script>
+
+    <h1 style="text-align: center;">$\LaTeX$ Examples:</h1>
+
+    <h2 style="text-align: center;">Mathematical/Physical Formulas</h2>
+    <div>
+      $$\displaystyle i \hbar \frac{ \partial \psi }{\partial t}
+      =\frac{\hbar c}{i}
+      \left(\alpha_1 \frac{\partial \psi}
+      {\partial x^1} +\alpha_2 \frac{\partial \psi}
+      {\partial x^2} +\alpha_3 \frac{\partial \psi}
+      {\partial x^3}\right)
+      +\alpha_4 m c^2 \psi$$
+    </div>
+
+    <h2 style="text-align: center;">Tables</h2>
+    <div>
+      $$\begin{array}{|c|c|c|}
+      \hline
+      p & q & p \land q \\
+      \hline
+      0 & 0 & 0 \\
+      \hline
+      0 & 1 & 0 \\
+      \hline
+      1 & 0 & 0 \\
+      \hline
+      1 & 1 & 1 \\
+      \hline
+      \end{array}~~
+      \begin{array}{|c|c|c|}
+      \hline
+      p & q & p \lor q \\
+      \hline
+      0 & 0 & 0 \\
+      \hline
+      0 & 1 & 1 \\
+      \hline
+      1 & 0 & 1 \\
+      \hline
+      1 & 1 & 1 \\
+      \hline
+      \end{array}$$
+    </div>
+
+    <h2 style="text-align: center;">Logical Deductions</h2>
+    <div>
+      $$\def\fitch#1#2{\quad\begin{array}{|l}#1\\\hline#2\end{array}}
+      \fitch{\forall x(\exists y~Q(x,y)\to P(x))}
+      {\fitch{\boxed{a}}
+      {\exists y~Q(a,y)\to P(a)\\
+      \fitch{\boxed{b}~Q(a,b)}
+      {\exists y~Q(a,y)\\
+      P(a)}\\
+      \forall y~(Q(a,y)\to P(a))}\\
+      \forall x\forall y~(Q(x,y)\to P(x))}$$
+    </div>
+
+    <h1 style="text-align: center;">HTML Examples:</h1>
+    <h2 style="text-align: center;">Background: <button onclick="changeBackgroundColor()">Change Color</button></h2>
+    <script>
+      function changeBackgroundColor() {
+        var red = Math.floor(Math.random() * 256);
+        var green = Math.floor(Math.random() * 256);
+        var blue = Math.floor(Math.random() * 256);
+        var rgbColor = 'rgb(' + red + ', ' + green + ', ' + blue + ')';
+        document.body.style.backgroundColor = rgbColor;
+      }
+    </script>
+  </main>
+
+  <footer>
+    &copy; 2023 Example. All rights reserved.
+  </footer>
+</body>
+
+</html>
