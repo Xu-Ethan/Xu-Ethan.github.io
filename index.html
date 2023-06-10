@@ -1,202 +1,427 @@
+
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Example</title>
-  <style>
-    /* Global styles */
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-      background-color: #f9f9f9;
-      color: #333;
-    }
+    <title>MyNote</title>
+    <style>
+        body {
+            display: flex;
+            height: 100vh;
+            margin: 0;
+            background-color: #222;
+            color: #eee;
+        }
 
-    /* Header styles */
-    header {
-      background-color: #333;
-      color: #fff;
-      padding: 20px;
-      text-align: center;
-    }
+        #sidebar {
+            flex: 0 0 200px;
+            background-color: #333;
+            padding: 10px;
+            box-sizing: border-box;
+            overflow: hidden;
+            transition: flex 0.5s;
+            position: relative;
+        }
 
-    h1 {
-      margin: 0;
-      font-size: 36px;
-    }
+        #sidebar.collapsed {
+            flex: 0 0 0;
+        }
 
-    /* Navigation styles */
-    nav {
-      background-color: #666;
-      padding: 10px;
-      text-align: center;
-    }
+        #arrow-button {
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 10px;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+            font-size: 16px;
+            width: 30px;
+            position: absolute;
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
 
-    nav ul {
-      list-style-type: none;
-      padding: 0;
-      margin: 0;
-    }
+        #arrow-button:before {
+            content: '\25B6';
+        }
 
-    nav ul li {
-      display: inline-block;
-      margin: 0 10px;
-    }
+        #sidebar.collapsed #arrow-button:before {
+            content: '\25C0';
+        }
 
-    nav ul li a {
-      color: #fff;
-      text-decoration: none;
-      font-size: 18px;
-    }
+        #export-button,
+        #import-button,
+        #insert-button,
+        #preview-button,
+        #image-button,
+        #example-button {
+            color: white;
+            border: none;
+            padding: 10px;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+            font-size: 16px;
+            margin-bottom: 10px;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
 
-    /* Main content styles */
-    main {
-      padding: 20px;
-      max-width: 800px;
-      margin: 0 auto;
-    }
+        #export-button:hover,
+        #import-button:hover,
+        #insert-button:hover,
+        #preview-button:hover,
+        #image-button:hover,
+        #example-button:hover {
+            background-color: #555;
+        }
 
-    /* Footer styles */
-    footer {
-      background-color: #333;
-      color: #fff;
-      padding: 20px;
-      text-align: center;
-    }
+        #export-button:active,
+        #import-button:active,
+        #insert-button:active,
+        #preview-button:active,
+        #image-button:active,
+        #example-button:active {
+            background-color: #777;
+        }
 
-    /* Media queries for responsive design */
-    @media (max-width: 600px) {
-      h1 {
-        font-size: 24px;
-      }
+        #export-button {
+            background-color: #337ab7;
+        }
 
-      nav ul li {
-        display: block;
-        margin: 10px 0;
-      }
-    }
-  </style>
+        #import-button {
+            background-color: #337ab7;
+        }
+
+        #insert-button {
+            background-color: #337ab7;
+        }
+
+        #preview-button {
+            background-color: #4CAF50;
+        }
+
+        #image-button {
+            background-color: #f0ad4e;
+        }
+
+        #example-button {
+            background-color: #d9534f;
+        }
+
+        #file-input {
+            display: none;
+        }
+
+        #import-button-label {
+            background-color: #337ab7;
+            color: white;
+            border: none;
+            padding: 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        #input-container,
+        #output-container {
+            flex: 1;
+            height: 100%;
+            overflow: auto;
+            box-sizing: border-box;
+            padding: 10px;
+            background-color: #222;
+            color: #eee;
+        }
+
+        #input-container {
+            border-right: 1px solid #ccc;
+        }
+
+        #input {
+            width: 99%;
+            height: 98.5%;
+            resize: none;
+            background-color: #222;
+            color: #eee;
+        }
+
+        .arrow-left:before {
+            content: '\25C0';
+        }
+
+        #output-container {
+            height: 100%;
+            width: 100%;
+            color: black; /* Set text color to black */
+            background-color: black; /* Set background color to black */
+        }
+
+        #output {
+            height: 99%;
+            width: 99%;
+            color: black; /* Set text color to black */
+        }
+
+        .preview-mode {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            background-color: #222;
+        }
+
+        .preview-mode #output-container {
+            height: 100%;
+        }
+
+        .preview-mode #output {
+            height: 100%;
+        }
+    </style>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: { inlineMath: [["$", "$"], ["\\(", "\\)"]], processEscapes: true }
+        });
+    </script>
+    <script
+        type="text/javascript"
+        charset="utf-8"
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    ></script>
+    <script>
+function compile() {
+  var input = document.getElementById("input").value;
+  var outputIframe = document.getElementById("output");
+
+  // Create the iframe document
+  var iframeDocument = outputIframe.contentDocument || outputIframe.contentWindow.document;
+
+  // Set the content of the iframe document with updated styles
+  iframeDocument.open();
+  iframeDocument.write('<html><head><style>body { color: black; background-color: white; }</style></head><body>' + input + '</body></html>');
+  iframeDocument.close();
+
+  // Store input in local storage
+  localStorage.setItem("inputText", input);
+}
+
+
+
+function escapeHtml(text) {
+  var map = {
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#039;"
+  };
+  return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+}
+
+
+
+function exportOutput() {
+  var outputIframe = document.getElementById("output");
+  var outputDocument = outputIframe.contentDocument || outputIframe.contentWindow.document;
+  var outputContent = outputDocument.documentElement.outerHTML;
+
+  var filename = "output.html";
+  var element = document.createElement("a");
+  element.setAttribute("href", "data:text/html;charset=utf-8," + encodeURIComponent(outputContent));
+  element.setAttribute("download", filename);
+  element.style.display = "none";
+  document.body.appendChild(element);
+  element.click();
+  document.body.removeChild(element);
+}
+
+
+
+
+
+        function handleFileSelect(evt) {
+            var files = evt.target.files; // FileList object
+            if (files.length > 0) {
+                var reader = new FileReader();
+                reader.onload = function (file) {
+                    var importedHTML = file.target.result;
+                    var parser = new DOMParser();
+                    var doc = parser.parseFromString(importedHTML, "text/html");
+                    var importedContent = doc.getElementById("output-container").innerHTML.trim();
+                    document.getElementById("input").value = importedContent;
+                    compile();
+                };
+                reader.readAsText(files[0]);
+            }
+        }
+
+        function toggleSidebar() {
+            var sidebar = document.getElementById("sidebar");
+            sidebar.classList.toggle("collapsed");
+
+            var arrowButton = document.getElementById("arrow-button");
+            arrowButton.classList.toggle("arrow-left");
+        }
+
+        function addYouTubeVideo(url) {
+            var videoUrl = url;
+            if (videoUrl) {
+                var videoCode = extractYouTubeVideoCode(videoUrl);
+                var htmlCode =
+                    '<iframe width="100%" height="99.5%" src="https://www.youtube.com/embed/' +
+                    videoCode +
+                    '" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+                var input = document.getElementById("input");
+                input.value += htmlCode;
+                compile();
+            }
+        }
+
+        function addWebsite(url) {
+            var websiteUrl = url;
+            if (websiteUrl) {
+                var htmlCode =
+                    '<iframe src="' +
+                    websiteUrl +
+                    '" width="100%" height="100%" frameborder="0"></iframe>';
+                var input = document.getElementById("input");
+                input.value += htmlCode;
+                compile();
+            }
+        }
+
+        function addImage(url) {
+            var imageUrl = url;
+            if (imageUrl) {
+                var htmlCode = '<img src="' + imageUrl + '" width="100" height="100" frameborder="0">';
+                var input = document.getElementById("input");
+                input.value += htmlCode;
+                compile();
+            }
+        }
+
+        function extractYouTubeVideoCode(url) {
+            var match = url.match(
+                /^(?:https?:\/\/)?(?:www\.)?youtu(?:be\.com|\.be)\/(?:watch\?v=|embed\/|v\/)?([^&?/]+)/i
+            );
+            return match && match[1] ? match[1] : null;
+        }
+
+        function insert() {
+            var url = prompt("Enter the URL:");
+            if (url) {
+                if (isYouTubeVideoUrl(url)) {
+                    addYouTubeVideo(url);
+                } else if (isImageUrl(url)) {
+                    addImage(url);
+                } else {
+                    addWebsite(url);
+                }
+            }
+        }
+
+        function isYouTubeVideoUrl(url) {
+            return url.includes("youtube.com") || url.includes("youtu.be");
+        }
+
+        function isImageUrl(url) {
+            return /\.(jpeg|jpg|gif|png)$/.test(url);
+        }
+
+        function togglePreview() {
+            var outputContainer = document.getElementById("output-container");
+            outputContainer.classList.toggle("preview-mode");
+
+            if (outputContainer.classList.contains("preview-mode")) {
+                document.documentElement.requestFullscreen().catch((err) => {
+                    alert(
+                        `Error attempting to enable full-screen mode: ${err.message} (${err.name})`
+                    );
+                });
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        document.addEventListener("fullscreenchange", () => {
+            var outputContainer = document.getElementById("output-container");
+            var previewButton = document.getElementById("preview-button");
+
+            if (document.fullscreenElement) {
+                outputContainer.classList.add("preview-mode");
+                previewButton.innerHTML = "Exit Preview";
+            } else {
+                outputContainer.classList.remove("preview-mode");
+                previewButton.innerHTML = "Preview";
+            }
+        });
+
+        window.onload = function () {
+            var input = document.getElementById("input");
+
+            // Load input from local storage if available
+            var savedInput = localStorage.getItem("inputText");
+            if (savedInput) {
+                input.value = savedInput;
+            }
+
+            input.addEventListener("input", compile);
+            compile(); // Trigger initial compilation
+
+            var fileInput = document.getElementById("file-input");
+            fileInput.addEventListener("change", handleFileSelect, false);
+
+            var arrowButton = document.getElementById("arrow-button");
+            arrowButton.addEventListener("click", toggleSidebar, false);
+
+            var insertButton = document.getElementById("insert-button");
+            insertButton.addEventListener("click", insert);
+
+            var previewButton = document.getElementById("preview-button");
+            previewButton.addEventListener("click", togglePreview);
+
+            var imageButton = document.getElementById("image-button");
+            imageButton.addEventListener("click", function () {
+                var imageUrl = prompt("Enter the image URL:");
+                if (imageUrl) {
+                    addImage(imageUrl);
+                }
+            });
+
+            var exampleButton = document.getElementById("example-button");
+            exampleButton.addEventListener("click", function () {
+                fetch("Example.html")
+                    .then((response) => response.text())
+                    .then((html) => {
+                        input.value = html;
+                        compile();
+                    });
+            });
+        };
+    </script>
 </head>
-
 <body>
-  <header>
-    <h1>Example</h1>
-  </header>
-
-  <nav>
-    <ul>
-      <li><a href="#">Home</a></li>
-      <li><a href="#">About</a></li>
-      <li><a href="#">Services</a></li>
-      <li><a href="#">Contact</a></li>
-    </ul>
-  </nav>
-
-  <main>
-    <link rel="stylesheet" type="text/css" href="https://tikzjax.com/v1/fonts.css">
-    <script src="https://tikzjax.com/v1/tikzjax.js"></script>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>
-      MathJax = {
-        tex: {
-          inlineMath: [['$', '$'], ['\\(', '\\)']],
-          displayMath: [['$$', '$$'], ['\\[', '\\]']],
-          processEscapes: true,
-        },
-        options: {
-          skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-        },
-      };
-    </script>
-
-    <h1 style="text-align: center;">$$\text{$\LaTeX$ Examples:}$$</h1>
-    <h1 style="text-align: center;">HTML/CSS/JS Examples:</h1>
-    <h2 style="text-align: center;">Background: <button onclick="changeBackgroundColor()">Change Color</button></h2>
-    <script>
-      function changeBackgroundColor() {
-        var red = Math.floor(Math.random() * 256);
-        var green = Math.floor(Math.random() * 256);
-        var blue = Math.floor(Math.random() * 256);
-        var rgbColor = 'rgb(' + red + ', ' + green + ', ' + blue + ')';
-        document.body.style.backgroundColor = rgbColor;
-      }
-    </script>
-    <h2 style="text-align: center;">Insert Youtube, website, image</h2>
-    <p style="text-align: center;">Click the blue Insert button to add a Youtube video or website;<br>
-      Click the Image button to add images with URLs. For example:<br>
-<img src="https://m.media-amazon.com/images/I/61ligyZbKaL._AC_SL1328_.jpg" width="100" height="100" frameborder="0">
-</h2>
-    <h2 style="text-align: center;">Mathematical/Physical Formulas</h2>
-    <div>
-      $$\displaystyle i \hbar \frac{ \partial \psi }{\partial t}
-      =\frac{\hbar c}{i}
-      \left(\alpha_1 \frac{\partial \psi}
-      {\partial x^1} +\alpha_2 \frac{\partial \psi}
-      {\partial x^2} +\alpha_3 \frac{\partial \psi}
-      {\partial x^3}\right)
-      +\alpha_4 m c^2 \psi$$
+    <div id="sidebar" class="collapsed">
+        <button id="arrow-button"></button>
+        <input type="file" id="file-input">
+        <button id="preview-button">Preview</button>
+        <button id="import-button" onclick="document.getElementById('file-input').click()">Import</button>
+        <button id="export-button" onclick="exportOutput()">Export</button>
+        <button id="insert-button">Insert</button>
+        <button id="image-button">Image</button>
+        <button id="example-button">Example</button>
     </div>
-
-    <h2 style="text-align: center;">Tables</h2>
-    <div>
-      $$\begin{array}{|c|c|c|}
-      \hline
-      p & q & p \land q \\
-      \hline
-      0 & 0 & 0 \\
-      \hline
-      0 & 1 & 0 \\
-      \hline
-      1 & 0 & 0 \\
-      \hline
-      1 & 1 & 1 \\
-      \hline
-      \end{array}~~
-      \begin{array}{|c|c|c|}
-      \hline
-      p & q & p \lor q \\
-      \hline
-      0 & 0 & 0 \\
-      \hline
-      0 & 1 & 1 \\
-      \hline
-      1 & 0 & 1 \\
-      \hline
-      1 & 1 & 1 \\
-      \hline
-      \end{array}$$
+    <div id="input-container">
+        <textarea id="input" rows="10" cols="40"></textarea>
     </div>
-
-    <h2 style="text-align: center;">Logical Deductions</h2>
-    <div>
-      $$\def\fitch#1#2{\quad\begin{array}{|l}#1\\\hline#2\end{array}}
-      \fitch{\forall x(\exists y~Q(x,y)\to P(x))}
-      {\fitch{\boxed{a}}
-      {\exists y~Q(a,y)\to P(a)\\
-      \fitch{\boxed{b}~Q(a,b)}
-      {\exists y~Q(a,y)\\
-      P(a)}\\
-      \forall y~(Q(a,y)\to P(a))}\\
-      \forall x\forall y~(Q(x,y)\to P(x))}$$
-    </div>
-
-<h2 style="text-align: center;">Tikz:</h2>
-<script type="text/tikz">
-\hspace{60ex}\begin{tikzpicture}[z=-1cm,->,thick]
-  \draw[color=red] (0,0,0) -- (1,0,0);
-  \draw[color=blue] (0,0,0) -- (0,1,0);
-  \draw[color=orange] (0,0,0) -- (0,0,1);
-\end{tikzpicture}
-</script>
-  </main>
-
-  <footer>
-    &copy; 2023 Example. All rights reserved.
-  </footer>
+        <div id="output-container">
+        <iframe id="output"></iframe>
+        </div>
 </body>
-
 </html>
