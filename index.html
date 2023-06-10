@@ -155,13 +155,14 @@
         #output-container {
             height: 100%;
             width: 100%;
-            color: white; /* Set text color to white */
+            color: black; /* Set text color to black */
+            background-color: black; /* Set background color to black */
         }
 
         #output {
             height: 99%;
             width: 99%;
-            color: white; /* Set text color to white */
+            color: black; /* Set text color to black */
         }
 
         .preview-mode {
@@ -199,15 +200,16 @@ function compile() {
 
   // Create the iframe document
   var iframeDocument = outputIframe.contentDocument || outputIframe.contentWindow.document;
-  
-  // Set the content of the iframe document
+
+  // Set the content of the iframe document with updated styles
   iframeDocument.open();
-  iframeDocument.write('<html><head><style>body { color: white; }</style></head><body>' + input + '</body></html>');
+  iframeDocument.write('<html><head><style>body { color: black; background-color: white; }</style></head><body>' + input + '</body></html>');
   iframeDocument.close();
 
   // Store input in local storage
   localStorage.setItem("inputText", input);
 }
+
 
 
 function escapeHtml(text) {
@@ -223,26 +225,24 @@ function escapeHtml(text) {
 
 
 
-        function exportOutput() {
-            var input = document.getElementById("input").value;
-            var processedInput = input.replace(/\n\n/g, "<br>");
-            var htmlContent =
-                '<!DOCTYPE html>\n<html>\n<head>\n    <title>Exported Output</title>\n    <style>\n        body {\n            display: flex;\n            justify-content: center;\n            align-items: center;\n            height: 100vh;\n            margin: 0;\n            background-color: #222;\n            color: #eee;\n        }\n\n        #output-container {\n            flex: 1;\n            height: 100%;\n            overflow: auto;\n            box-sizing: border-box;\n            padding: 10px;\n            background-color: #222;\n            color: #eee;\n        }\n    <\/style>\n    <script type="text/x-mathjax-config">\n        MathJax.Hub.Config({\n            tex2jax: { inlineMath: [["$", "$"], ["\\\\(", "\\\\)"]], processEscapes: true }\n        });\n    <\/script>\n    <script type="text/javascript" charset="utf-8" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>\n<\/head>\n<body>\n' +
-                '<div id="output-container">' +
-                processedInput +
-                '<\/div>\n<\/body>\n<\/html>';
-            var filename = "output.html";
-            var element = document.createElement("a");
-            element.setAttribute(
-                "href",
-                "data:text/html;charset=utf-8," + encodeURIComponent(htmlContent)
-            );
-            element.setAttribute("download", filename);
-            element.style.display = "none";
-            document.body.appendChild(element);
-            element.click();
-            document.body.removeChild(element);
-        }
+function exportOutput() {
+  var outputIframe = document.getElementById("output");
+  var outputDocument = outputIframe.contentDocument || outputIframe.contentWindow.document;
+  var outputContent = outputDocument.documentElement.outerHTML;
+
+  var filename = "output.html";
+  var element = document.createElement("a");
+  element.setAttribute("href", "data:text/html;charset=utf-8," + encodeURIComponent(outputContent));
+  element.setAttribute("download", filename);
+  element.style.display = "none";
+  document.body.appendChild(element);
+  element.click();
+  document.body.removeChild(element);
+}
+
+
+
+
 
         function handleFileSelect(evt) {
             var files = evt.target.files; // FileList object
