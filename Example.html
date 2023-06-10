@@ -113,6 +113,22 @@
       };
     </script>
 
+    <h1 style="text-align: center;">HTML/CSS/JS Examples:</h1>
+    <h2 style="text-align: center;">Insert Youtube, website, image</h2>
+    <p style="text-align: center;">Click the blue Insert button to add a Youtube video or website;<br>
+      Click the Image button to add images with URLs. For example:<br><br>
+<img src="https://m.media-amazon.com/images/I/61ligyZbKaL._AC_SL1328_.jpg" width="100" height="100" frameborder="0">
+</h2>
+    <h2 style="text-align: center;">Background: <button onclick="changeBackgroundColor()">Change Color</button></h2>
+    <script>
+      function changeBackgroundColor() {
+        var red = Math.floor(Math.random() * 256);
+        var green = Math.floor(Math.random() * 256);
+        var blue = Math.floor(Math.random() * 256);
+        var rgbColor = 'rgb(' + red + ', ' + green + ', ' + blue + ')';
+        document.body.style.backgroundColor = rgbColor;
+      }
+    </script>
     <h1 style="text-align: center;">$$\text{$\LaTeX$ Examples:}$$</h1>
 
     <h2 style="text-align: center;">Mathematical/Physical Formulas</h2>
@@ -177,18 +193,6 @@
   \draw[color=orange] (0,0,0) -- (0,0,1);
 \end{tikzpicture}
 </script>
-
-    <h1 style="text-align: center;">HTML/CSS/JS Examples:</h1>
-    <h2 style="text-align: center;">Background: <button onclick="changeBackgroundColor()">Change Color</button></h2>
-    <script>
-      function changeBackgroundColor() {
-        var red = Math.floor(Math.random() * 256);
-        var green = Math.floor(Math.random() * 256);
-        var blue = Math.floor(Math.random() * 256);
-        var rgbColor = 'rgb(' + red + ', ' + green + ', ' + blue + ')';
-        document.body.style.backgroundColor = rgbColor;
-      }
-    </script>
   </main>
 
   <footer>
