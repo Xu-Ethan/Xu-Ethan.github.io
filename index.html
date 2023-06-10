@@ -144,7 +144,6 @@
             width: 99%;
             height: 99%;
             resize: none;
-            /* Disable textarea resizing */
             background-color: #222;
             color: #eee;
         }
@@ -155,10 +154,13 @@
 
         #output-container {
             height: calc(100% - 20px);
+            color: white; /* Set text color to white */
         }
 
         #output {
             height: 100%;
+            width: 100%;
+            color: white; /* Set text color to white */
         }
 
         .preview-mode {
@@ -190,16 +192,35 @@
         src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
     ></script>
     <script>
-        function compile() {
-            var input = document.getElementById("input").value;
-            var output = document.getElementById("output");
-            var formattedInput = input.replace(/\n\n/g, "<br>");
-            output.innerHTML = formattedInput;
-            MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+function compile() {
+  var input = document.getElementById("input").value;
+  var outputIframe = document.getElementById("output");
 
-            // Store input in local storage
-            localStorage.setItem("inputText", input);
-        }
+  // Create the iframe document
+  var iframeDocument = outputIframe.contentDocument || outputIframe.contentWindow.document;
+  
+  // Set the content of the iframe document
+  iframeDocument.open();
+  iframeDocument.write('<html><head><style>body { color: white; }</style></head><body>' + input + '</body></html>');
+  iframeDocument.close();
+
+  // Store input in local storage
+  localStorage.setItem("inputText", input);
+}
+
+
+function escapeHtml(text) {
+  var map = {
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#039;"
+  };
+  return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+}
+
+
 
         function exportOutput() {
             var input = document.getElementById("input").value;
@@ -397,8 +418,8 @@
     <div id="input-container">
         <textarea id="input" rows="10" cols="40"></textarea>
     </div>
-    <div id="output-container">
-        <div id="output"></div>
-    </div>
+        <div id="output-container">
+        <iframe id="output"></iframe>
+        </div>
 </body>
 </html>
