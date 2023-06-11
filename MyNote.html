@@ -157,8 +157,12 @@
 
     /* Night Mode Styles for PDF */
     body.night-mode .right-column {
-      filter: invert(100%);
       background-color: #999;
+    }
+    
+    /* Grayscale effect for iframe in dark mode */
+    body.night-mode iframe {
+      filter: invert(100%) grayscale(100%);
     }
   </style>
   <script>
