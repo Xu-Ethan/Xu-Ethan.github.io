@@ -4,7 +4,7 @@
   <title>MyNote</title>
   <style>
     body {
-      color: white;
+      color: #000;
       padding: 0;
       margin: 0;
       font-family: Arial, sans-serif;
@@ -17,9 +17,9 @@
 
     .left-column {
       flex-basis: 50%;
-      background-color: #777;
       padding: 50px;
       box-sizing: border-box;
+      background-color: #666;
     }
 
     .right-column {
@@ -44,28 +44,29 @@
     ul li a {
       display: block;
       padding: 10px;
-      color: white;
+      color: #000;
       text-decoration: none;
       border: 1px solid #ccc;
       border-radius: 5px;
       margin-bottom: 10px;
+      background-color: #888;
     }
 
     .dropdown-link:hover,
     .more-link:hover,
     ul li a:hover {
-      background-color: #888;
+      background-color: #777;
     }
 
     .dropdown-link,
     .more-link {
-      background-color: #555;
-      color: #fff;
+      background-color: #999;
+      color: #000;
     }
 
     .dropdown-link:hover,
     .more-link:hover {
-      background-color: #666;
+      background-color: #888;
     }
 
     ul {
@@ -81,26 +82,27 @@
 
     body.night-mode .left-column {
       padding: 50px;
-      background-color: #222;
+      background-color: #999;
     }
 
     body.night-mode .dropdown-link,
     body.night-mode .more-link {
-      background-color: #444;
+      color: #fff;
+      background-color: #666;
     }
 
     body.night-mode ul li a {
-      background-color: #666;
+      background-color: #777;
       color: #fff;
     }
 
     body.night-mode .dropdown-link:hover,
     body.night-mode .more-link:hover {
-      background-color: #555;
+      background-color: #777;
     }
 
     body.night-mode ul li a:hover {
-      background-color: #777;
+      background-color: #888;
     }
 
     .toggle-button {
@@ -108,8 +110,8 @@
       top: 20px;
       left: 50px;
       padding: 10px 15px;
-      background-color: #555;
-      color: #fff;
+      background-color: #999;
+      color: #000;
       border: none;
       border-radius: 0;
       cursor: pointer;
@@ -118,15 +120,16 @@
     }
 
     .toggle-button:hover {
-      background-color: #666;
+      background-color: #888;
     }
 
     body.night-mode .toggle-button {
-      background-color: #444;
+      color: #fff;
+      background-color: #666;
     }
 
     body.night-mode .toggle-button:hover {
-      background-color: #555;
+      background-color: #777;
     }
 
     .fullscreen-button {
@@ -134,8 +137,8 @@
       top: 20px;
       left: 200px;
       padding: 10px 15px;
-      background-color: #555;
-      color: #fff;
+      background-color: #999;
+      color: #000;
       border: none;
       border-radius: 0;
       cursor: pointer;
@@ -144,20 +147,21 @@
     }
 
     .fullscreen-button:hover {
-      background-color: #666;
+      background-color: #888;
     }
 
     body.night-mode .fullscreen-button {
-      background-color: #444;
+      color: #fff;
+      background-color: #666;
     }
 
     body.night-mode .fullscreen-button:hover {
-      background-color: #555;
+      background-color: #777;
     }
 
     /* Night Mode Styles for PDF */
     body.night-mode .right-column {
-      background-color: #555;
+      background-color: #888;
     }
     
     /* Grayscale effect for iframe in dark mode */
@@ -180,11 +184,11 @@
         isNightMode = !isNightMode;
         if (isNightMode) {
           body.classList.add('night-mode');
-          rightColumn.style.backgroundColor = '#555';
+          rightColumn.style.backgroundColor = '#888';
           document.getElementById('pdf-iframe').contentDocument.body.classList.add('night-mode');
         } else {
           body.classList.remove('night-mode');
-          rightColumn.style.backgroundColor = '#aaa';
+          rightColumn.style.backgroundColor = '#777';
           document.getElementById('pdf-iframe').contentDocument.body.classList.remove('night-mode');
         }
       });
