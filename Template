@@ -4,7 +4,7 @@
   <title>MyNote</title>
   <style>
     body {
-      padding:0;
+      padding: 0;
       margin: 0;
       font-family: Arial, sans-serif;
     }
@@ -78,7 +78,7 @@
     }
 
     body.night-mode .left-column {
-      padding:50;
+      padding: 50px;
       background-color: #222;
     }
 
@@ -104,14 +104,15 @@
     .toggle-button {
       position: fixed;
       top: 20px;
-      left: 20px;
+      left: 50px;
       padding: 10px 15px;
       background-color: #007bff;
       color: #fff;
       border: none;
-      border-radius: 20px;
+      border-radius: 0;
       cursor: pointer;
       font-size: 14px;
+      z-index: 9999;
     }
 
     .toggle-button:hover {
@@ -125,11 +126,38 @@
     body.night-mode .toggle-button:hover {
       background-color: #777;
     }
+
+    .fullscreen-button {
+      position: fixed;
+      top: 20px;
+      left: 200px;
+      padding: 10px 15px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 0;
+      cursor: pointer;
+      font-size: 14px;
+      z-index: 9999;
+    }
+
+    .fullscreen-button:hover {
+      background-color: #444;
+    }
+
+    body.night-mode .fullscreen-button {
+      background-color: #444;
+    }
+
+    body.night-mode .fullscreen-button:hover {
+      background-color: #777;
+    }
   </style>
   <script>
     window.addEventListener('DOMContentLoaded', function() {
       var isNightMode = true;
       var toggleButton = document.getElementById('toggle-button');
+      var fullscreenButton = document.getElementById('fullscreen-button');
       var body = document.body;
 
       // Add night-mode class by default
@@ -141,6 +169,19 @@
           body.classList.add('night-mode');
         } else {
           body.classList.remove('night-mode');
+        }
+      });
+
+      fullscreenButton.addEventListener('click', function() {
+        var iframe = document.getElementsByName('right-iframe')[0];
+        if (iframe.requestFullscreen) {
+          iframe.requestFullscreen();
+        } else if (iframe.mozRequestFullScreen) { // Firefox
+          iframe.mozRequestFullScreen();
+        } else if (iframe.webkitRequestFullscreen) { // Chrome, Safari and Opera
+          iframe.webkitRequestFullscreen();
+        } else if (iframe.msRequestFullscreen) { // IE/Edge
+          iframe.msRequestFullscreen();
         }
       });
 
@@ -174,6 +215,8 @@
   </script>
 </head>
 <body>
+  <button id="toggle-button" class="toggle-button">Toggle Night Mode</button>
+  <button id="fullscreen-button" class="fullscreen-button">Fullscreen</button>
   <div class="container">
     <div class="left-column">
       <h1>Table of Content</h1>
@@ -196,6 +239,5 @@
       <iframe name="right-iframe" frameborder="0" width="100%" height="100%"></iframe>
     </div>
   </div>
-  <button id="toggle-button" class="toggle-button">Toggle Night Mode</button>
 </body>
 </html>
