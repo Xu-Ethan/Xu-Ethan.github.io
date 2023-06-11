@@ -6,12 +6,15 @@
   <title>Study Notes Blog</title>
   <style>
     body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
       background-color: #444;
       color: #fff;
       font-family: Arial, sans-serif;
       text-align: center;
-      margin: 0;
-      padding: 20px;
     }
 
     .welcome-section {
@@ -52,10 +55,19 @@
     }
 
     .footer {
-      margin-top: 60px;
+      margin-top: auto;
       font-size: 14px;
       background-color: #444;
       padding: 20px;
+    }
+
+    /* Media Query for two posts in a row */
+    @media (min-width: 768px) {
+      .post-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 20px;
+      }
     }
   </style>
 </head>
@@ -64,68 +76,86 @@
     <h1>Welcome to MyNote</h1>
     <p>Explore study notes in various subjects. Feel free to read and learn from our extensive collection of study materials. Our blog covers a wide range of topics in subjects such as mathematics, computer science, philosophy, physics, and neuroscience. Whether you are a student, a professional, or simply curious, our study notes will provide valuable insights and knowledge to help you enhance your understanding.</p>
     <p>Each section contains study notes that cover important concepts, theories, formulas, and problem-solving techniques. You will find comprehensive explanations, practical examples, and resources to support your learning journey. We aim to make complex subjects accessible and engaging, fostering a love for learning and intellectual growth.</p>
-    <p>Feel free to dive into the world of knowledge and explore the fascinating realms of mathematics, computer science, philosophy, physics, and neuroscience. Let MyNote be your guide as you embark on a journey of discovery and expand your intellectual horizons.</p>
-  </div>
-  
-  <div class="post">
-    <h2>Mathematics Study Notes</h2>
-    <p>Here, you will find study notes on various branches of mathematics, including but not limited to:</p>
-    <ul>
-      <li>Algebra</li>
-      <li>Geometry</li>
-      <li>Calculus</li>
-      <li>Probability and Statistics</li>
-      <li>Number Theory</li>
-      <li>Linear Algebra</li>
-      <!-- Add more specific areas of mathematics as needed -->
-    </ul>
-    <p>These study notes will cover important concepts, formulas, theorems, and problem-solving techniques related to each area of mathematics.</p>
+    <p>Feel free to dive into the world of knowledge and explore the fascinating realms of mathematics, computer science, philosophy, physics, neuroscience, and data science. Let MyNote be your guide as you embark on a journey of discovery and expand your intellectual horizons.</p>
   </div>
 
-  <div class="post">
-    <h2>Computer Science Study Notes</h2>
-    <p>In this section, you can explore study notes on various topics in computer science, including but not limited to:</p>
-    <ul>
-      <li>Programming languages (Java, Python, C++, etc.)</li>
-      <li>Data structures and algorithms</li>
-      <li>Database management systems</li>
-      <li>Operating systems</li>
-      <li>Artificial intelligence</li>
-      <li>Web development</li>
-      <!-- Add more specific areas of computer science as needed -->
-    </ul>
-    <p>These study notes will provide explanations, examples, and practical insights to help you understand and apply the key concepts in each area of computer science.</p>
-  </div>
+<div class="post-container">
 
-  <div class="post">
-    <h2>Philosophy Study Notes</h2>
-    <p>Explore study notes on various branches of philosophy, delving into topics such as:</p>
-    <ul>
-      <li>Epistemology</li>
-      <li>Metaphysics</li>
-      <li>Ethics</li>
-      <li>Logic</li>
-      <li>Philosophy of mind</li>
-      <li>Political philosophy</li>
-      <!-- Add more specific areas of philosophy as needed -->
-    </ul>
-    <p>These study notes will introduce fundamental ideas, theories, and arguments within each area of philosophy, encouraging critical thinking and philosophical exploration.</p>
-  </div>
+    <div class="post">
+      <h2>Philosophy Study Notes</h2>
+      <p>Explore study notes on various branches of philosophy, delving into topics such as:</p>
+      <ul>
+        <li>Epistemology</li>
+        <li>Metaphysics</li>
+        <li>Ethics</li>
+        <li>Logic</li>
+        <li>Philosophy of mind</li>
+        <li>Political philosophy</li>
+        <!-- Add more specific areas of philosophy as needed -->
+      </ul>
+      <p>These study notes will introduce fundamental ideas, theories, and arguments within each area of philosophy, encouraging critical thinking and philosophical exploration.</p>
+    </div>
 
-  <div class="post">
-    <h2>Physics Study Notes</h2>
-    <p>In this section, you will find study notes covering various topics in physics, including but not limited to:</p>
-    <ul>
-      <li>Mechanics</li>
-      <li>Thermodynamics</li>
-      <li>Electromagnetism</li>
-      <li>Optics</li>
-      <li>Quantum mechanics</li>
-      <li>Particle physics</li>
-      <!-- Add more specific areas of physics as needed -->
-    </ul>
-    <p>These study notes will explore the fundamental principles, laws, and phenomena of the physical world, providing insights into the nature of matter, energy, and the universe.</p>
-  </div>
+    <div class="post">
+      <h2>Mathematics Study Notes</h2>
+      <p>Here, you will find study notes on various branches of mathematics, including but not limited to:</p>
+      <ul>
+        <li>Algebra</li>
+        <li>Geometry</li>
+        <li>Calculus</li>
+        <li>Probability and Statistics</li>
+        <li>Number Theory</li>
+        <li>Linear Algebra</li>
+        <!-- Add more specific areas of mathematics as needed -->
+      </ul>
+      <p>These study notes will cover important concepts, formulas, theorems, and problem-solving techniques related to each area of mathematics.</p>
+    </div>
+
+    <div class="post">
+      <h2>Physics Study Notes</h2>
+      <p>In this section, you will find study notes covering various topics in physics, including but not limited to:</p>
+      <ul>
+        <li>Mechanics</li>
+        <li>Thermodynamics</li>
+        <li>Electromagnetism</li>
+        <li>Optics</li>
+        <li>Quantum mechanics</li>
+        <li>Particle physics</li>
+        <!-- Add more specific areas of physics as needed -->
+      </ul>
+      <p>These study notes will explore the fundamental principles, laws, and phenomena of the physical world, providing insights into the nature of matter, energy, and the universe.</p>
+    </div>
+
+    <div class="post">
+      <h2>Computer Science Study Notes</h2>
+      <p>In this section, you can explore study notes on various topics in computer science, including but not limited to: 
+      </p>
+      <ul>
+        <li>Programming languages (Java, Python, C++, etc.)</li>
+        <li>Data structures and algorithms</li>
+        <li>Database management systems</li>
+        <li>Operating systems</li>
+        <li>Artificial intelligence</li>
+        <li>Web development</li>
+        <!-- Add more specific areas of computer science as needed -->
+      </ul>
+      <p>These study notes will provide explanations, examples, and practical insights to help you understand and apply the key concepts in each area of computer science.</p>
+    </div>
+
+    <div class="post">
+      <h2>Data Science Study Notes</h2>
+      <p>In this section, you can explore study notes on various topics in data science, including but not limited to:</p>
+      <ul>
+        <li>Data analysis and visualization</li>
+        <li>Machine learning</li>
+        <li>Statistical modeling</li>
+        <li>Big data</li>
+        <li>Data mining</li>
+        <li>Natural language processing</li>
+        <!-- Add more specific areas of data science as needed -->
+      </ul>
+      <p>These study notes will provide insights, techniques, and tools to help you work with data, extract meaningful information, and derive valuable insights for decision-making and problem-solving.</p>
+    </div>
 
   <div class="post">
     <h2>Neuroscience Study Notes</h2>
@@ -141,6 +171,7 @@
     </ul>
     <p>These study notes will delve into the intricate workings of the brain and nervous system, exploring the structure, function, and mechanisms underlying human cognition and behavior.</p>
   </div>
+</div>
 
   <div class="footer">
     <p>&copy; 2023 MyNote. All rights reserved.</p>
