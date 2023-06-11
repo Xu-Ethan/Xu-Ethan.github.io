@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MyNote</title>
+  <style>
+    body {
+      padding:0;
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      display: flex;
+      height: 100vh;
+    }
+
+    .left-column {
+      flex-basis: 50%;
+      background-color: #f5f5f5;
+      padding: 50px;
+      box-sizing: border-box;
+    }
+
+    .right-column {
+      flex-basis: 50%;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .dropdown-content,
+    .more-websites-content {
+      display: none;
+      margin-left: 50px;
+    }
+
+    .dropdown-link,
+    .more-link,
+    ul li a {
+      display: block;
+      padding: 10px;
+      color: #000;
+      text-decoration: none;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
+
+    .dropdown-link:hover,
+    .more-link:hover,
+    ul li a:hover {
+      background-color: #f5f5f5;
+    }
+
+    .dropdown-link,
+    .more-link {
+      background-color: #007bff;
+      color: #fff;
+    }
+
+    .dropdown-link:hover,
+    .more-link:hover {
+      background-color: #0056b3;
+    }
+
+    ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
+
+    /* Night Mode Styles */
+    body.night-mode {
+      background-color: #444;
+      color: #fff;
+    }
+
+    body.night-mode .left-column {
+      padding:50;
+      background-color: #222;
+    }
+
+    body.night-mode .dropdown-link,
+    body.night-mode .more-link {
+      background-color: #444;
+    }
+
+    body.night-mode ul li a {
+      background-color: #666;
+      color: #fff;
+    }
+
+    body.night-mode .dropdown-link:hover,
+    body.night-mode .more-link:hover {
+      background-color: #777;
+    }
+
+    body.night-mode ul li a:hover {
+      background-color: #999;
+    }
+
+    .toggle-button {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      padding: 10px 15px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .toggle-button:hover {
+      background-color: #444;
+    }
+
+    body.night-mode .toggle-button {
+      background-color: #444;
+    }
+
+    body.night-mode .toggle-button:hover {
+      background-color: #777;
+    }
+  </style>
+  <script>
+    window.addEventListener('DOMContentLoaded', function() {
+      var isNightMode = true;
+      var toggleButton = document.getElementById('toggle-button');
+      var body = document.body;
+
+      // Add night-mode class by default
+      body.classList.add('night-mode');
+
+      toggleButton.addEventListener('click', function() {
+        isNightMode = !isNightMode;
+        if (isNightMode) {
+          body.classList.add('night-mode');
+        } else {
+          body.classList.remove('night-mode');
+        }
+      });
+
+      var dropdownButtons = document.querySelectorAll('.dropdown a.dropdown-link');
+      var dropdownContents = document.querySelectorAll('.dropdown .dropdown-content');
+      var moreLinks = document.querySelectorAll('.dropdown .more-link');
+      var moreWebsitesContents = document.querySelectorAll('.dropdown .more-websites-content');
+
+      dropdownButtons.forEach(function(dropdownButton, index) {
+        dropdownButton.addEventListener('click', function(event) {
+          event.preventDefault();
+          if (dropdownContents[index].style.display === 'none') {
+            dropdownContents[index].style.display = 'block';
+          } else {
+            dropdownContents[index].style.display = 'none';
+          }
+        });
+      });
+
+      moreLinks.forEach(function(moreLink, index) {
+        moreLink.addEventListener('click', function(event) {
+          event.preventDefault();
+          if (moreWebsitesContents[index].style.display === 'none') {
+            moreWebsitesContents[index].style.display = 'block';
+          } else {
+            moreWebsitesContents[index].style.display = 'none';
+          }
+        });
+      });
+    });
+  </script>
+</head>
+<body>
+  <div class="container">
+    <div class="left-column">
+      <h1>Table of Content</h1>
+      <div class="dropdown">
+        <a href="#" class="dropdown-link">Computer Science</a>
+        <div class="dropdown-content">
+          <ul>
+            <li><a href="https://en.wikipedia.org/wiki/Computer_science" target="right-iframe">An Introduction to Computer Science</a></li>
+            <li>
+              <a href="#" class="more-link">Programming Languages</a>
+              <ul class="more-websites-content">
+                <li><a href="https://en.wikipedia.org/wiki/Python_(programming_language)" target="right-iframe">Python</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="right-column">
+      <iframe name="right-iframe" frameborder="0" width="100%" height="100%"></iframe>
+    </div>
+  </div>
+  <button id="toggle-button" class="toggle-button">Toggle Night Mode</button>
+</body>
+</html>
