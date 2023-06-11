@@ -157,7 +157,7 @@
 
     /* Night Mode Styles for PDF */
     body.night-mode .right-column {
-      background-color: #999;
+      background-color: #555;
     }
     
     /* Grayscale effect for iframe in dark mode */
@@ -180,11 +180,11 @@
         isNightMode = !isNightMode;
         if (isNightMode) {
           body.classList.add('night-mode');
-          rightColumn.style.backgroundColor = '#999';
+          rightColumn.style.backgroundColor = '#555';
           document.getElementById('pdf-iframe').contentDocument.body.classList.add('night-mode');
         } else {
           body.classList.remove('night-mode');
-          rightColumn.style.backgroundColor = '#999';
+          rightColumn.style.backgroundColor = '#aaa';
           document.getElementById('pdf-iframe').contentDocument.body.classList.remove('night-mode');
         }
       });
