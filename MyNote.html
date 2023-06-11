@@ -1,264 +1,320 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>MyNote</title>
-  <style>
-    body {
-      color: #000;
-      padding: 0;
-      margin: 0;
-      font-family: Arial, sans-serif;
-    }
-
-    .container {
-      display: flex;
-      height: 100vh;
-    }
-
-    .left-column {
-      flex-basis: 50%;
-      padding: 50px;
-      box-sizing: border-box;
-      background-color: #666;
-    }
-
-    .right-column {
-      flex-basis: 50%;
-      background-color: #333;
-      padding: 20px;
-      box-sizing: border-box;
-    }
-
-    h1 {
-      text-align: center;
-    }
-
-    .dropdown-content,
-    .more-websites-content {
-      display: none;
-      margin-left: 50px;
-    }
-
-    .dropdown-link,
-    .more-link,
-    ul li a {
-      display: block;
-      padding: 10px;
-      color: #000;
-      text-decoration: none;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      margin-bottom: 10px;
-      background-color: #888;
-    }
-
-    .dropdown-link:hover,
-    .more-link:hover,
-    ul li a:hover {
-      background-color: #777;
-    }
-
-    .dropdown-link,
-    .more-link {
-      background-color: #999;
-      color: #000;
-    }
-
-    .dropdown-link:hover,
-    .more-link:hover {
-      background-color: #888;
-    }
-
-    ul {
-      list-style-type: none;
-      padding-left: 0;
-    }
-
-    /* Night Mode Styles */
-    body.night-mode {
-      background-color: #333;
-      color: #fff;
-    }
-
-    body.night-mode .left-column {
-      padding: 50px;
-      background-color: #999;
-    }
-
-    body.night-mode .dropdown-link,
-    body.night-mode .more-link {
-      color: #fff;
-      background-color: #666;
-    }
-
-    body.night-mode ul li a {
-      background-color: #777;
-      color: #fff;
-    }
-
-    body.night-mode .dropdown-link:hover,
-    body.night-mode .more-link:hover {
-      background-color: #777;
-    }
-
-    body.night-mode ul li a:hover {
-      background-color: #888;
-    }
-
-    .toggle-button {
-      position: fixed;
-      top: 20px;
-      left: 50px;
-      padding: 10px 15px;
-      background-color: #999;
-      color: #000;
-      border: none;
-      border-radius: 0;
-      cursor: pointer;
-      font-size: 14px;
-      z-index: 9999;
-    }
-
-    .toggle-button:hover {
-      background-color: #888;
-    }
-
-    body.night-mode .toggle-button {
-      color: #fff;
-      background-color: #666;
-    }
-
-    body.night-mode .toggle-button:hover {
-      background-color: #777;
-    }
-
-    .fullscreen-button {
-      position: fixed;
-      top: 20px;
-      left: 200px;
-      padding: 10px 15px;
-      background-color: #999;
-      color: #000;
-      border: none;
-      border-radius: 0;
-      cursor: pointer;
-      font-size: 14px;
-      z-index: 9999;
-    }
-
-    .fullscreen-button:hover {
-      background-color: #888;
-    }
-
-    body.night-mode .fullscreen-button {
-      color: #fff;
-      background-color: #666;
-    }
-
-    body.night-mode .fullscreen-button:hover {
-      background-color: #777;
-    }
-
-    /* Night Mode Styles for PDF */
-    body.night-mode .right-column {
-      background-color: #888;
-    }
-    
-    /* Grayscale effect for iframe in dark mode */
-    body.night-mode iframe {
-      filter: invert(100%) grayscale(100%);
-    }
-  </style>
-  <script>
-    window.addEventListener('DOMContentLoaded', function() {
-      var isNightMode = true;
-      var toggleButton = document.getElementById('toggle-button');
-      var fullscreenButton = document.getElementById('fullscreen-button');
-      var body = document.body;
-      var rightColumn = document.querySelector('.right-column');
-
-      // Add night-mode class by default
-      body.classList.add('night-mode');
-
-      toggleButton.addEventListener('click', function() {
-        isNightMode = !isNightMode;
-        if (isNightMode) {
-          body.classList.add('night-mode');
-          rightColumn.style.backgroundColor = '#888';
-          document.getElementById('pdf-iframe').contentDocument.body.classList.add('night-mode');
-        } else {
-          body.classList.remove('night-mode');
-          rightColumn.style.backgroundColor = '#777';
-          document.getElementById('pdf-iframe').contentDocument.body.classList.remove('night-mode');
+    <style>
+        body {
+            color: #000;
+            display: flex;
+            height: 100vh;
+            margin: 0;
+            background-color: #222;
         }
-      });
 
-      fullscreenButton.addEventListener('click', function() {
-        var iframe = document.getElementsByName('right-iframe')[0];
-        if (iframe.requestFullscreen) {
-          iframe.requestFullscreen();
-        } else if (iframe.mozRequestFullScreen) { // Firefox
-          iframe.mozRequestFullScreen();
-        } else if (iframe.webkitRequestFullscreen) { // Chrome, Safari and Opera
-          iframe.webkitRequestFullscreen();
-        } else if (iframe.msRequestFullscreen) { // IE/Edge
-          iframe.msRequestFullscreen();
+        #sidebar {
+            flex: 0 0 50%;  /* Set the sidebar width to 50% */
+            background-color: #555;
+            padding: 10px;
+            box-sizing: border-box;
+            overflow: hidden;
+            transition: flex 0.5s;
+            position: relative;
         }
-      });
 
-      var dropdownButtons = document.querySelectorAll('.dropdown a.dropdown-link');
-      var dropdownContents = document.querySelectorAll('.dropdown .dropdown-content');
-      var moreLinks = document.querySelectorAll('.dropdown .more-link');
-      var moreWebsitesContents = document.querySelectorAll('.dropdown .more-websites-content');
+        #sidebar.collapsed {
+            flex: 0 0 0;
+        }
 
-      dropdownButtons.forEach(function(dropdownButton, index) {
-        dropdownButton.addEventListener('click', function(event) {
-          event.preventDefault();
-          if (dropdownContents[index].style.display === 'none') {
-            dropdownContents[index].style.display = 'block';
-          } else {
-            dropdownContents[index].style.display = 'none';
-          }
-        });
-      });
+        #arrow-button {
+            background-color: #555;
+            color: white;
+            border: none;
+            padding: 10px;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+            font-size: 16px;
+            width: 30px;
+height: 100%;
+            position: absolute;
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
 
-      moreLinks.forEach(function(moreLink, index) {
-        moreLink.addEventListener('click', function(event) {
-          event.preventDefault();
-          if (moreWebsitesContents[index].style.display === 'none') {
-            moreWebsitesContents[index].style.display = 'block';
-          } else {
-            moreWebsitesContents[index].style.display = 'none';
-          }
-        });
-      });
-    });
-  </script>
+        #arrow-button:before {
+            content: '\25B6';
+        }
+
+        #sidebar.collapsed #arrow-button:before {
+            content: '\25C0';
+        }
+
+        .arrow-left:before {
+            content: '\25C0';
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+
+        .left-column {
+            height: 100%;
+            width: 100%;
+            flex-basis: 50%;
+            padding: 50px;
+            box-sizing: border-box;
+            background-color: #666;
+        }
+
+        .right-column {
+            height: 100%;
+            width: 100%;
+            background-color: #333;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .dropdown-content,
+        .more-websites-content {
+            display: none;
+            margin-left: 50px;
+        }
+
+        .dropdown-link,
+        .more-link,
+        ul li a {
+            display: block;
+            padding: 10px;
+            color: #000;
+            text-decoration: none;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            background-color: #888;
+        }
+
+        .dropdown-link:hover,
+        .more-link:hover,
+        ul li a:hover {
+            background-color: #777;
+        }
+
+        .dropdown-link,
+        .more-link {
+            background-color: #999;
+            color: #000;
+        }
+
+        .dropdown-link:hover,
+        .more-link:hover {
+            background-color: #888;
+        }
+
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        /* Night Mode Styles */
+        body.night-mode {
+            background-color: #333;
+            color: #fff;
+        }
+
+        body.night-mode .left-column {
+            padding: 50px;
+            background-color: #999;
+        }
+
+        body.night-mode .dropdown-link,
+        body.night-mode .more-link {
+            color: #fff;
+            background-color: #666;
+        }
+
+        body.night-mode ul li a {
+            background-color: #777;
+            color: #fff;
+        }
+
+        body.night-mode .dropdown-link:hover,
+        body.night-mode .more-link:hover {
+            background-color: #777;
+        }
+
+        body.night-mode ul li a:hover {
+            background-color: #888;
+        }
+
+        .toggle-button {
+position: absolute;
+      top: 10px;
+      left: 55px;
+            padding: 11.5px 17px;
+            background-color: #999;
+            color: #fff;
+            border: none;
+            border-radius: 0;
+            cursor: pointer;
+            font-size: 14px;
+            z-index: 9999;
+        }
+
+        .toggle-button:hover {
+            background-color: #888;
+        }
+
+        body.night-mode .toggle-button {
+            color: #000;
+            background-color: #666;
+        }
+
+        body.night-mode .toggle-button:hover {
+            background-color: #777;
+        }
+
+        .fullscreen-button {
+      top: 10px;
+      left: 10px;
+            padding: 10px 15px;
+            background-color: #999;
+            color: #000;
+            border: none;
+            border-radius: 0;
+            cursor: pointer;
+            font-size: 14px;
+            z-index: 9999;
+        }
+
+        .fullscreen-button:hover {
+            background-color: #888;
+        }
+
+        body.night-mode .fullscreen-button {
+            color: #fff;
+            background-color: #666;
+        }
+
+        body.night-mode .fullscreen-button:hover {
+            background-color: #777;
+        }
+
+        /* Night Mode Styles for PDF */
+        body.night-mode .right-column {
+            background-color: #888;
+        }
+        
+        /* Grayscale effect for iframe in dark mode */
+        body.night-mode iframe {
+            filter: invert(100%) grayscale(100%);
+        }
+</style>
 </head>
+
+<script>
+    function toggleSidebar() {
+        var sidebar = document.getElementById("sidebar");
+        sidebar.classList.toggle("collapsed");
+    }
+    window.addEventListener('DOMContentLoaded', function() {
+        var isNightMode = true;
+        var toggleButton = document.getElementById('toggle-button');
+        var fullscreenButton = document.getElementById('fullscreen-button');
+        var body = document.body;
+        var rightColumn = document.querySelector('.right-column');
+
+        // Add night-mode class by default
+        body.classList.add('night-mode');
+
+        toggleButton.addEventListener('click', function() {
+            isNightMode = !isNightMode;
+            if (isNightMode) {
+                body.classList.add('night-mode');
+                rightColumn.style.backgroundColor = '#888';
+                document.getElementById('pdf-iframe').contentDocument.body.classList.add('night-mode');
+            } else {
+                body.classList.remove('night-mode');
+                rightColumn.style.backgroundColor = '#777';
+                document.getElementById('pdf-iframe').contentDocument.body.classList.remove('night-mode');
+            }
+        });
+
+        fullscreenButton.addEventListener('click', function() {
+            var iframe = document.getElementsByName('right-iframe')[0];
+            if (iframe.requestFullscreen) {
+                iframe.requestFullscreen();
+            } else if (iframe.mozRequestFullScreen) { // Firefox
+                iframe.mozRequestFullScreen();
+            } else if (iframe.webkitRequestFullscreen) { // Chrome, Safari and Opera
+                iframe.webkitRequestFullscreen();
+            } else if (iframe.msRequestFullscreen) { // IE/Edge
+                iframe.msRequestFullscreen();
+            }
+        });
+
+        var dropdownButtons = document.querySelectorAll('.dropdown a.dropdown-link');
+        var dropdownContents = document.querySelectorAll('.dropdown .dropdown-content');
+        var moreLinks = document.querySelectorAll('.dropdown .more-link');
+        var moreWebsitesContents = document.querySelectorAll('.dropdown .more-websites-content');
+
+        dropdownButtons.forEach(function(dropdownButton, index) {
+            dropdownButton.addEventListener('click', function(event) {
+                event.preventDefault();
+                if (dropdownContents[index].style.display === 'none') {
+                    dropdownContents[index].style.display = 'block';
+                } else {
+                    dropdownContents[index].style.display = 'none';
+                }
+            });
+        });
+
+        moreLinks.forEach(function(moreLink, index) {
+            moreLink.addEventListener('click', function(event) {
+                event.preventDefault();
+                if (moreWebsitesContents[index].style.display === 'none') {
+                    moreWebsitesContents[index].style.display = 'block';
+                } else {
+                    moreWebsitesContents[index].style.display = 'none';
+                }
+            });
+        });
+    });
+</script>
+
 <body>
-  <button id="toggle-button" class="toggle-button">Toggle Night Mode</button>
-  <button id="fullscreen-button" class="fullscreen-button">Fullscreen</button>
-  <div class="container">
-    <div class="left-column">
-      <h1>Table of Content</h1>
-      <div class="dropdown">
-        <a href="#" class="dropdown-link">Computer Science</a>
-        <div class="dropdown-content">
-          <ul>
-            <li><a href="https://en.wikipedia.org/wiki/Computer_science" target="right-iframe">An Introduction to Computer Science</a></li>
-            <li>
-              <a href="#" class="more-link">Programming Languages</a>
-              <ul class="more-websites-content">
-                <li><a href="https://en.wikipedia.org/wiki/Python_(programming_language)" target="right-iframe">Python</a></li>
-              </ul>
-            </li>
-          </ul>
+    <div id="sidebar" class="collapsed">
+    <button id="fullscreen-button" class="fullscreen-button">&#x26F6</button>
+    <button id="toggle-button" class="toggle-button">&#9675</button>
+
+        <div class="left-column">
+            <h1>Table of Content</h1>
+            <div class="dropdown">
+                <a href="#" class="dropdown-link">Computer Science</a>
+                <div class="dropdown-content">
+                    <ul>
+                        <li><a href="https://en.wikipedia.org/wiki/Computer_science" target="right-iframe">An Introduction to Computer Science</a></li>
+                        <li>
+                            <a href="#" class="more-link">Programming Languages</a>
+                            <ul class="more-websites-content">
+                                <li><a href="https://en.wikipedia.org/wiki/Python_(programming_language)" target="right-iframe">Python</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
-      </div>
+
+        <button id="arrow-button" onclick="toggleSidebar()"></button>
     </div>
+
     <div class="right-column">
-      <iframe src="https://manxwell.github.io/Welcome" name="right-iframe" frameborder="0" width="100%" height="100%"></iframe>
+        <iframe src="https://manxwell.github.io/Welcome" name="right-iframe" frameborder="0" width="100%" height="100%"></iframe>
     </div>
-  </div>
 </body>
 </html>
