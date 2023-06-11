@@ -14,7 +14,7 @@
 
         #sidebar {
             flex: 0 0 200px;
-            background-color: #333;
+            background-color: #555;
             padding: 10px;
             box-sizing: border-box;
             overflow: hidden;
@@ -27,7 +27,7 @@
         }
 
         #arrow-button {
-            background-color: #333;
+            background-color: #555;
             color: white;
             border: none;
             padding: 10px;
@@ -139,13 +139,14 @@
 
         #input-container {
             border-right: 1px solid #ccc;
+                        background-color: #444;
         }
 
         #input {
-            width: 99%;
+            width: 98.5%;
             height: 98.5%;
             resize: none;
-            background-color: #222;
+            background-color: #333;
             color: #eee;
         }
 
@@ -156,14 +157,12 @@
         #output-container {
             height: 100%;
             width: 100%;
-            color: black; /* Set text color to black */
-            background-color: black; /* Set background color to black */
+            background-color: #555; /* Set background color to black */
         }
 
         #output {
             height: 99%;
             width: 99%;
-            color: black; /* Set text color to black */
         }
 
         .preview-mode {
@@ -174,6 +173,9 @@
             height: 100%;
             z-index: 9999;
             background-color: #222;
+                display: flex;
+    align-items: center;
+    justify-content: center;
         }
 
         .preview-mode #output-container {
@@ -181,7 +183,7 @@
         }
 
         .preview-mode #output {
-            height: 100%;
+            height: 99%;
         }
     </style>
     <script type="text/x-mathjax-config">
