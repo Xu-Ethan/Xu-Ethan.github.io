@@ -4,7 +4,7 @@
   <title>MyNote</title>
   <style>
     body {
-    color: white;
+      color: white;
       padding: 0;
       margin: 0;
       font-family: Arial, sans-serif;
@@ -154,6 +154,12 @@
     body.night-mode .fullscreen-button:hover {
       background-color: #555;
     }
+
+    /* Night Mode Styles for PDF */
+    body.night-mode .right-column {
+      filter: invert(100%);
+      background-color: #999;
+    }
   </style>
   <script>
     window.addEventListener('DOMContentLoaded', function() {
@@ -170,10 +176,12 @@
         isNightMode = !isNightMode;
         if (isNightMode) {
           body.classList.add('night-mode');
-          rightColumn.style.backgroundColor = '#333';
+          rightColumn.style.backgroundColor = '#999';
+          document.getElementById('pdf-iframe').contentDocument.body.classList.add('night-mode');
         } else {
           body.classList.remove('night-mode');
-          rightColumn.style.backgroundColor = '#888';
+          rightColumn.style.backgroundColor = '#999';
+          document.getElementById('pdf-iframe').contentDocument.body.classList.remove('night-mode');
         }
       });
 
