@@ -218,16 +218,24 @@ position: absolute;
 </head>
 
 <script>
-    function toggleSidebar() {
-        var sidebar = document.getElementById("sidebar");
-        sidebar.classList.toggle("collapsed");
-    }
-    window.addEventListener('DOMContentLoaded', function() {
-        var isNightMode = true;
-        var toggleButton = document.getElementById('toggle-button');
-        var fullscreenButton = document.getElementById('fullscreen-button');
-        var body = document.body;
-        var rightColumn = document.querySelector('.right-column');
+        function toggleSidebar() {
+            var sidebar = document.getElementById("sidebar");
+            sidebar.classList.toggle("collapsed");
+        }
+
+        function expandSidebar() {
+            var sidebar = document.getElementById("sidebar");
+            sidebar.classList.remove("collapsed");
+        }
+
+        window.addEventListener('DOMContentLoaded', function() {
+            expandSidebar();
+
+            var isNightMode = true;
+            var toggleButton = document.getElementById('toggle-button');
+            var fullscreenButton = document.getElementById('fullscreen-button');
+            var body = document.body;
+            var rightColumn = document.querySelector('.right-column');
 
         // Add night-mode class by default
         body.classList.add('night-mode');
