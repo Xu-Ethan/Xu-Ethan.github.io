@@ -291,6 +291,13 @@
             });
         });
     });
+
+        function openLink(event) {
+            if (event.detail === 2) { // Check if it's a double-click event
+                event.preventDefault(); // Prevent the default behavior of the link
+                window.open(event.target.href); // Open the link in a new window
+            }
+        }
 </script>
 
 <body>
@@ -308,10 +315,10 @@
                         <li>
                             <a href="#" class="more-link">Websites</a>
                             <ul class="more-websites-content">
-                                <li><a href="https://philpapers.org/" target="right-iframe">PhilPapers</a></li>
-                                <li><a href="https://www.logicmatters.net/" target="right-iframe">LogicMatters</a></li>
-                                <li><a href="https://plato.stanford.edu/" target="right-iframe">SEP</a></li>
-                                <li><a href="https://iep.utm.edu/" target="right-iframe">IEP</a></li>
+                                <li><a href="https://philpapers.org/" target="right-iframe" ondblclick="openLink(event)">PhilPapers</a></li>
+                                <li><a href="https://www.logicmatters.net/" target="right-iframe" ondblclick="openLink(event)">LogicMatters</a></li>
+                                <li><a href="https://plato.stanford.edu/" target="right-iframe" ondblclick="openLink(event)">SEP</a></li>
+                                <li><a href="https://iep.utm.edu/" target="right-iframe" ondblclick="openLink(event)">IEP</a></li>
                             </ul>
                         </li>
 
@@ -384,8 +391,47 @@
                         </li>
                     </ul>
                 </div>
+
+                <a href="#" class="dropdown-link">Mathematics</a>
+                <div class="dropdown-content">
+                    <ul>
+                        <li>
+                            <a href="#" class="more-link">Websites</a>
+                            <ul class="more-websites-content">
+
+                            </ul>
+                        </li>                        
+                    </ul>
+                </div>
+
+<a href="#" class="dropdown-link">Computer Science</a>
+                <div class="dropdown-content">
+                    <ul>
+                        <li>
+                            <a href="#" class="more-link">Websites</a>
+                            <ul class="more-websites-content">
+
+                            </ul>
+                        </li>                        
+                    </ul>
+                </div>
+
+<a href="#" class="dropdown-link">Data Science</a>
+                <div class="dropdown-content">
+                    <ul>
+                        <li>
+                            <a href="#" class="more-link">Websites</a>
+                            <ul class="more-websites-content">
+
+                            </ul>
+                        </li>                        
+                    </ul>
+                </div>
+
             </div>
         </div>
+
+
 
         <button id="arrow-button" onclick="toggleSidebar()"></button>
     </div>
