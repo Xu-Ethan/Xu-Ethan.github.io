@@ -157,7 +157,7 @@
 
         #input {
             width: 98.5%;
-            height: 98.5%;
+            height: 91.8%;
             resize: none;
             background-color: #333;
             color: #eee;
@@ -442,7 +442,6 @@ window.onload = function () {
         <button id="arrow-button"></button>
         <input type="file" id="file-input">
         <button id="preview-button">Preview</button>
-        <button id="compile-once-button">Compile</button>
         <button id="compile-button">Autocompile</button>
         <button id="import-button" onclick="document.getElementById('file-input').click()">Import</button>
         <button id="export-button" onclick="exportOutput()">Export</button>
@@ -451,6 +450,7 @@ window.onload = function () {
         <button id="example-button">Example</button>
     </div>
     <div id="input-container">
+            <button id="compile-once-button">Compile</button>
         <textarea id="input" rows="10" cols="40"></textarea>
     </div>
     <div id="output-container">
