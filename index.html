@@ -170,12 +170,13 @@
         #output-container {
             height: 100%;
             width: 100%;
-            background-color: #555; /* Set background color to black */
+            background-color: #555;
         }
 
         #output {
             height: 99%;
             width: 99%;
+            background-color: #fff;
         }
 
         .preview-mode {
@@ -434,6 +435,16 @@ window.onload = function () {
 
   var compileOnceButton = document.getElementById("compile-once-button");
   compileOnceButton.addEventListener("click", compileOnce);
+    var compileOnceButton = document.getElementById("compile-once-button");
+    compileOnceButton.addEventListener("click", compileOnce);
+
+    // Add keydown event listener to whole window
+    window.addEventListener('keydown', function(event) {
+        // Check if the keys pressed were Ctrl + Enter
+        if (event.ctrlKey && event.keyCode === 13) {
+            compileOnce();
+        }
+    });
 };
 
     </script>
