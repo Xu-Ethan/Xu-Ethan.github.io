@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -139,7 +138,7 @@
 
         #input-container {
             border-right: 1px solid #ccc;
-                        background-color: #444;
+            background-color: #444;
         }
 
         #input {
@@ -173,9 +172,9 @@
             height: 100%;
             z-index: 9999;
             background-color: #222;
-                display: flex;
-    align-items: center;
-    justify-content: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .preview-mode #output-container {
@@ -187,60 +186,37 @@
         }
     </style>
 
-    <link rel="stylesheet" type="text/css" href="https://tikzjax.com/v1/fonts.css">
-    <script src="https://tikzjax.com/v1/tikzjax.js"></script>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>
-      MathJax = {
-        tex: {
-          inlineMath: [['$', '$'], ['\\(', '\\)']],
-          displayMath: [['$$', '$$'], ['\\[', '\\]']],
-          processEscapes: true,
-        },
-        options: {
-          skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-        },
-      };
-    </script>
-    
-    <script>
-function compile() {
-  var input = document.getElementById("input").value;
-  var outputIframe = document.getElementById("output");
+        <script>
+        function compile() {
+            var input = document.getElementById("input").value;
+            var outputIframe = document.getElementById("output");
 
-  // Create the iframe document
-  var iframeDocument = outputIframe.contentDocument || outputIframe.contentWindow.document;
+            // Create the iframe document
+            var iframeDocument = outputIframe.contentDocument || outputIframe.contentWindow.document;
 
-  // Set the content of the iframe document with updated styles
-  iframeDocument.open();
-  iframeDocument.write('<html><head><style>body { color: black; background-color: white; }</style></head><body>' + input + '</body></html>');
-  iframeDocument.close();
+            // Set the content of the iframe document with updated styles
+            iframeDocument.open();
+            iframeDocument.write('<html><head><style>body { color: black; background-color: white; }</style></head><body>' + input + '</body></html>');
+            iframeDocument.close();
 
-  // Store input in local storage
-  localStorage.setItem("inputText", input);
-}
+            // Store input in local storage
+            localStorage.setItem("inputText", input);
+        }
 
+        function exportOutput() {
+            var outputIframe = document.getElementById("output");
+            var outputDocument = outputIframe.contentDocument || outputIframe.contentWindow.document;
+            var outputContent = outputDocument.documentElement.outerHTML;
 
-
-function exportOutput() {
-  var outputIframe = document.getElementById("output");
-  var outputDocument = outputIframe.contentDocument || outputIframe.contentWindow.document;
-  var outputContent = outputDocument.documentElement.outerHTML;
-
-  var filename = "output.html";
-  var element = document.createElement("a");
-  element.setAttribute("href", "data:text/html;charset=utf-8," + encodeURIComponent(outputContent));
-  element.setAttribute("download", filename);
-  element.style.display = "none";
-  document.body.appendChild(element);
-  element.click();
-  document.body.removeChild(element);
-}
-
-
-
-
+            var filename = "output.html";
+            var element = document.createElement("a");
+            element.setAttribute("href", "data:text/html;charset=utf-8," + encodeURIComponent(outputContent));
+            element.setAttribute("download", filename);
+            element.style.display = "none";
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
+        }
 
         function handleFileSelect(evt) {
             var files = evt.target.files; // FileList object
@@ -248,10 +224,7 @@ function exportOutput() {
                 var reader = new FileReader();
                 reader.onload = function (file) {
                     var importedHTML = file.target.result;
-                    var parser = new DOMParser();
-                    var doc = parser.parseFromString(importedHTML, "text/html");
-                    var importedContent = doc.getElementById("output-container").innerHTML.trim();
-                    document.getElementById("input").value = importedContent;
+                    document.getElementById("input").value = importedHTML;
                     compile();
                 };
                 reader.readAsText(files[0]);
@@ -417,8 +390,8 @@ function exportOutput() {
     <div id="input-container">
         <textarea id="input" rows="10" cols="40"></textarea>
     </div>
-        <div id="output-container">
+    <div id="output-container">
         <iframe id="output"></iframe>
-        </div>
+    </div>
 </body>
 </html>
