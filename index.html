@@ -239,10 +239,7 @@
                 var reader = new FileReader();
                 reader.onload = function (file) {
                     var importedHTML = file.target.result;
-                    var parser = new DOMParser();
-                    var doc = parser.parseFromString(importedHTML, "text/html");
-                    var importedContent = doc.getElementById("output-container").innerHTML.trim();
-                    document.getElementById("input").value = importedContent;
+                    document.getElementById("input").value = importedHTML;
                     compile();
                 };
                 reader.readAsText(files[0]);
