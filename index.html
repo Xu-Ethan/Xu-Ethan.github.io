@@ -231,7 +231,7 @@
 
             // Set the content of the iframe document with updated styles
             iframeDocument.open();
-            iframeDocument.write('<html><head><style>body { color: black; background-color: white; }</style></head><body>' + input + '</body></html>');
+            iframeDocument.write(input);
             iframeDocument.close();
 
             // Store input in local storage
@@ -352,6 +352,7 @@
         }
 
 function compileOnce() {
+    compile();
     compile();
 }
 
