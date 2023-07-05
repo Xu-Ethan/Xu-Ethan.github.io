@@ -1,0 +1,1619 @@
+<meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Study Notes Blog</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+      background-color: #888;
+      color: black;
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+
+    a{
+      color: #000;
+    }
+
+    .section {
+      margin-bottom: 40px;
+      padding: 20px;
+      background-color: #999;
+      border-radius: 5px;
+    }
+
+    .section p {
+      font-size: 18px;
+      line-height: 1.5;
+      margin-bottom: 40px;
+    }
+
+    .post {
+      max-width: 600px;
+      margin: 0 auto 40px;
+      text-align: left;
+      padding: 20px;
+      background-color: #999;
+      border-radius: 5px;
+    }
+
+    .post h2 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    .post p {
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+
+    .footer {
+      margin-top: auto;
+      font-size: 14px;
+      background-color: #888;
+      padding: 20px;
+    }
+
+    /* Media Query for two posts in a row */
+    @media (min-width: 768px) {
+      .post-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 20px;
+      }
+    }
+
+        .dropdown-content,
+        .more-websites-content {
+            display: none;
+            margin-left: 20px;
+        }
+
+        .dropdown-link,
+        .more-link,
+        ul li a {
+            display: block;
+            padding: 10px;
+            color: #000;
+            text-decoration: none;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            background-color: #888;
+        }
+
+        .dropdown-link:hover,
+        .more-link:hover,
+        ul li a:hover {
+            background-color: #777;
+        }
+
+        .dropdown-link,
+        .more-link {
+            background-color: #999;
+            color: #000;
+        }
+
+        .dropdown-link:hover,
+        .more-link:hover {
+            background-color: #888;
+        }
+
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+  </style>
+
+    <link rel="stylesheet" type="text/css" href="https://tikzjax.com/v1/fonts.css">
+    <script src="https://tikzjax.com/v1/tikzjax.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          displayMath: [['$$', '$$'], ['\\[', '\\]']],
+          processEscapes: true,
+        },
+        options: {
+          skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        },
+      };
+    </script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', function() {
+
+        var dropdownButtons = document.querySelectorAll('.dropdown a.dropdown-link');
+        var dropdownContents = document.querySelectorAll('.dropdown .dropdown-content');
+        var moreLinks = document.querySelectorAll('.dropdown .more-link');
+        var moreWebsitesContents = document.querySelectorAll('.dropdown .more-websites-content');
+
+        dropdownButtons.forEach(function(dropdownButton, index) {
+            dropdownButton.addEventListener('click', function(event) {
+                event.preventDefault();
+                if (dropdownContents[index].style.display === 'none') {
+                    dropdownContents[index].style.display = 'block';
+                } else {
+                    dropdownContents[index].style.display = 'none';
+                }
+            });
+        });
+
+        moreLinks.forEach(function(moreLink, index) {
+            moreLink.addEventListener('click', function(event) {
+                event.preventDefault();
+                if (moreWebsitesContents[index].style.display === 'none') {
+                    moreWebsitesContents[index].style.display = 'block';
+                } else {
+                    moreWebsitesContents[index].style.display = 'none';
+                }
+            });
+        });
+    });
+
+        function openLink(event) {
+            if (event.detail === 2) { // Check if it's a double-click event
+                event.preventDefault(); // Prevent the default behavior of the link
+                window.open(event.target.href); // Open the link in a new window
+            }
+        }
+</script>
+
+  <div class="section">
+    <h1>MATHEMATICS TEST</h1>
+    <h2>FORM GR0568 SOLUTION</h2>
+  </div>
+
+<div class="section">
+<div class="dropdown">
+<a href="#" class="dropdown-link"><h2>Content</h2></a>
+                <div class="dropdown-content">
+                    <ul>
+                        <li>
+                            <a href="#" class="more-link"><h3>Questions</h3></a>
+                            <ul class="more-websites-content">
+<li><a id = "q1" href="#Q1" ondblclick="openLink(event)">Question 1.</a></li>
+<li><a id = "q2" href="#Q2" ondblclick="openLink(event)">Question 2.</a></li>
+<li><a id = "q3" href="#Q3" ondblclick="openLink(event)">Question 3.</a></li>
+<li><a id = "q4" href="#Q4" ondblclick="openLink(event)">Question 4.</a></li>
+<li><a id = "q5" href="#Q5" ondblclick="openLink(event)">Question 5.</a></li>
+<li><a id = "q6" href="#Q6" ondblclick="openLink(event)">Question 6.</a></li>
+<li><a id = "q7" href="#Q7" ondblclick="openLink(event)">Question 7.</a></li>
+<li><a id = "q8" href="#Q8" ondblclick="openLink(event)">Question 8.</a></li>
+<li><a id = "q9" href="#Q9" ondblclick="openLink(event)">Question 9.</a></li>
+<li><a id = "q10" href="#Q10" ondblclick="openLink(event)">Question 10.</a></li>
+<li><a id = "q11" href="#Q11" ondblclick="openLink(event)">Question 11.</a></li>
+<li><a id = "q12" href="#Q12" ondblclick="openLink(event)">Question 12.</a></li>
+<li><a id = "q13" href="#Q13" ondblclick="openLink(event)">Question 13.</a></li>
+<li><a id = "q14" href="#Q14" ondblclick="openLink(event)">Question 14.</a></li>
+<li><a id = "q15" href="#Q15" ondblclick="openLink(event)">Question 15.</a></li>
+<li><a id = "q16" href="#Q16" ondblclick="openLink(event)">Question 16.</a></li>
+<li><a id = "q17" href="#Q17" ondblclick="openLink(event)">Question 17.</a></li>
+<li><a id = "q18" href="#Q18" ondblclick="openLink(event)">Question 18.</a></li>
+<li><a id = "q19" href="#Q19" ondblclick="openLink(event)">Question 19.</a></li>
+<li><a id = "q20" href="#Q20" ondblclick="openLink(event)">Question 20.</a></li>
+<li><a id = "q21" href="#Q21" ondblclick="openLink(event)">Question 21.</a></li>
+<li><a id = "q22" href="#Q22" ondblclick="openLink(event)">Question 22.</a></li>
+<li><a id = "q23" href="#Q23" ondblclick="openLink(event)">Question 23.</a></li>
+<li><a id = "q24" href="#Q24" ondblclick="openLink(event)">Question 24.</a></li>
+<li><a id = "q25" href="#Q25" ondblclick="openLink(event)">Question 25.</a></li>
+<li><a id = "q26" href="#Q26" ondblclick="openLink(event)">Question 26.</a></li>
+<li><a id = "q27" href="#Q27" ondblclick="openLink(event)">Question 27.</a></li>
+<li><a id = "q28" href="#Q28" ondblclick="openLink(event)">Question 28.</a></li>
+<li><a id = "q29" href="#Q29" ondblclick="openLink(event)">Question 29.</a></li>
+<li><a id = "q30" href="#Q30" ondblclick="openLink(event)">Question 30.</a></li>
+<li><a id = "q31" href="#Q31" ondblclick="openLink(event)">Question 31.</a></li>
+<li><a id = "q32" href="#Q32" ondblclick="openLink(event)">Question 32.</a></li>
+<li><a id = "q33" href="#Q33" ondblclick="openLink(event)">Question 33.</a></li>
+<li><a id = "q34" href="#Q34" ondblclick="openLink(event)">Question 34.</a></li>
+<li><a id = "q35" href="#Q35" ondblclick="openLink(event)">Question 35.</a></li>
+<li><a id = "q36" href="#Q36" ondblclick="openLink(event)">Question 36.</a></li>
+<li><a id = "q37" href="#Q37" ondblclick="openLink(event)">Question 37.</a></li>
+<li><a id = "q38" href="#Q38" ondblclick="openLink(event)">Question 38.</a></li>
+<li><a id = "q39" href="#Q39" ondblclick="openLink(event)">Question 39.</a></li>
+<li><a id = "q40" href="#Q40" ondblclick="openLink(event)">Question 40.</a></li>
+<li><a id = "q41" href="#Q41" ondblclick="openLink(event)">Question 41.</a></li>
+<li><a id = "q42" href="#Q42" ondblclick="openLink(event)">Question 42.</a></li>
+<li><a id = "q43" href="#Q43" ondblclick="openLink(event)">Question 43.</a></li>
+<li><a id = "q44" href="#Q44" ondblclick="openLink(event)">Question 44.</a></li>
+<li><a id = "q45" href="#Q45" ondblclick="openLink(event)">Question 45.</a></li>
+<li><a id = "q46" href="#Q46" ondblclick="openLink(event)">Question 46.</a></li>
+<li><a id = "q47" href="#Q47" ondblclick="openLink(event)">Question 47.</a></li>
+<li><a id = "q48" href="#Q48" ondblclick="openLink(event)">Question 48.</a></li>
+<li><a id = "q49" href="#Q49" ondblclick="openLink(event)">Question 49.</a></li>
+<li><a id = "q50" href="#Q50" ondblclick="openLink(event)">Question 50.</a></li>
+<li><a id = "q51" href="#Q51" ondblclick="openLink(event)">Question 51.</a></li>
+<li><a id = "q52" href="#Q52" ondblclick="openLink(event)">Question 52.</a></li>
+<li><a id = "q53" href="#Q53" ondblclick="openLink(event)">Question 53.</a></li>
+<li><a id = "q54" href="#Q54" ondblclick="openLink(event)">Question 54.</a></li>
+<li><a id = "q55" href="#Q55" ondblclick="openLink(event)">Question 55.</a></li>
+<li><a id = "q56" href="#Q56" ondblclick="openLink(event)">Question 56.</a></li>
+<li><a id = "q57" href="#Q57" ondblclick="openLink(event)">Question 57.</a></li>
+<li><a id = "q58" href="#Q58" ondblclick="openLink(event)">Question 58.</a></li>
+<li><a id = "q59" href="#Q59" ondblclick="openLink(event)">Question 59.</a></li>
+<li><a id = "q60" href="#Q60" ondblclick="openLink(event)">Question 60.</a></li>
+<li><a id = "q61" href="#Q61" ondblclick="openLink(event)">Question 61.</a></li>
+<li><a id = "q62" href="#Q62" ondblclick="openLink(event)">Question 62.</a></li>
+<li><a id = "q63" href="#Q63" ondblclick="openLink(event)">Question 63.</a></li>
+<li><a id = "q64" href="#Q64" ondblclick="openLink(event)">Question 64.</a></li>
+<li><a id = "q65" href="#Q65" ondblclick="openLink(event)">Question 65.</a></li>
+<li><a id = "q66" href="#Q66" ondblclick="openLink(event)">Question 66.</a></li>
+</ul>
+                        </li>                        
+                    </ul>
+                </div>
+</div>
+</div>
+
+
+
+
+<div class="post-container">
+    
+    <div class="post">
+      <a id = "Q1" href = "#q1"><h2>Question 1.</h2></a>
+      <p>In the \(xy\)-plane, the curve with parametric equations \(x=\cos t\) and \(y=\sin t\), \(0\le t\le \pi\) has length</p>
+      \begin{align}&(\text{A})3&&\boxed{(\text{B})\pi}&&(\text{C})3\pi&&(\text{D})\frac{3}{2}&&(\text{E})\frac{\pi}{2}\end{align}
+      <h2>Solution.</h2>
+
+<p>The <a href="https://en.wikibooks.org/wiki/Calculus/Arc_length#Arclength_of_a_parametric_curve" target="_blank">arc length formula</a> is given by the integral:
+
+\[L = \int_{a}^{b} \sqrt{\left(\frac{dx}{dt}\right)^2 + \left(\frac{dy}{dt}\right)^2} dt\]
+
+In this case, \(a = 0\) and \(b = \pi\). Have the arc length:
+
+\begin{align*}
+L &= \int_{0}^{\pi} \sqrt{\left(\frac{dx}{dt}\right)^2 + \left(\frac{dy}{dt}\right)^2} dt \\
+&= \int_{0}^{\pi} \sqrt{\left(-\sin t\right)^2 + \left(\cos t\right)^2} dt \\
+&= \int_{0}^{\pi} \sqrt{\sin^2 t + \cos^2 t} dt \\
+&= \int_{0}^{\pi} 1 dt = \pi - 0= \pi
+\end{align*}
+
+Therefore, the length of the curve is \(\pi\).</p>
+
+    </div>
+
+    <div class="post">
+      <a id = "Q2" href = "#q2"><h2>Question 2.</h2></a>
+      <p>Which of the following is an equation of the line tangent to the graph of \(y=x+e^x\) at \(x=0\)?</p>
+      \begin{align}&(\text{A})y=x&&(\text{B})y=x+1&&(\text{C})y=x+2\\
+&(\text{D})y=2x&&\boxed{(\text{E})y=2x+1}\end{align}
+      <h2>Solution.</h2>
+
+<p>Take the derivative to find the slope of the tangent line:
+
+\[\frac{dy}{dx} = 1 + e^x\]
+
+Evaluating this derivative at \(x = 0\) gives us:
+
+\[m=\left.\frac{dy}{dx}\right|_{x=0} = 1 + e^0 = 1 + 1 = 2\]
+
+So, the slope of the tangent line is 2. Plugging in \(x = 0\) into the original equation, we get:
+
+\[y = 0 + e^0 = 0 + 1 = 1\]
+
+Thus, the point on the line \((x_1,y_1)=(0, 1)\).
+
+Recall the <a href="https://en.wikipedia.org/wiki/Linear_equation#Two-point_form" target="_blank">point-slope form</a> of a linear equation:
+
+\[y - y_1 = m(x - x_1)\]
+
+Plugging in the values, we have:
+
+\[y - 1 = 2(x - 0)\text{ i.e. }y = 2x + 1\]</p>
+
+    </div>
+
+    <div class="post">
+      <a id = "Q3" href = "#q3"><h2>Question 3.</h2></a>
+      <p>If \(V\) and \(W\) are \(2\)-dimensional subspaces of \(\mathbb{R}^4\), what are the possible dimensions of the subspace \(V\cap W\)?</p>
+      \begin{align}&(\text{A}) \text{1 only}&&(\text{B}) \text{2 only}\\
+&(\text{C}) \text{0 and 1 only}&&\boxed{(\text{D})\text{0, 1, and 2 only}}\\
+&(\text{E})\text{0, 1, 2, 3, and 4}\end{align}
+      <h2>Solution.</h2>
+
+<p>The <a href="https://en.wikipedia.org/wiki/Linear_subspace#Sum" target="_blank">dimension formula</a> for the sum of subspaces:
+$$\dim(V + M) = \dim V + \dim M - \dim(V \cap M)$$
+
+Rearrange the formula we have:
+
+$$\dim(V \cap W) = \dim V + \dim W - \dim(V + W)$$
+
+Substituting \(\dim V = 2\) and \(\dim W = 2\) gives:
+
+$$\dim(V \cap W) = 4 - \dim(V + W)$$
+
+Since \(\dim(V + W)\in\{2,3,4\}\), compute respectively, follows \(\dim(V\cap W)\in\{0,1,2\}\).</p>
+
+    </div>
+
+    <div class="post">
+      <a id = "Q4" href = "#q4"><h2>Question 4.</h2></a>
+      <p>Let \(k\) be the number of real solutions of the equation \(e^x+x-2=0\) in the interval \([0,1]\), and let \(n\) be the number of real solutions that are \(\underline{\text{not}}\) in \([0,1]\). Which of the following is true?</p>
+      \begin{align}&(\text{A})k=0\text{ and }n=1&&\boxed{(\text{B})k=1\text{ and }n=0}\\
+&(\text{C})k=n=1&&(\text{D})k>1\\
+&(\text{E})n>1\end{align}
+      <h2>Solution.</h2>
+
+<p>Let \(f(x)=e^x+x-2\). Taking the derivative gives:
+$$f'(x) = e^x + 1$$
+Since \(f'(x) = e^x + 1\) is always positive that \(f(x)\) can have <strong>at most one</strong> real root in the interval \((0,1)\). 
+Since \(f(0) = -1 < 0 < e - 1 = f(1)\), by the <a href="https://en.wikipedia.org/wiki/Intermediate_value_theorem#Theorem" target="_blank">Intermediate Value Theorem</a>, there is <strong>at least one</strong> real root \(c\in (0,1)\) that \(f(c)=0\). That there is <strong>exactly one</strong> real solution in the interval \([0,1]\) gives \(k = 1\).</p>
+<p>Consider two cases for \(x\not\in[0,1]\) as the following:
+$$\text{For \(x < 0\) have \(f(x) < f(0) < 0\).}$$
+$$\text{For \(x > 1\) have \(f(x) > f(1) > 0\).}$$
+This is because \(f(x)\) is strictly increasing. That there is no real solution outside of the interval \([0,1]\). Therefore, we can conclude that \(n=0\).</p>
+
+    </div>
+
+    <div class="post">
+      <a id = "Q5" href = "#q5"><h2>Question 5.</h2></a>
+<script type="text/tikz">
+\begin{tikzpicture}
+
+    \draw[very thin, gray!30, step=1 cm](0,0) grid (3.9,2.9);
+
+    \draw [thick] [->] (0,0)--(4,0) node[right, below] {\(x\)};
+     \foreach \x in {1,...,3}
+       \draw[xshift=\x cm, thick] (0pt,-1pt)--(0pt,1pt) node[below] {\x};
+
+    \draw [thick] [->] (0,0)--(0,3) node[above, left] {\(y\)};
+     \foreach \y in {1,...,2}
+       \draw[yshift=\y cm, thick] (-1pt,0pt)--(1pt,0pt) node[left] {\y};
+
+    % Label origin
+    \node[below left] at (0, 0) {\(O\)};
+
+\draw[black]   plot[smooth,domain=-0.85:0.85] (\x+2, {(2*\x)^2}) node[right]{\(y=f(x)\)};
+
+\end{tikzpicture}
+</script>
+      <p>Suppose \(b\) is a real number and \(f(x)=3x^2+bx+12\) defines a function on the real line, part of which is graphed above. Then \(f(5)=\)</p>
+      \begin{align}&(\text{A})15&&\boxed{(\text{B})27}&&(\text{C})67\\
+      &(\text{D})72&&(\text{E})87\end{align}
+      <h2>Solution.</h2>
+      <p>
+Substituting \(x = 2\) and \(f(x) = 0\) into \(f(x)\) have:
+
+\begin{align*}
+0 &= 3(2)^2 + b(2) + 12 \\
+0 &= 3(4) + 2b + 12 \\
+0 &= 12 + 2b + 12 \\
+0 &= 24 + 2b \\
+b &= -12
+\end{align*}
+
+Substitute \(x = 5\)into the function \(f(x)\) we have:
+
+\begin{align*}
+f(5) &= 3(5)^2 + b(5) + 12 \\
+&= 3(25) + 5b + 12 \\
+&= 75 + 5b + 12 \\
+&= 87 + 5b
+\end{align*}
+Therefore, \(f(5) = 87 + 5b = 87 - 60 = 27\).
+</p>
+    </div>
+
+    <div class="post">
+      <a id = "Q6" href = "#q6"><h2>Question 6.</h2></a>
+      <p>Which of the following circles has the greatest number of points of intersection with the parabola \(x^2=y+4\)</p>
+      \begin{align}&(\text{A})x^2 + y^2 = 1&&(\text{B})x^2 + y^2 = 2\\
+      &\boxed{(\text{C})x^2 + y^2 = 9}&&(\text{D})x^2 + y^2 = 16\\
+      &(\text{E})x^2 + y^2 = 25\end{align}
+      <h2>Solution.</h2>
+      <p>
+
+Solving this by drawing the graph:
+<script type="text/tikz">
+\begin{tikzpicture}
+
+    \draw[very thin, gray!30, step=1 cm](-4.9,-4.9) grid (4.9,4.9);
+
+    \draw [thick] [->] (-5,0)--(5,0) node[right, below] {\(x\)};
+     \foreach \x in {-4,...,-1,1,2,...,4}
+       \draw[xshift=\x cm, thick] (0pt,-1pt)--(0pt,1pt) node[below] {\x};
+
+    \draw [thick] [->] (0,-5)--(0,5) node[above, left] {\(y\)};
+     \foreach \y in {-4,...,-1,1,2,...,4}
+       \draw[yshift=\y cm, thick] (-1pt,0pt)--(1pt,0pt) node[left] {\y};
+
+    % Label origin
+    \node[below left] at (0, 0) {\(O\)};
+
+    \draw[black]   plot[smooth,domain=-3:3] (\x, {(\x)^2-4});
+    \draw (0,-4) node[below]{\(x^2=y+4\)};
+    \draw (0,0) circle (1);
+    \draw (0,1) node[right]{(A) \(x^2+y^2=1\), no point.};
+    \draw (0,0) circle ({sqrt(2)});
+    \draw (0,{sqrt(2)}) node[right]{(B) \(x^2+y^2=2\), no point.};
+    \draw (0,0) circle ({sqrt(9)});
+    \draw (0,{sqrt(9)}) node[right]{(C) \(x^2+y^2=9\), 4 points.};
+    \draw (0,0) circle ({sqrt(16)});
+    \draw (0,{sqrt(16)}) node[right]{(D) \(x^2+y^2=16\), 3 points.};
+    \draw (0,0) circle ({sqrt(25)});
+    \draw (0,{sqrt(25)}) node[right]{(E) \(x^2+y^2=25\), 2 points.};
+\end{tikzpicture}
+</script>
+Hence \(x^2+y^2=9\) has the most intersections.
+
+    </p>
+    </div>
+
+    <div class="post">
+      <a id = "Q7" href = "#q7"><h2>Question 7.</h2></a>
+      <p>\(\int_{-3}^3|x+1|dx=\)</p>
+      \begin{align}&(\text{A})0&&(\text{B})5&&\boxed{(\text{C})10}&&(\text{D})15&&(\text{E})20\end{align}
+      <h2>Solution.</h2>
+      <p>
+
+<script type="text/tikz">
+\begin{tikzpicture}[scale=0.8]
+
+    \fill [gray, domain=-3:3, variable=\x]
+      (-3, 0)
+      -- plot ({\x}, {abs(\x+1)})
+      -- (3, 0)
+      -- cycle;
+
+    \draw[very thin, gray!30, step=1 cm](-4.9,-0.9) grid (4.9,3.9);
+
+    \draw [thick] [->] (-5,0)--(5,0) node[right, below] {\(x\)};
+     \foreach \x in {-4,...,-1,1,2,...,4}
+       \draw[xshift=\x cm, thick] (0pt,-1pt)--(0pt,1pt) node[below] {\x};
+
+    \draw [thick] [->] (0,-1)--(0,4) node[above, left] {\(y\)};
+     \foreach \y in {-1,1,2,...,3}
+       \draw[yshift=\y cm, thick] (-1pt,0pt)--(1pt,0pt) node[left] {\y};
+
+    % Label origin
+    \node[below left] at (0, 0) {\(O\)};
+
+    \draw [domain=-3:3, variable=\x]
+      plot ({\x}, {abs(\x+1)}) node[right] {\(f(x)=|x+1|\)};
+
+  \end{tikzpicture}
+</script>
+
+The definite integral of a function over a specific interval represents the signed area between the curve of the function and the \(x\)-axis within that interval. Computing such area gives:
+$$\int_{-3}^3|x+1|dx=\frac{2^2+4^2}{2}=10$$
+
+</p>
+    </div>
+
+    <div class="post">
+      <a id = "Q8" href = "#q8"><h2>Question 8.</h2></a>
+      <p>What is the greatest possible area of a triangle region with one vertex at the center of a circle of radius 1 and the other two vertices on the circle?</p>
+      \begin{align}&\boxed{(\text{A})\frac{1}{2}}&&(\text{B})1&&(\text{C})\sqrt{2}\\
+      &(\text{D})\pi&&(\text{E})\frac{1+\sqrt{2}}{4}\end{align}
+      <h2>Solution.</h2>
+      <p>
+
+<script type="text/tikz">
+\begin{tikzpicture}
+
+    \fill [gray, domain=0:cos(45), variable=\x]
+      (0, 0)
+      -- plot ({\x}, {\x})
+      -- (1, 0)
+      -- cycle;
+
+    \draw[very thin, gray!30, step=1 cm](-1.9,-1.9) grid (1.9,1.9);
+
+    \draw [thick] [->] (-2,0)--(2,0) node[right, below] {\(x\)};
+     \foreach \x in {-1,1}
+       \draw[xshift=\x cm, thick] (0pt,-1pt)--(0pt,1pt) node[below] {\x};
+
+    \draw [thick] [->] (0,-2)--(0,2) node[above, left] {\(y\)};
+     \foreach \y in {-1,1}
+       \draw[yshift=\y cm, thick] (-1pt,0pt)--(1pt,0pt) node[left] {\y};
+
+    % Label origin
+    \node[below left] at (0, 0) {\(O\)};
+
+    \node at (0.3, 0.15) {\(\theta\)};
+
+    \draw (0,0) circle (1);
+
+    \draw [domain=0:cos(45), variable=\x]
+      plot ({\x}, {\x});
+
+    \draw [domain=cos(45):1, variable=\x]
+      plot ({\x)}, {(-1-sqrt(2))*\x+1+sqrt(2)});
+
+    \draw [domain=0:sin(45), variable=\x, dashed]
+      plot [dashed] ({cos(45))}, {\x});
+
+\end{tikzpicture}
+</script>
+
+The area of the triangle
+$$\frac{1\cdot\sin(\theta)}{2}$$
+maximized when \(\sin(\theta)=1\). Hence the greatest possible area is \(1/2\).
+</p>
+    </div>
+
+    <div class="post">
+      <a id = "Q9" href = "#q9"><h2>Question 9.</h2></a>
+$$J = \int_0^1\sqrt{1-x^4}dx$$
+$$K = \int_0^1\sqrt{1+x^4}dx$$
+$$L = \int_0^1\sqrt{1-x^8}dx$$
+      <p>Which of the following is true for the definite integrals shown above?</p>
+$$\boxed{(\text{A})J&lt;L&lt;1&lt;K}\hspace{5ex}(\text{B})J&lt;L&lt;K&lt;1$$
+$$(\text{C})L&lt;J&lt;1&lt;K\hspace{6.4ex}(\text{D})L&lt;J&lt;K&lt;1$$
+\(\hspace{1.8ex}(\text{E})L&lt;1&lt;J&lt;K\)
+
+<h2>Solution.</h2>
+      <p>
+
+Consider the area under the curves from \(0\) to \(1\) by comparing \(\sqrt{1-x^4}\le\sqrt{1-x^8}\le1\le\sqrt{1-x^4}\), we can conclude \(J&lt;L&lt;1&lt;K\).
+
+     </p>
+    </div>
+
+    <div class="post">
+      <a id = "Q10" href = "#q10"><h2>Question 10.</h2></a>
+<script type="text/tikz">
+\begin{tikzpicture}[scale=0.8]
+
+    \draw[very thin, gray!30, step=1 cm](-0.9,-2.9) grid (5.9,2.9);
+
+    \draw [thick] [->] (-1,0)--(6,0) node[right, below] {\(x\)};
+     \foreach \x in {1,...,5}
+       \draw[xshift=\x cm, thick] (0pt,-1pt)--(0pt,1pt) node[below] {\x};
+
+    \draw [thick] [->] (0,-3)--(0,3) node[above, left] {\(y\)};
+     \foreach \y in {-3,...,-1,1,2,...,2}
+       \draw[yshift=\y cm, thick] (-1pt,0pt)--(1pt,0pt) node[left] {\y};
+
+    % Label origin
+    \node[below left] at (0, 0) {\(O\)};
+
+    \draw [domain=0:3, variable=\x]
+      plot ({\x}, {-\x+2});
+    \draw [domain=3:4, variable=\x]
+      plot ({\x}, {-2*\x+5});
+    \draw [domain=4:5.5, variable=\x]
+      plot ({\x}, {3*\x-15}) node[above] {\(y=g'(x)\)};
+
+\end{tikzpicture}
+</script>
+
+      <p>Let \(g\) be a function whose derivative \(g'\) is continuous and has the graph shown above. Which of the following values of \(g\) is largest?</p>
+      \begin{align}&(\text{A})g(1)&&\boxed{(\text{B})g(2)}&&(\text{C})g(3)\\
+      &(\text{D})g(4)&&(\text{E})g(5)\end{align}
+      <h2>Solution.</h2>
+      <p>
+
+From the graph shown above, we can see that in the interval \([0,2)\) the \(g(x)\) is keep increasing, while for \(x\in(2,5)\) the \(g(x)\) is keep decreasing. Therefore, \(g(2)\) has the largest value compared to other choices.
+
+</p>
+    </div>
+
+    <div class="post">
+      <a id = "Q11" href = "#q11"><h2>Question 11.</h2></a>
+      <p>Of the following, which is the best approximation of \(\sqrt{1.5}(266)^{3/2}\)?</p>
+      \begin{align}&(\text{A})1000&&(\text{B})2700&&(\text{C})3200\\
+      &(\text{D})4100&&\boxed{(\text{E})5300}\end{align}
+      <h2>Solution.</h2>
+      <p>
+Do the computation as the following
+\begin{align}
+\sqrt{1.5}(266)^{3/2}=&\sqrt{\frac{3}{2}\cdot266^3}\\
+=&\sqrt{3\cdot133\cdot266^2}\\
+=&266\sqrt{399}\\
+>&266\sqrt{366}\\
+=&266\cdot19\\
+=&5054
+\end{align}
+This shows \(\sqrt{1.5}(266)^{3/2}>5054\). Note that \(5300\) is a better approximation compared to \(4100\) if
+ $$\sqrt{1.5}(266)^{3/2}>\frac{4100+5300}{2}=4700$$
+Since \(5054>4700\), we can conclude that \(5300\) is the best approximation compared to other options.
+</p>
+    </div>
+
+    <div class="post">
+      <a id = "Q12" href = "#q12"><h2>Question 12.</h2></a>
+      <p>Let \(A\) be a \(2\times 2\) matrix for which there is a constant \(k\) such that the sum of the entries in each row and each column is \(k\). Which of the following must be an eigenvector of \(A\)?</p>
+\begin{align}
+&\text{I.}\begin{pmatrix}
+1\\
+0
+\end{pmatrix}
+&&\text{II.}\begin{pmatrix}
+0\\
+1
+\end{pmatrix}
+&&\text{III.}\begin{pmatrix}
+1\\
+1
+\end{pmatrix}
+\end{align}
+      \begin{align}&(\text{A})\text{I only}&&(\text{B})\text{II only}\\
+      &\boxed{(\text{C})\text{III only}}&&(\text{D})\text{I and II only}\\
+      &(\text{E})\text{I, II, and III}\end{align}
+      <h2>Solution.</h2>
+      <p>
+
+Given that \(A\) is a \(2\times2\) matrix. Let:
+
+$$
+A = \begin{pmatrix} a & b \\ c & d \end{pmatrix}
+$$
+
+for some \(a,b,c,d\), with the condition we have
+
+\begin{align}
+&1.~a + b = k&&2.~c + d = k\\
+&3.~a + c = k&&4.~b + d = k
+\end{align}
+
+Equation 1 and 4 give \(a = b\) and 1 and 3 give \(b=c\) that we can rewrite \(A\) as:
+
+$$
+A = \begin{pmatrix} a & b \\ b & a \end{pmatrix}
+$$
+
+An <a href="https://en.wikipedia.org/wiki/Eigenvalues_and_eigenvectors" target="_blank">eigenvector</a> of a matrix \(A\) is a vector that, when multiplied by \(A\), only changes in scale. In other words, if \(v\) is an eigenvector of \(A\), there exists a scalar \(\lambda\) such that \(Av = \lambda v\).
+
+Let's check each given vector:
+
+<ul>
+<li>
+For \(\text{I. }\begin{pmatrix} 1 \\ 0 \end{pmatrix}\), we have:
+$$
+A\begin{pmatrix} 1 \\ 0 \end{pmatrix} = \begin{pmatrix} a & b \\ b & a \end{pmatrix}\begin{pmatrix} 1 \\ 0 \end{pmatrix} = \begin{pmatrix} a \\ b \end{pmatrix}
+$$
+</li>
+<li>
+Similarly, for \(\text{II. }\begin{pmatrix} 0 \\ 1 \end{pmatrix}\), we get:
+$$
+A\begin{pmatrix} 0 \\ 1 \end{pmatrix} = \begin{pmatrix} a & b \\ b & a \end{pmatrix}\begin{pmatrix} 0 \\ 1 \end{pmatrix} = \begin{pmatrix} b \\ a \end{pmatrix}
+$$
+</li>
+<li>
+Lastly, for \(\text{III. }\begin{pmatrix} 1 \\ 1 \end{pmatrix}\), we get:
+$$
+A\begin{pmatrix} 1 \\ 1 \end{pmatrix} = \begin{pmatrix} a & b \\ b & a \end{pmatrix}\begin{pmatrix} 1 \\ 1 \end{pmatrix} = (a+b)\begin{pmatrix} 1 \\ 1 \end{pmatrix}
+$$
+</li>
+</ul>
+Hence only III. is an eigenvector where \(\lambda=a+b\).
+
+</p>
+    </div>
+
+    <div class="post">
+      <a id = "Q13" href = "#q13"><h2>Question 13.</h2></a>
+      <p>A total of \(x\) feet of fencing is to form three sides of a level rectangular yard. What is the maximum possible area of the yard, in terms of \(x\)?</p>
+      \begin{align}&(\text{A})\frac{x^2}{9}&&\boxed{(\text{B})\frac{x^2}{8}}&&(\text{C})\frac{x^2}{4}\\
+      &(\text{D})x^2&&(\text{E})2x^2\end{align}
+      <h2>Solution.</h2>
+      <p>
+
+Let \(a\) be the length of the fence parallel to the house and \(b\) be the length of the fence on the other two sides giving \( a + 2b = x\) so \( a = x - 2b.\) Therefore the area is \(A = b(x - 2b) = bx - 2b^2\), that \(\frac{d}{db}bx-2b^2=x-4b\). The area has maximum when \(x-4b=0\) i.e. \(b=\frac{x}{4}\) which follows that \(a=x-2\frac{x}{4}=\frac{x}{2}\). The maximum possible area of the yard in terms of \(x\) is \(a\cdot b = \frac{x}{4}\frac{x}{2}=\frac{x^2}{8}\).
+
+</p>
+    </div>
+
+    <div class="post">
+      <a id = "Q14" href = "#q14"><h2>Question 14.</h2></a>
+      <p>What is the units digit in the standard decimal expansion of the number \(7^{25}\)?</p>
+      \begin{align}&(\text{A})1&&(\text{B})3&&(\text{C})5&&\boxed{(\text{D})7}&&(\text{E})9\end{align}
+      <h2>Solution.</h2>
+      <p>
+
+<p>
+Do the computation
+
+\begin{align}
+&7^1=7&&7^2=49&&9\cdot7=63\\
+&3\cdot7=1&&1\cdot7=7&&\dots
+\end{align}
+That \(7^1,7^2,7^3,7^4,7^5\dots\) has the units digit of \(7,9,3,1,7\dots\) respectively, repeats in \(7,9,3,1\).
+$$25\equiv1\pmod{4}$$
+which is the first number in the pattern i.e. \(7\).
+
+</p>
+
+
+</p>
+    </div>
+
+    <div class="post">
+      <a id = "Q15" href = "#q15"><h2>Question 15.</h2></a>
+      <p>Let \(f\) be a continuous real-valued function defined on the closed interval \([-2,3]\). Which of the following is NOT necessarily true?</p>
+      \begin{align}(\text{A})&f\text{ is bounded.}\\
+(\text{B})&\int_{-2}^3f(t)dt\text{ exists.}\\
+(\text{C})&\text{For each \(c\) between \(f(-2)\) and \(f(3)\), there}\\
+&\text{is an \(x\in[-2,3]\) such that \(f(x)=c\).}\\
+(\text{D})&\text{There is an \(M\) in \(f([-2,3])\) such that}\\
+&\int_{-2}^3f(t)dt=5M.\\
+&\hspace{-3.8ex}\boxed{(\text{E})\lim_{h\to0}\frac{f(h)-f(0)}{h}\text{ exists.}}\end{align}
+      <h2>Solution.</h2>
+      <p>
+
+Consider \(f(x)=|x|\) which is <a href = "https://en.wikipedia.org/wiki/Continuous_function#Relation_to_differentiability_and_integrability" target = "_blank">continuous</a> on the interval \([-2,3]\) but not <a href = "https://en.wikipedia.org/wiki/Differentiable_function#Differentiability_of_real_functions_of_one_variable" target = "_blank">differentiable</a> at \(0\). Hence
+$$\lim_{h\to0}\frac{f(h)-f(0)}{h}\text{ exists.}$$
+is not necessarily true.
+
+</p>
+    </div>
+
+    <div class="post">
+      <a id = "Q16" href = "#q16"><h2>Question 16.</h2></a>
+      <p>What is the volume of the solid formed by revolving about the \(x\)-axis the region in the first quadrant of the \(xy\)-plane bounded by the coordinate axes and the graph of the equation \(y=\frac{1}{\sqrt{1+x^2}}\)?</p>
+      \begin{align}&(\text{A})\frac{\pi}{2}&&(\text{B})\pi&&(\text{C})\frac{\pi^2}{4}\\
+      &\boxed{(\text{D})\frac{\pi^2}{2}}&&(\text{E})\infty\end{align}
+      <h2>Solution.</h2>
+      <p>
+
+Find the volume of <a href = "https://en.wikipedia.org/wiki/Solid_of_revolution#Disc_method" target = "_blank">Solid of Revolution</a> as following:
+\begin{align}
+&\pi\int_0^\infty f(x)^2dx\\
+=&\pi\int_0^\infty\frac{1}{1+x^2}dx\\
+=&\pi \left( \lim_{{x \to \infty}} \arctan(x) - \arctan(0) \right)\\
+=& \pi(\frac{\pi}{2}-0)=\frac{\pi^2}{2}
+\end{align}
+Hence the volume of the solid is \(\pi^2/2\).
+</p>
+    </div>
+
+    <div class="post">
+      <a id = "Q17" href = "#q17"><h2>Question 17.</h2></a>
+      <p>How many real roots does the polynomial \(2x^5+8x-7\) have?</p>
+      \begin{align}&(\text{A})\text{None}&&\boxed{(\text{B})\text{One}}&&(\text{C})\text{Two}\\
+      &(\text{D})\text{Three}&&(\text{E})\text{Five}\end{align}
+      <h2>Solution.</h2>
+      <p>
+
+By <a href = "https://en.wikipedia.org/wiki/Descartes%27_rule_of_signs#Positive_roots" target = "_blank">Descartes' rule of signs</a> the polynomial has <strong>at least one</strong> real (positive) root. Taking the derivative:
+$$\frac{d}{dx}(2x^5+8x-7)=10x^4+8$$
+The polynomial is strictly increasing, it has <strong>at most one</strong> real root. Hence it has <strong>exactly one</strong> real root.
+</p>
+    </div>
+
+    <div class="post">
+      <a id = "Q18" href = "#q18"><h2>Question 18.</h2></a>
+      <p>Let \(V\) be the real vector space of all real \(2\times 3\) matrices, and let \(W\) be the real vector space of all real \(4\times 1\) column vectors. If \(T\) is a linear transformation from \(V\) \(\underline{\text{onto}}\) \(W\), what is the dimension of the subspace \(\{v\in V: T(v)=0\}\)?</p>
+      \begin{align}&\boxed{(\text{A})2}&&(\text{B})3&&(\text{C})4&&(\text{D})5&&(\text{E})6\end{align}
+      <h2>Solution.</h2>
+      <p>
+
+Denote the subspace \(\{v \in V : T(v) = 0\}\) as \(\ker(T)\), which is also known as the null space or <a href = "https://en.wikipedia.org/wiki/Kernel_(linear_algebra)" target = "_blank">kernel</a> of the linear transformation \(T\). The dimension of \(\ker(T)\) can be determined using the <a href = "https://en.wikipedia.org/wiki/Rank%E2%80%93nullity_theorem#Linear_transformations" target = "_blank">rank-nullity theorem</a>:
+$$\dim(\text{Im} T)+\dim(\ker T)=\dim(\text{Domain}(T))$$
+Have \(\dim(\ker T)=2\cdot 3-4\cdot 1=2\).
+</p>
+    </div>
+
+    <div class="post">
+      <a id = "Q19" href = "#q19"><h2>Question 19.</h2></a>
+      <p>Let \(f\) and \(g\) be twice-differentiable real-valued functions defined on \(\mathbb{R}\). If \(f'(x)>g'(x)\) for all \(x>0\), which of the following inequalities must be true for all \(x>0\)?</p>
+      \begin{align}&(\text{A})f(x)>g(x)\\
+      &(\text{B})f''(x)>g''(x)\\
+      &\boxed{(\text{C})f(x)-f(0)>g(x)-g(0)}\\
+      &(\text{D})f'(x)-f'(0)>g'(x)-g'(0)\\
+      &(\text{E})f''(x)-f''(0)>g''(x)-g''(0)\end{align}
+      <h2>Solution.</h2>
+      <p>
+Apply the <a href = "https://en.wikipedia.org/wiki/Fundamental_theorem_of_calculus#Second_part"  target = "_blank">Fundamental theorem of calculus</a>:
+
+\[\int_{0}^{x}f'(t)dt > \int_{0}^{x}g'(t)dt\]
+
+This implies:
+
+\[f(x) - f(0) > g(x) - g(0)\]
+
+for all \(x > 0\).
+</p>
+    </div>
+
+    <div class="post">
+      <a id = "Q20" href = "#q20"><h2>Question 20.</h2></a>
+      <p>
+
+Let \(f\) be the function defined on the real line by
+
+$$f(x)=
+\left\{
+\begin{array}{ll}
+\frac{x}{2} & \text{if \(x\) is rational} \\
+\frac{x}{3} & \text{if \(x\) is irrational}
+\end{array}
+\right.
+$$
+If \(D\) is the set of points of discontinuity of \(f\), then \(D\) is the
+
+</p>
+      \begin{align}&(\text{A})\text{empty set}\\
+      &(\text{B})\text{set of rational numbers}\\
+      &(\text{C})\text{set of irrational numbers}\\
+      &(\text{D})\text{set of nonzero real numbers}\\
+      &(\text{E})\text{set of real numbers}\end{align}
+      <h2>Solution.</h2>
+      <p>
+
+</p>
+    </div>
+
+    <div class="post">
+      <a id = "Q21" href = "#q21"><h2>Question 21.</h2></a>
+      <p>
+
+Let \(P_1\) be the set of all primes, \(\{2,3,5,7,\dots\}\), and for each integer, let \(P_n\) be the set of all prime multiples of \(n\), \(\{2n,3n,5n,7n\}\). Which of the following intersections is nonempty?
+
+</p>
+      \begin{align}&(\text{A})P_1\cap P_{23}&&(\text{B})P_7\cap P_{21}\\
+      &(\text{C})P_{12}\cap P_{20}&&(\text{D})P_{20}\cap P_{24}\\
+      &(\text{E})P_5\cap P_{25}\end{align}
+      <h2>Solution.</h2>
+      <p></p>
+    </div>
+
+    <div class="post">
+      <a id = "Q22" href = "#q22"><h2>Question 22.</h2></a>
+      <p>Let \(C(\mathbb{R})\) be the collection of all continuous functions from \(\mathbb{R}\to\mathbb{R}\). Then \(C(\mathbb{R})\) is a real vector space with pointwise addition and scalar multiplication defined by
+
+$$(f+g)(x) = f(x) + g(x)\text{ and }(rf)(x)=rf(x)$$
+
+for all \(f,g\in C(\mathbb{R})\) and all \(r,x\in\mathbb{R}\). Which of the following are subspaces of \(C(\mathbb{R})\)?
+
+\begin{align}
+\text{I. }&\{f:f\text{ is twice differentiable and}\\
+&\text{\(f''(x)-2f'(x)+3f(x)=0\) for all \(x\)}\}\\
+\text{II. }&\{g:g\text{ is twice differentiable and}\\
+&\text{\(g''(x)=3g'(x)\) for all \(x\)}\}\\
+\text{III. }&\{h:h\text{ is twice differentiable and}\\
+&\text{\(h''(x)=h(x)+1\) for all \(x\)}\}
+\end{align}
+
+</p>
+      \begin{align}&(\text{A})\text{I only}&&(\text{B})\text{I and II only}\\
+      &(\text{C})\text{I and III only}&&(\text{D})\text{II and III only}\\
+      &(\text{E})\text{I, II, and III}\end{align}
+      <h2>Solution.</h2>
+      <p></p>
+    </div>
+
+    <div class="post">
+      <a id = "Q23" href = "#q23"><h2>Question 23.</h2></a>
+      <p>
+
+For what value of \(b\) is the line \(y=10x\) tangent to the curve \(y=e^{bx}\) at some point in the \(xy\)-plane?
+
+</p>
+      \begin{align}&(\text{A})\frac{10}{e}&&(\text{B})10&&(\text{C})10e\\
+      &(\text{D})e^{10}&&(\text{E})e\end{align}
+      <h2>Solution.</h2>
+      <p></p>
+    </div>
+
+    <div class="post">
+      <a id = "Q24" href = "#q24"><h2>Question 24.</h2></a>
+      <p>Let \(h\) be the function defined by \(h(x)=\int_0^{x^2}e^{x+t}dt\) for all real numbers \(x\). Then \(h'(1)=\)</p>
+      \begin{align}&(\text{A})e-1&&(\text{B})e^2\\
+      &(\text{C})e^2-e&&(\text{D})2e^2\\
+      &(\text{E})3e^2-e\end{align}
+      <h2>Solution.</h2>
+      <p></p>
+    </div>
+
+    <div class="post">
+      <a id = "Q25" href = "#q25"><h2>Question 25.</h2></a>
+      <p>Let \(\{a_n\}_{n+1}^\infty\) be defined recursively by \(a_{n+1}=\left(\frac{n+2}{n}\right)a_n\) for \(n\ge 1\). Then \(a_{30}\) is equal to</p>
+      \begin{align}&(\text{A})(15)(31)&&(\text{B})(30)(31)&&(\text{C})\frac{31}{29}\\
+      &(\text{D})\frac{32}{30}&&(\text{E})\frac{32!}{30!2!}\end{align}
+      <h2>Solution.</h2>
+      <p></p>
+    </div>
+
+    <div class="post">
+      <a id = "Q26" href = "#q26"><h2>Question 26.</h2></a>
+      <p>Let \(f(x,y=x^2-2xy+y^3)\) for all real \(x\) and \(y\). Which of the following is true?</p>
+      \begin{align}(\text{A})&\text{\(f\) has all of its relative extrema}\\
+      &\text{on the line \(x=y.\)}\\
+      (\text{B})&\text{\(f\) has all of its relative extrema}\\
+      &\text{on the parabola \(x=y^2\)}\\
+      (\text{C})&\text{\(f\) has a relative minimum at \((0,0)\)}\\
+      (\text{D})&\text{\(f\) has an absolute minimum at \(\left(\frac{2}{3},\frac{2}{3}\right)\)}\\
+      (\text{E})&\text{\(f\) has an absolute minimum at \((1,1)\).}\end{align}
+      <h2>Solution.</h2>
+      <p></p>
+    </div>
+
+    <div class="post">
+      <a id = "Q27" href = "#q27"><h2>Question 27.</h2></a>
+      <p>Consider the two planes \(x+2y-2z=7\) and \(2x+y-3z=0\) in \(\mathbb{R}^3\). Which of the following sets is the intersection of these planes?</p>
+      \begin{align}(\text{A})&\varnothing\\
+      (\text{B})&\{(0,3,1)\}\\
+      (\text{C})&\{(x,y,z):x=1,y=3t,\\
+      &z=7-2t,t\in\mathbb{R}\}\\
+      (\text{D})&\{(x,y,z):x=7t,y=3+t,\\
+      &z=1+5t,t\in\mathbb{R}\}\\
+      (\text{E})&\{(x,y,z):x-2y-z=-7\}\end{align}
+      <h2>Solution.</h2>
+      <p></p>
+    </div>
+
+    <div class="post">
+      <a id = "Q28" href = "#q28"><h2>Question 28.</h2></a>
+<script type="text/tikz">
+\begin{tikzpicture}
+  % Define the side length of the large equilateral triangle
+  \pgfmathsetmacro{\triangleSize}{4}
+
+  % Draw the large equilateral triangle
+  \draw (0,0) coordinate (A) -- (\triangleSize,0) coordinate (B) -- ({\triangleSize/2},{\triangleSize*sqrt(3)/2}) coordinate (C) -- cycle;
+
+  % Calculate the side length of the smaller equilateral triangles
+  \pgfmathsetmacro{\smallTriangleSize}{\triangleSize/2}
+
+  % Calculate the coordinates for the three smaller equilateral triangles
+  \coordinate (D) at ({\triangleSize/4},{\triangleSize*sqrt(3)/4});
+
+  % Draw the three smaller equilateral triangles
+  \draw (D) -- ++(-60:\smallTriangleSize) coordinate (E) -- ++(60:\smallTriangleSize) coordinate (F) -- cycle;
+
+  % Draw vertices at all points
+  \foreach \point in {A,B,C,D,E,F} {
+    \fill (\point) circle (2pt);
+  }
+\end{tikzpicture}
+
+</script>
+      <p>The figure above shows an undirected graph with six vertices. Enough edges are to be deleted from the graph in order to leave a spanning tree, which is a connected subgraph having the same six vertices and no cycles. How many edges must be deleted?</p>
+      \begin{align}&(\text{A})\text{One}&&(\text{B})\text{Two}&&(\text{C})\text{Three}\\
+      &(\text{D})\text{Four}&&(\text{E})\text{Five}\end{align}
+      <h2>Solution.</h2>
+      <p></p>
+    </div>
+
+    <div class="post">
+      <a id = "Q29" href = "#q29"><h2>Question 29.</h2></a>
+      <p>For all positive functions \(f\) and \(g\) of the real variable \(x\), let \(\sim\) be a relation defined by
+$$f\sim g\text{ if and only if }\lim_{\infty}\frac{f(x)}{g(x)}=1.$$
+Which of the following NOT a consequence of \(f\sim g\)?
+</p>
+      \begin{align}&(\text{A})f^\sim g^2&&(\text{B})\sqrt{f}\sim\sqrt{g}\\
+      &(\text{C})e^f\sim e^g&&(\text{D})f+g\sim2g\\
+      &(\text{E})g\sim f\end{align}
+      <h2>Solution.</h2>
+      <p></p>
+    </div>
+
+    <div class="post">
+      <a id = "Q30" href = "#q30"><h2>Question 30.</h2></a>
+      <p>
+Let \(f\) be a function from a set \(X\) to a set \(Y\). Consider the following statements.
+\begin{align}
+P:&\text{For each \(x\in X\), there exists \(y\in Y\)}\\
+&\text{such that \(f(x)=y\).}\\
+Q:&\text{For each \(y\in Y\), there exists \(x\in X\)}\\
+&\text{such that \(f(x)=y\).}\\
+R:&\text{There exist \(x_1,x_2\in X\) such that}\\
+&\text{\(x_1\neq x_2\) and \(f(x_1)=f(x_2)\).}
+\end{align}
+The negation of the statement <q>\(f\) is one-to-one and onto \(Y\)</q> is
+</p>
+      \begin{align}&(\text{A})\text{\(P\) or not \(R\)}&&(\text{B})\text{\(R\) or not \(P\)}\\
+      &(\text{C})\text{\(R\) or not \(Q\)}&&(\text{D})\text{\(P\) and not \(R\)}\\
+      &(\text{E})\text{\(R\) and not \(Q\)}\end{align}
+      <h2>Solution.</h2>
+      <p></p>
+    </div>
+
+    <div class="post">
+      <a id = "Q31" href = "#q31"><h2>Question 31.</h2></a>
+      <p>
+Which of the following most closely represents the graph of a solution to the differential equation \(\frac{dy}{dx}1+y^4\)
+</p>
+
+<script type="text/tikz">
+
+\begin{tikzpicture}[scale=0.45]
+    \begin{scope}
+        \draw [thick] [->] (-3,0)--(3,0) node[right, below] {\(x\)};
+        \draw [thick] [->] (0,-3)--(0,3) node[above, left] {\(y\)};
+        \draw[domain=-1.2:1.2, smooth, variable=\x] plot ({\x}, {tan(\x r)});
+    \node at (-2.5,2.5) (A) {(A)};
+    \end{scope}
+
+    \begin{scope} [shift={(7,0)}]
+        \draw [thick] [->] (-3,0)--(3,0) node[right, below] {\(x\)};
+        \draw [thick] [->] (0,-3)--(0,3) node[above, left] {\(y\)};
+        \draw[domain=-1.5:1.28, smooth, variable=\x] plot ({\x}, {\x^3+0.5});
+    \node at (-2.5,2.5) (B) {(B)};
+    \end{scope}
+
+    \begin{scope} [shift={(14,0)}]
+        \draw [thick] [->] (-3,0)--(3,0) node[right, below] {\(x\)};
+        \draw [thick] [->] (0,-3)--(0,3) node[above, left] {\(y\)};
+        \draw[domain=-1.2:1.2, smooth, variable=\x] plot ({tan(\x r)}, {\x});
+    \node at (-2.5,2.5) (C) {(C)};
+    \end{scope}
+
+    \begin{scope}[shift={(0,-8)}]
+        \draw [thick] [->] (-3,0)--(3,0) node[right, below] {\(x\)};
+        \draw [thick] [->] (0,-3)--(0,3) node[above, left] {\(y\)};
+        \draw[domain=-2.9:1.2, smooth, variable=\x] plot ({\x}, {e^\x});
+    \node at (-2.5,2.5) (D) {(D)};
+    \end{scope}
+
+    \begin{scope} [shift={(7,-8)}]
+        \draw [thick] [->] (-3,0)--(3,0) node[right, below] {\(x\)};
+        \draw [thick] [->] (0,-3)--(0,3) node[above, left] {\(y\)};
+        \draw[domain=-1.4:1.4, smooth, variable=\x] plot ({\x}, {abs(\x*\x*\x)});
+    \node at (-2.5,2.5) (E) {(E)};
+    \end{scope}
+\end{tikzpicture}
+</script>
+      <h2>Solution.</h2>
+      <p></p>
+    </div>
+
+    <div class="post">
+      <a id = "Q32" href = "#q32"><h2>Question 32.</h2></a>
+      <p>Suppose that two binary operations, denoted by \(\oplus\) and \(\odot\), are defined on a nonempty set \(S\), and that the following conditions are satisfied for all \(x,y\) and \(z\) in \(S\):</p>
+\begin{align}
+(1)&\text{\(x+\oplus y\) and \(x\odot y\) are in \(S\)}\\
+(2)&\text{\(x\oplus(y\oplus z)=(x\oplus y)\oplus z\)}\\
+&\text{and \(x\odot(y\odot z)=(x\odot y)\odot z.\)}\\
+(3)&x\oplus y=y\oplus x
+\end{align}
+Also, for each \(x\) in \(S\) and for each positive integer \(n\), the elements \(nx\) and \(x^n\) are defined recursively as follows:
+\begin{align}
+&\text{\(1x=x^1=x\) and}\\
+&\text{if \(kx\) and \(x^k\) have been defined,}\\
+&\text{then \((k+1)x=kx\oplus x\) and \(x^{k+1}=x^k\odot x\)}.
+\end{align}
+Which of the following must be true?
+      \begin{align}&(\text{A})\text{I only}&&(\text{B})\text{II only}\\
+      &(\text{C})\text{III only}&&(\text{D})\text{II and III only}\\
+      &(\text{E})\text{I,II, and III}\end{align}
+      <h2>Solution.</h2>
+      <p></p>
+    </div>
+
+    <div class="post">
+      <a id = "Q33" href = "#q33"><h2>Question 33.</h2></a>
+      <p>The Euclidean algorithm is used to find the greatest common divisor (gcd) of two positive integers \(a\) and \(b\).
+\begin{align}
+&\text{input(a)}\\
+&\text{input(b)}\\
+&\text{while \(b>0\)}\\
+&~~\text{begin}\\
+&~~~~\text{\(r:=a\mod b\)}\\
+&~~~~\text{\(a:=b\)}\\
+&~~~~\text{\(b:=r\)}\\
+&~~\text{end}\\
+&\text{gcd := a}\\
+&\text{output(gcd)}
+\end{align}
+When the algorithm is used to find the greatest common divisor of \(a=273\) and \(b=110\), which of the following is the sequence of computed values for \(r\)?
+</p>
+      \begin{align}&(\text{A})2,26,1,0&&(\text{B})2,53,1,0\\
+      &(\text{C})53,2,1,0&&(\text{D})53,4,1,0\\
+      &(\text{E})53,5,1,0\end{align}
+      <h2>Solution.</h2>
+      <p></p>
+    </div>
+
+    <div class="post">
+      <a id = "Q34" href = "#q34"><h2>Question 34.</h2></a>
+      <p>The minimal distance between any points on the sphere \((x-2)^2+(y-1)^2+(z-3)^2=1\) and any point on the sphere $$(x+3)^2+(y-2)^2+(z-4)^2=4$$ is</p>
+      \begin{align}&(\text{A})0&&(\text{B})4&&(\text{C})\sqrt{27}\\
+      &(\text{D})2(\sqrt{2}+1)&&(\text{E})3(\sqrt{3}+1)\end{align}
+      <h2>Solution.</h2>
+      <p></p>
+    </div>
+
+    <div class="post">
+      <a id = "Q35" href = "#q35"><h2>Question 35.</h2></a>
+      <p>At a banquet, \(9\) women and \(6\) men are to be seated in a row of \(15\) chairs. If the entire seating arrangement is to be chosen at random, what is the probability that all of the men will be seated next to each other in \(6\) consecutive positions?</p>
+      \begin{align}&(\text{A})\frac{1}{\begin{pmatrix}15\\6\end{pmatrix}}&&(\text{B})\frac{6!}{\begin{pmatrix}15&6\end{pmatrix}}&&(\text{C})\frac{10!}{15!}\\
+&(\text{D})\frac{6!9!}{14!}&&(\text{E})\frac{6!10!}{15!}\end{align}
+      <h2>Solution.</h2>
+      <p></p>
+    </div>
+
+    <div class="post">
+      <a id = "Q36" href = "#q36"><h2>Question 36.</h2></a>
+      <p>Let \(M\) be a \(5\times 5\) real matrix. Exactly four of the following five conditions on \(M\) are equivalent to each other. Which of the five conditions is equivalent to NONE of the other four?</p>
+\begin{align}
+(\text{A})&\text{For any two distinct column vectors }u\text{ and }v\\
+&\text{ of }M\text{, the set }\{u,v\}\text{ is linearly independent.}\\
+(\text{B})&\text{The homogeneous system }Mx=0\text{ has}\\
+&\text{only the trivial solution.}\\
+(\text{C})&\text{The system of equations }Mx=b\text{ has a}\\
+&\text{unique solution for each real }5\times 1\\
+&\text{ column vector }b.\\
+(\text{D})&\text{The determinant of }M\text{ is nonzero.}\\
+(\text{E})&\text{There exists a }5\times 5\text{ real matrix }N\\
+&\text{ such that }NM\text{ is the }5\times 5\text{ identity matrix.}
+\end{align}
+
+      <h2>Solution.</h2>
+      <p></p>
+    </div>
+
+    <div class="post">
+      <a id = "Q37" href = "#q37"><h2>Question 37.</h2></a>
+      <p>In the complex \(z\)-plane, the set of points satisfying the equation \(z^2=|z|^2\) is a</p>
+\begin{align}
+(\text{A})&\quad \text{pair of points} \\
+(\text{B})&\quad \text{circle} \\
+(\text{C})&\quad \text{half-line} \\
+(\text{D})&\quad \text{line} \\
+(\text{E})&\quad \text{union of infinitely many different lines}
+\end{align}
+      <h2>Solution.</h2>
+      <p></p>
+    </div>
+
+    <div class="post">
+      <a id = "Q38" href = "#q38"><h2>Question 38.</h2></a>
+      <p>Let \(A\) and \(B\) be nonempty subsets of \(\mathbb{R}\) and let \(f:A\to B\) be a function. If \(C\subseteq A\) and \(D\subset B\), which of hte following must be true?</p>
+      \begin{align}&(\text{A})C\subseteq f^{-1}(f(C))\\
+      &(\text{B})D\subseteq f(f^{-1}(D))\\
+      &(\text{C})f^{-1}(f(C))\subseteq C\\
+      &(\text{D})f^{-1}(f(C))=f(f^{-1}(D))\\
+      &(\text{E})f(f^{-1}(D))=f^{-1}(D)\end{align}
+      <h2>Solution.</h2>
+      <p></p>
+    </div>
+
+    <div class="post">
+      <a id = "Q39" href = "#q39"><h2>Question 39.</h2></a>
+<script type="text/tikz">
+
+\begin{tikzpicture}
+  \coordinate (A) at (0,0);
+  \coordinate (B) at (5,0);
+  \draw (A) -- ++(110:3) coordinate (C) -- (B) -- cycle;
+  
+  % Angle measurement
+  \draw[black, thick] (A) ++(0:0.5) arc (0:110:0.5);
+  \node at (0.5, 0.6) {\(110^\circ\)};
+
+  % Label sides
+  \node at (-0.8,1.2) {1};
+  \node at (2,-0.2) {\(r\)};
+  \node at (2,1.6) {\(s\)};
+\end{tikzpicture}
+
+</script>
+
+      <p>In the figure above, as \(r\) and \(s\) increase, the length of the third side of the triangle remains \(1\) and the measure of the obtuse angle remains \(110^\circ\). What is \(\lim_{s,r\to\infty}(s-r)\)?</p>
+      \begin{align}&(\text{A})0&&(\text{B})\text{A positive number less than \(1\)}\\
+      &(\text{C})1&&(\text{D})\text{A finite number greater than \(1\)}\\
+      &(\text{E})\infty\end{align}
+      <h2>Solution.</h2>
+      <p></p>
+    </div>
+
+    <div class="post">
+      <a id = "Q40" href = "#q40"><h2>Question 40.</h2></a>
+      <p>For which of the following rings is it possible for the product of two nonzero elements to be zero?</p>
+      \begin{align}(\text{A})&\text{The ring of complex number}\\
+      (\text{B})&\text{The ring of integers modulo }11\\
+      (\text{C})&\text{The ring of continuous}\\
+      &\text{real-valued functions on \([0,1]\)}\\
+      (\text{D})&\text{The ring }\{a+b\sqrt{2}:a\text{ and }b\\
+      &\text{ are rational numbers}\}\\
+      (\text{E})&\text{The ring of polynomial in \(x\)}\\
+      &\text{with real coefficients}\end{align}
+      <h2>Solution.</h2>
+      <p></p>
+    </div>
+
+    <div class="post">
+      <a id = "Q41" href = "#q41"><h2>Question 41.</h2></a>
+      <p>Let \(C\) be the circle \(x^2+y^2=1\) oriented counterclockwise in the \(xy\)-plane. What is the value  of the line integral \(\oint(2x-y)dx+(x+3y)dy\)?</p>
+      \begin{align}&(\text{A})0&&(\text{B})1&&(\text{C})\frac{\pi}{2}&&(\text{D})\pi&&(\text{E})2\pi\end{align}
+      <h2>Solution.</h2>
+      <p></p>
+    </div>
+
+    <div class="post">
+      <a id = "Q42" href = "#q42"><h2>Question 42.</h2></a>
+      <p>Suppose \(X\) is a discrete random variable on the set of positive integers such that for each positive integer \(n\), the probability that \(X=n\) is \(\frac{1}{2^n}\). If \(Y\) is a random variable with the same probability distribution and \(X\) and \(Y\) are independent, what is the probability that the value of at least one of the variables \(X\) and \(Y\) is greater than \(3\)?</p>
+      \begin{align}&(\text{A})\frac{1}{64}&&(\text{B})\frac{15}{64}&&(\text{C})\frac{1}{4}\\
+      &(\text{D})\frac{3}{8}&&(\text{E})\frac{4}{9}\end{align}
+      <h2>Solution.</h2>
+      <p></p>
+    </div>
+
+    <div class="post">
+      <a id = "Q43" href = "#q43"><h2>Question 43.</h2></a>
+      <p>If \(z=e^{2\pi i/5}\), then \(1+z+z^2+z^3+5z^4+4z^5+4z^6\)
+      <br>\(+4z^7+4z^8+5z^9=\)</p>
+      \begin{align}&(\text{A})0&&(\text{B})4e^{3\pi i/5}\\
+      &(\text{C})5e^{4\pi i/5}&&(\text{D})-4e^{2\pi i/5}\\
+      &(\text{E})-5e^{3\pi i/5}\end{align}
+      <h2>Solution.</h2>
+      <p></p>
+    </div>
+
+    <div class="post">
+      <a id = "Q44" href = "#q44"><h2>Question 44.</h2></a>
+      <p>A fair coin is to be tossed \(100\) times, with each toss resulting in a head or a tail. If \(H\) is the total number of heads and \(T\) is the total number of tails, which of the following events has the greatest probability?</p>
+      \begin{align}&(\text{A})H=50\\
+      &(\text{B})T\ge60\\
+      &(\text{C})51\le H\le 55\\
+      &(\text{D})H\ge48\text{ and }T\ge48\\
+      &(\text{E})H\le 5\text{ or }H\ge95\end{align}
+      <h2>Solution.</h2>
+      <p></p>
+    </div>
+
+    <div class="post">
+      <a id = "Q45" href = "#q45"><h2>Question 45.</h2></a>
+      <p>A circular region is divided by \(5\) radii into sectors as shown above. Twenty-one points are chosen in the circular region, none of which is on any of the \(5\). Which of the following statements must be true?</p>
+
+
+<script type="text/tikz">
+
+\begin{tikzpicture}
+  \def\radius{2cm} % Adjust the radius of the circle
+  \def\numAngles{5} % Number of angles to divide the circle into
+
+  % Draw the circle
+  \draw (0,0) circle (\radius);
+
+  % Calculate the angle between each division
+  \pgfmathsetmacro\angle{360/\numAngles}
+
+  % Draw the divisions
+  \foreach \i in {1,...,\numAngles} {
+    \draw (0,0) -- (\angle*\i+18:\radius);
+  }
+\end{tikzpicture}
+
+</script>
+
+\begin{align}
+\text{I.}& \text{Some sector contains at least \(5\)}\\
+&\text{of the points.}\\
+\text{II.}& \text{Some sector contains at least \(3\)}\\
+&\text{of the points.}\\
+\text{III.}& \text{Some pair of adjacent sectors contain}\\
+&\text{a total of at least \(9\) of the points.}
+\end{align}
+      \begin{align}&(\text{A})\text{I only}\\
+      &(\text{B})\text{III only}\\
+      &(\text{C})\text{I and II only}\\
+      &(\text{D})\text{I and III only}\\
+      &(\text{E})\text{I,II, and III}\end{align}
+      <h2>Solution.</h2>
+      <p></p>
+    </div>
+
+    <div class="post">
+      <a id = "Q46" href = "#q46"><h2>Question 46.</h2></a>
+      <p>Let \(G\) be the group of complex numbers \(\{1,i-1-i\}\) under multiplication. Which of the following statements are true about the homomorphisms of \(G\) into itself?</p>
+\begin{align}
+\text{I.}&z\mapsto\overline{z}\text{ defines one such homomorphism,}\\
+&\text{where \(\overline{z}\) denotes the conjugate of \(z\).}\\
+\text{II.}&z\mapsto z^2 \text{ defines one such homomorphism.}\\
+\text{III.}&\text{For every such homomorphism, there is}\\
+&\text{an integer \(k\) such that the homomorphism}\\
+&\text{has the form \(z\mapsto z^k\).}
+\end{align}
+      \begin{align}&(\text{A})\text{None}&&(\text{B})\text{II only}&\\
+      &(\text{C})\text{I and II only}&&(\text{D})\text{II and III only}\\
+      &(\text{E})\text{I, II and III}\end{align}
+      <h2>Solution.</h2>
+      <p></p>
+    </div>
+
+    <div class="post">
+      <a id = "Q47" href = "#q47"><h2>Question 47.</h2></a>
+      <p>Let \(F\) be a constant unit force that is parallel to the vector \((-1,0,1)\) in \(xyz\)-space. What is the work done by \(F\) on a particle that moves along the path given by \((t,t^2,t^3)\) between time \(t=0\) and time \(t=1\)?</p>
+      \begin{align}&(\text{A})=\frac{1}{4}&&(\text{B})-\frac{1}{4\sqrt{2}}&&(\text{C})0\\
+      &(\text{D})\sqrt{2}&&(\text{E})3\sqrt{2}\end{align}
+      <h2>Solution.</h2>
+      <p></p>
+    </div>
+
+    <div class="post">
+      <a id = "Q48" href = "#q48"><h2>Question 48.</h2></a>
+      <p>Consider the theorem: If \(f\) and  \(f'\) are both strictly increasing real-valued functions on the interval \((0,\infty)\), then \(\lim_{x\to\infty}f(x)=\infty\). The following argument is suggested as a proof of this theorem.</p>
+\begin{align}
+(1)&\text{ By the Mean Value Theorem, there is a \(c_1\)}\\
+ &\text{in the interval \((1,2)\) such that }\\
+ &f'(c_1)=\frac{f(2)-f(1)}{2-1}=f(2)-f(1)>0\\
+(2)&\text{For each \(x>2\), there is a \(c_x\) in \((2，x)\)}\\
+ &\text{such that \(\frac{f(x)-f(2)}{x-2}=f'(c_x)\)}\\
+(3)&\text{For each \(x>2,\frac{f(x)-f(2)}{x-2}=\)}\\
+ &\text{\(f'(c_x)>f'(c_1)\) since \(f'\) is strictly increasing.}\\
+(4)&\text{For each \(x>2,f(x)>f(2)+(x-2)f'(c_1)\).}\\
+(5)&\lim_{x\to\infty}f(x)=\infty
+\end{align}
+<p>Which of the following statements is true?</p>
+      \begin{align}(\text{A})&\text{The argument is valid}\\
+      (\text{B})&\text{The argument is not valid}\\
+      &\text{since the hypotheses of the Mean Value}\\
+      &\text{Theorem are not satisfied in (1) and (2)}\\
+      (\text{C})&\text{The argument is not valid since (3)}\\
+      &\text{is not valid.}\\
+      (\text{D})&\text{The argument is not valid since (4)}\\
+      &\text{cannot be deduced from the previous steps.}\\
+      (\text{E})&\text{The argument is not valid since (4)}\\
+      &\text{does not imply (5).}
+      \end{align}
+      <h2>Solution.</h2>
+    <p></p>
+    </div>
+
+    <div class="post">
+      <a id = "Q49" href = "#q49"><h2>Question 49.</h2></a>
+      <p>Up to isomorphism, how many additive abelian groups \(G\) of order \(16\) have the preperty that \(x+x+x+x=0\) for each \(x\) in \(G\)?</p>
+      \begin{align}&(\text{A})0&&(\text{B})1&&(\text{C})2&&(\text{D})3&&(\text{E})5\end{align}
+      <h2>Solution.</h2>
+      <p></p>
+    </div>
+
+    <div class="post">
+      <a id = "Q50" href = "#q50"><h2>Question 50.</h2></a>
+      <p>Let \(A\) be a real \(2\times 2\) matrix. Which of the following statements must be true?</p>
+      \begin{align}
+\text{I.}&\text{All of the entries of \(A^2\) are nonnegative.}\\
+\text{II.}&\text{The determinant of \(A^2\) is nonnegative.}\\
+\text{III.}&\text{If \(A\) has two distinct eigenvalues, then \(A^2\)}\\
+           &\text{has two distinct eigenvalues.}
+      \end{align}
+      \begin{align}&(\text{A})\text{I only}&&(\text{B})\text{II only}&\\
+       &(\text{C})\text{III only}&&(\text{D})\text{II and III only}\\
+       &(\text{E})\text{I,II, and III}\end{align}
+      <h2>Solution.</h2>
+      <p></p>
+    </div>
+
+    <div class="post">
+      <a id = "Q51" href = "#q51"><h2>Question 51.</h2></a>
+      <p>If \(\lfloor x\rfloor\) denotes the greatest integer not exceeding \(x\), then \(\int_0^\infty\lfloor x\rfloor e^{-x}dx=\)</p>
+\begin{align}
+\text{(A)}&\frac{1}{e^2-1}&&\text{(B)}\frac{1}{e-1}&&\text{(C)}&\frac{e-1}{e}\\
+\text{(D)}&1&&\text{(E)}+\infty
+\end{align}
+      <h2>Solution.</h2>
+      <p></p>
+    </div>
+
+    <div class="post">
+      <a id = "Q52" href = "#q52"><h2>Question 52.</h2></a>
+      <p>If \(A\) is a subset of the real line \(\mathbb{R}\) and \(A\) contains each rational number, which of the following must be true?</p>
+      \begin{align}&(\text{A})\text{If \(A\) is open, then \(A=\mathbb{R}\)}\\
+      &(\text{B})\text{If \(A\) is closed, then \(A=\mathbb{R}\)}\\
+      &(\text{C})\text{If \(A\) is uncountable, then \(A=\mathbb{R}\).}\\
+      &(\text{D})\text{If \(A\) is uncountable, then \(A\) is open.}\\
+      &(\text{E})\text{If \(A\) countable, then \(A\) is closed.}\end{align}
+      <h2>Solution.</h2>
+      <p></p>
+    </div>
+
+    <div class="post">
+      <a id = "Q53" href = "#q53"><h2>Question 53.</h2></a>
+      <p>What is the minimum value of the expression \(x+4z\) as a function defined on \(\mathbb{R}^2\), subject to the constranit \(x^2+y^2+z^2\le 2\)?</p>
+      \begin{align}&(\text{A})0&&(\text{B})-2&&(\text{C})-\sqrt{34}\\
+      &(\text{D})-\sqrt{35}&&(\text{E})-5\sqrt{2}\end{align}
+      <h2>Solution.</h2>
+      <p></p>
+    </div>
+
+    <div class="post">
+      <a id = "Q54" href = "#q54"><h2>Question 54.</h2></a>
+      <p>The four shaded circles in Figure 1 above are congruent and each is tangent to the large circle and to two of the other shaded circles. Figure 2 is the result of replacing each of the shaded circles in Figure 1 by a figure that is geometrically similar to Figure 1. What is the ratio of the area of the shaded portion of Figure 2 to the area of the shaded portion of Figure 1?</p>
+<script type="text/tikz">
+\begin{tikzpicture}
+    \draw (0,0) circle (1.7cm);
+    \foreach \i in {45,135,225,315} {
+        \draw[black, fill=gray, shading=radial, inner color=gray, outer color=gray] (\i:1cm) circle (0.7cm);
+    }
+\node at (0,-2.2) {Figure 1};
+  \begin{scope}[shift={(4,0)}]
+ \draw (0,0) circle (1.7cm);
+    \foreach \i in {45,135,225,315} {
+        \draw (\i:1cm) circle (0.7cm);
+        \foreach \j in {45,135,225,315} {
+            \begin{scope}
+                \clip (\i:1cm) ++(\j:0.4cm) circle (0.28cm);
+                \draw[black, fill=gray, shading=radial, inner color=gray, outer color=gray] (\i:1cm) ++(\j:0.4cm) circle (0.28cm);
+            \end{scope}
+        }
+    }
+    \node at (0,-2.2) {Figure 2};
+\end{scope}
+\end{tikzpicture}
+</script>
+      \begin{align}&(\text{A})\frac{1}{2\sqrt{2}}&&(\text{B})\frac{1}{1+\sqrt{2}}\\
+      &(\text{C})\frac{4}{1+\sqrt{2}}&&(\text{D})\left(\frac{\sqrt{2}}{1+\sqrt{2}}\right)^2\\
+      &(\text{E})\left(\frac{2}{1+\sqrt{2}}\right)^2\end{align}
+      <h2>Solution.</h2>
+      <p></p>
+    </div>
+
+    <div class="post">
+      <a id = "Q55" href = "#q55"><h2>Question 55.</h2></a>
+      <p>For how positive integers \(k\) does the ordinary decimal representation of the integer \(k!\) end in exactly \(99\) zeros?</p>
+      \begin{align}&(\text{A})\text{None}&&(\text{B})\text{One}\\
+      &(\text{C})\text{Four}&&(\text{D})\text{Five}\\
+      &(\text{E})\text{Twenty-four}\end{align}
+      <h2>Solution.</h2>
+    <p></p>
+    </div>
+
+    <div class="post">
+      <a id = "Q56" href = "#q56"><h2>Question 56.</h2></a>
+      <p>Which of the following does NOT define a metric on the set of all real numbers?</p>
+      \begin{align}&(\text{A})\delta(x,y)=\left\{\begin{array}{ll}0&\text{if \(x=y\)}\\2&\text{if \(x\neq y\)}\end{array}\right.\\
+      &(\text{B})\rho(x,y)=\min\{|x-y|,1\}\\
+      &(\text{C})\sigma(x,y)=\frac{|x-y|}{3}\\
+      &(\text{D})\tau(x,y)=\frac{|x-y|}{|x-y|+1}\\
+      &(\text{E})\omega=(x-y)^2\end{align}
+      <h2>Solution.</h2>
+      <p></p>
+    </div>
+
+    <div class="post">
+      <a id = "Q57" href = "#q57"><h2>Question 57.</h2></a>
+      <p>The set of real numbers \(x\) for which the series \(\sum_{n=1}^\infty\frac{n!x^{2n}}{n^n(1+x^{2n})}\) converges is</p>
+      \begin{align}
+      &(\text{A})\{0\}\\
+      &(\text{B})\{x:-1&lt;x&lt;1\}\\
+      &(\text{C})\{x:-1\le x\le 1\}\\
+      &(\text{D})\{x:-\sqrt{e}\le x\le \sqrt{e}\}\\
+      &(\text{E})\mathbb{R}
+      \end{align}
+      <h2>Solution.</h2>
+      <p></p>
+    </div>
+
+    <div class="post">
+      <a id = "Q58" href = "#q58"><h2>Question 58.</h2></a>
+      <p>Suppose \(A\) and \(B\) are \(n\times n\) invertible matrices, where \(n>1\), and \(I\) is the \(n\times n\) identity matrix. If \(A\) and \(B\) are similar matrices, which of the following statements must be true?</p>
+\begin{align}
+\text{I.}&\text{\(A-2I\) and \(B-2I\) are simple matrices.}\\
+\text{II.}&\text{\(A\) and \(B\) have the same trace.}\\
+\text{III.}&\text{\(A^{-1}\) and \(B^{-1}\) are similar matrices.}
+\end{align}
+      \begin{align}&(\text{A})\text{I only}&&(\text{B})\text{II only}\\
+      &(\text{C})\text{III only}&&(\text{D})\text{I and III only}\\
+      &(\text{E})\text{I,II, and III}\end{align}
+      <h2>Solution.</h2>
+    <p></p>
+    </div>
+
+    <div class="post">
+      <a id = "Q59" href = "#q59"><h2>Question 59.</h2></a>
+      <p>Suppse \(f\) is an analytic function of the complex variable \(z=x+iy\) given by
+$$f(z)=(2x+3y)+ig(x,y),$$
+where \(g(x,y)\) is a real-valued function of the real variables \(x\) and \(y\). If \(g(2,3)=1\), then \(g(7,3)=\)
+</p>
+      \begin{align}&(\text{A})-14&&(\text{B})-9&&(\text{C})0\\
+      &(\text{D})11&&(\text{E})18\end{align}
+      <h2>Solution.</h2>
+      <p></p>
+    </div>
+
+    <div class="post">
+      <a id = "Q60" href = "#q60"><h2>Question 60.</h2></a>
+      <p>The group of symmetries of the regular pentagram shown above is isomorphic to the</p>
+      \begin{align}&(\text{A})\text{symmetric group \(S_5\)}\\
+      &(\text{B})\text{alternating group \(A_5\)}\\
+      &(\text{C})\text{cyclic group of order \(5\)}\\
+      &(\text{D})\text{cyclic group of order \(10\)}\\
+      &(\text{E})\text{dihedral group of order \(10\)}\end{align}
+      <h2>Solution.</h2>
+      <p></p>
+    </div>
+
+    <div class="post">
+      <a id = "Q61" href = "#q61"><h2>Question 61.</h2></a>
+      <p>Which of the following sets has the greatest cardinality?</p>
+      \begin{align}(\text{A})&\mathbb{R}\\
+      (\text{B})&\text{The set of all functions from \(\mathbb{Z}\to\mathbb{Z}\)}\\
+      (\text{C})&\text{The set of all functions from \(\mathbb{R}\) to \(\{0,1\}\)}\\
+      (\text{D})&\text{The set of all finite subsets of \(\mathbb{R}\)}\\
+      (\text{E})&\text{The set of all polynomials with}\\
+      &\text{coefficients in \(\mathbb{R}\)}\end{align}
+      <h2>Solution.</h2>
+      <p></p>
+    </div>
+
+    <div class="post">
+      <a id = "Q62" href = "#q62"><h2>Question 62.</h2></a>
+      <p>Let \(K\) be a nonempty subset of \(\mathbb{R}^n\), where \(n>1\). Which of the following statements must be true?</p>
+      \begin{align}&(\text{A})\text{I only}&&(\text{B})\text{II only}\\
+      &(\text{C})\text{III only}&&(\text{D})\text{I and II only}\\
+      &(\text{E})\text{I,II, and III}\end{align}
+      <h2>Solution.</h2>
+      <p></p>
+    </div>
+
+    <div class="post">
+      <a id = "Q63" href = "#q63"><h2>Question 63.</h2></a>
+      <p>If \(f\) is the function defined by
+$$f(x)=\left\{\begin{array}xe^{-x^2-x^{-2}}&\text{if \(x\neq0\)}\\
+0&\text{if \(x=0,\)}\end{array}\right.$$
+at how many values of \(x\) does the graph of \(f\) have a horizontal tangent line?
+</p>
+      \begin{align}&(\text{A})\text{None}&&(\text{B})\text{One}&&(\text{C})\text{Two}\\
+      &(\text{D})\text{Three}&&(\text{E})\text{Four}\end{align}
+      <h2>Solution.</h2>
+      <p></p>
+    </div>
+
+    <div class="post">
+      <a id = "Q64" href = "#q64"><h2>Question 64.</h2></a>
+      <p>For each positive integer \(n\), let \(f_n\) be the function defined on the interval \([0,1]\) by \(f_n(x)=\frac{x^n}{1+x^n}\). Which of the following statements are true?</p>
+\begin{align}
+\text{I.}&\text{The sequence \(\{f_n\}\) converges pointwise}\\
+&\text{on \([0,1]\) to a limit function \(f\).}\\
+\text{II.}&\text{The sequence \(\{f_n\}\) converges uniformly}\\
+&\text{on \([0,1]\) to a limit function \(f\).}\\
+\text{III.}&\lim_{n\to\infty}\int_0^1f_n(x)dx=\int_0^1\left(\lim_{n\to\infty}f_n(x)\right)dx
+\end{align}
+      \begin{align}&(\text{A})\text{I only}&&(\text{B})\text{III only}\\
+      &(\text{C})\text{I and II only}&&(\text{D})\text{I and III only}\\
+      &(\text{E})\text{I,II, and III}\end{align}
+      <h2>Solution.</h2>
+      <p></p>
+    </div>
+
+    <div class="post">
+      <a id = "Q65" href = "#q65"><h2>Question 65.</h2></a>
+      <p>Which of the following statements are true about the open interval \((0,1)\) and the closed interval \([0,1]\)?</p>
+\begin{align}
+\text{I.}&\text{There is a continuous function}\\
+&\text{from \((0,1)\) \(\underline{\text{onto }}[0,1]\).}\\
+\text{II.}&\text{There is a continuous function}\\
+&\text{from \([0,1]\) \(\underline{\text{onto }}(0,1)\).}\\
+\text{III.}&\text{There is a continuous one-to-one function}\\
+&\text{from \((0,1)\) \(\underline{\text{onto }}[0,1]\).}
+\end{align}
+      \begin{align}&(\text{A})\text{None}&&(\text{B})\text{I only}\\
+      &(\text{C})\text{II only}&&(\text{D})\text{I and III only}\\
+      &(\text{E})\text{I, II, and III}\end{align}
+      <h2>Solution.</h2>
+      <p></p>
+    </div>
+
+    <div class="post">
+      <a id = "Q66" href = "#q66"><h2>Question 66.</h2></a>
+      <p>Let \(R\) be a ring with a multiplicative identity. If \(U\) is an additive subgroup of \(R\) such that \(ur\in U\) for all \(u\in U\) and for all \(r\in R\), then \(U\) is said to be a right ideal of \(R\). If \(R\) has exactly two right ideals, which of the following must be true?</p>
+\begin{align}
+\text{I.}&R\text{ is commutative.}\\
+\text{II.}&R\text{ is a division ring(that is, all elements}\\
+&\text{except the additive identity have}\\
+&\text{multiplicative inverses).}\\
+\text{III.}&R\text{ is infinite}.
+\end{align}
+      \begin{align}&(\text{A})\text{I only}&&(\text{B})\text{II only}\\
+      &(\text{C})\text{III only}&&(\text{D})\text{I and II only}\\
+      &(\text{E})\text{I, II, and III}\end{align}
+      <h2>Solution.</h2>
+      <p></p>
+    </div>
+</div>
+
+
+
+  <div class="footer">
+    <p>© 2023 MyNote. All rights reserved.</p>
+  </div>
+
+</div></body></html>
+</ul>
+                        </li>                        
+                    </ul>
+                </div>
+</div>
+</div>
+
+</div></body></html>
