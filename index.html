@@ -10,54 +10,68 @@
             resize: none;
             background-color: #1c2434;
             color: #eee;
+  font-family: "Orbitron", sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  font-weight: bold;
+  border-radius: 10px;
     }
+
+/* Line number bar */
+.CodeMirror-gutter {
+  background-color: #2b2b2b; /* Set background color */
+  color: #999; /* Set text color */
+}
+
+
 /* Comment */
 .cm-s-default .cm-comment {
-  color: #7c8b87; /* Set comment color */
+  color: #6272a4; /* Set comment color */
 }
 
 /* Keyword */
 .cm-s-default .cm-keyword {
-  color: #DC7A7A; /* Set keyword color */
+  color: #ff79c6; /* Set keyword color */
 }
 
 /* String */
 .cm-s-default .cm-string {
-  color: #4a8984; /* Set string color */
+  color: #f1fa8c; /* Set string color */
 }
 
 /* Number */
 .cm-s-default .cm-number {
-  color: #7c8b87 /* Set number color */
+  color: #bd93f9; /* Set number color */
 }
 
 /* Operator */
 .cm-s-default .cm-operator {
-  color: #DE7315; /* Set operator color */
+  color: #f8f8f2; /* Set operator color */
 }
 
 /* Function name */
 .CodeMirror .cm-def {
-      color: #47738d; /* Set function name color */
-    }
+  color: #50fa7b; /* Set function name color */
+}
 
 /* Variable name */
 .cm-s-default .cm-variable {
-  color: #c3c0c1; /* Set variable name color */
+  color: #f8f8f2; /* Set variable name color */
 }
 
 /* Boolean value */
 .cm-s-default .cm-atom {
-  color: #5A78D2; /* Set boolean value color */
+  color: #bd93f9; /* Set boolean value color */
 }
 
+/* Property name */
 .CodeMirror .cm-property {
-      color: #5F75BD; /* Set color for .innerHTML */
-    }
+  color: #8be9fd; /* Set property name color */
+}
 
 /* Cursor */
 .CodeMirror-cursor {
-  border-left: 2px solid white; /* Set cursor color */
+  border-left: 2px solid #f8f8f2; /* Set cursor color */
 }
 
   </style>
@@ -236,6 +250,7 @@
             height: 99%;
             width: 99%;
             background-color: #fff;
+            border-radius: 10px;
         }
 
         .preview-mode {
