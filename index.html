@@ -1,278 +1,269 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <title>MyNoteEditor</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.62.3/lib/codemirror.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.62.3/lib/codemirror.css">
+  <style>
+    .CodeMirror {
+            width: 100%;
+            height: 93%;
+            resize: none;
+            background-color: #1c2434;
+            color: #eee;
+    }
+/* Comment */
+.cm-s-default .cm-comment {
+  color: #7c8b87; /* Set comment color */
+}
+
+/* Keyword */
+.cm-s-default .cm-keyword {
+  color: #ff6365; /* Set keyword color */
+}
+
+/* String */
+.cm-s-default .cm-string {
+  color: #79bb57; /* Set string color */
+}
+
+/* Number */
+.cm-s-default .cm-number {
+  color: #7c8b87 /* Set number color */
+}
+
+/* Operator */
+.cm-s-default .cm-operator {
+  color: #DE7315; /* Set operator color */
+}
+
+/* Function name */
+.CodeMirror .cm-def {
+      color: #5A78D2; /* Set function name color */
+    }
+
+/* Variable name */
+.cm-s-default .cm-variable {
+  color: #DE7315; /* Set variable name color */
+}
+
+/* Boolean value */
+.cm-s-default .cm-atom {
+  color: #5A78D2; /* Set boolean value color */
+}
+
+.CodeMirror .cm-property {
+      color: #5A78D2; /* Set color for .innerHTML */
+    }
+
+/* Cursor */
+.CodeMirror-cursor {
+  border-left: 2px solid white; /* Set cursor color */
+}
+
+  </style>
     <style>
-      .CodeMirror {
-        width: 100%;
-        height: 93%;
-        resize: none;
-        background-color: #1c2434;
-        color: #eee;
-      }
+        body {
+            display: flex;
+            height: 100vh;
+            margin: 0;
+            background-color: #222;
+            color: #eee;
+        }
 
-      /* Comment */
-      .cm-s-default .cm-comment {
-        color: #7c8b87;
-        /* Set comment color */
-      }
+        #sidebar {
+            flex: 0 0 200px;
+            background-color: #555;
+            padding: 10px;
+            box-sizing: border-box;
+            overflow: hidden;
+            transition: flex 0.5s;
+            position: relative;
+        }
 
-      /* Keyword */
-      .cm-s-default .cm-keyword {
-        color: #ff6365;
-        /* Set keyword color */
-      }
+        #sidebar.collapsed {
+            flex: 0 0 0;
+        }
 
-      /* String */
-      .cm-s-default .cm-string {
-        color: #79bb57;
-        /* Set string color */
-      }
+        #arrow-button {
+            background-color: #555;
+            color: white;
+            border: none;
+            padding: 10px;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+            font-size: 16px;
+            width: 30px;
+            height: 100%;
+            position: absolute;
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
 
-      /* Number */
-      .cm-s-default .cm-number {
-        color: #7c8b87
-          /* Set number color */
-      }
+        #arrow-button:before {
+            content: '\25C0';
+        }
 
-      /* Operator */
-      .cm-s-default .cm-operator {
-        color: #DE7315;
-        /* Set operator color */
-      }
+        #sidebar.collapsed #arrow-button:before {
+            content: '\25B6';
+        }
+        
+        #compile-once-button,
+        #compile-button,
+        #export-button,
+        #import-button,
+        #insert-button,
+        #preview-button,
+        #image-button,
+        #example-button {
+            color: white;
+            border: none;
+            padding: 10px;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+            font-size: 16px;
+            margin-bottom: 10px;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
 
-      /* Function name */
-      .CodeMirror .cm-def {
-        color: #5A78D2;
-        /* Set function name color */
-      }
+        #compile-once-button:hover,
+        #compile-button:hover,
+        #export-button:hover,
+        #import-button:hover,
+        #insert-button:hover,
+        #preview-button:hover,
+        #image-button:hover,
+        #example-button:hover {
+            background-color: #777;
+        }
 
-      /* Variable name */
-      .cm-s-default .cm-variable {
-        color: #DE7315;
-        /* Set variable name color */
-      }
+        #compile-once-button:active,
+        #export-button:active,
+        #import-button:active,
+        #insert-button:active,
+        #preview-button:active,
+        #image-button:active,
+        #example-button:active {
+            background-color: #777;
+        }
 
-      /* Boolean value */
-      .cm-s-default .cm-atom {
-        color: #5A78D2;
-        /* Set boolean value color */
-      }
+        #compile-once-button {
+            background-color: #4CAF50;
+        }
 
-      .CodeMirror .cm-property {
-        color: #5A78D2;
-        /* Set color for .innerHTML */
-      }
+        #export-button {
+            background-color: #337ab7;
+        }
 
-      /* Cursor */
-      .CodeMirror-cursor {
-        border-left: 2px solid white;
-        /* Set cursor color */
-      }
+        #import-button {
+            background-color: #337ab7;
+        }
+
+        #insert-button {
+            background-color: #f0ad4e;
+        }
+
+        #preview-button {
+            background-color: #4CAF50;
+        }
+
+        #image-button {
+            background-color: #f0ad4e;
+        }
+
+        #example-button {
+            background-color: #d9534f;
+        }
+        
+        #compile-button {
+            background-color: #4CAF50;
+        }
+
+        #file-input {
+            display: none;
+        }
+
+        #import-button-label {
+            background-color: #337ab7;
+            color: white;
+            border: none;
+            padding: 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        #input-container,
+        #output-container {
+            flex: 1;
+            height: 100%;
+            overflow: auto;
+            box-sizing: border-box;
+            padding: 10px;
+            background-color: #222;
+            color: #eee;
+        }
+
+        #input-container {
+            border-right: 1px solid #ccc;
+            background-color: #444;
+        }
+
+        #input {
+            width: 100%;
+            height: 93%;
+            resize: none;
+            background-color: #333;
+            color: #eee;
+        }
+
+        .arrow-left:before {
+            content: '\25C0';
+        }
+
+        #output-container {
+            height: 100%;
+            width: 100%;
+            background-color: #555;
+        }
+
+        #output {
+            height: 99%;
+            width: 99%;
+            background-color: #fff;
+        }
+
+        .preview-mode {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            background-color: #222;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .preview-mode #output-container {
+            height: 100%;
+        }
+
+        .preview-mode #output {
+            height: 99%;
+        }
+
+        #compile-button.active {
+            background-color: #777;
+        }
     </style>
-    <style>
-      body {
-        display: flex;
-        height: 100vh;
-        margin: 0;
-        background-color: #222;
-        color: #eee;
-      }
 
-      #sidebar {
-        flex: 0 0 200px;
-        background-color: #555;
-        padding: 10px;
-        box-sizing: border-box;
-        overflow: hidden;
-        transition: flex 0.5s;
-        position: relative;
-      }
-
-      #sidebar.collapsed {
-        flex: 0 0 0;
-      }
-
-      #arrow-button {
-        background-color: #555;
-        color: white;
-        border: none;
-        padding: 10px;
-        text-align: center;
-        text-decoration: none;
-        display: block;
-        font-size: 16px;
-        width: 30px;
-        height: 100%;
-        position: absolute;
-        top: 50%;
-        right: 0;
-        transform: translateY(-50%);
-        cursor: pointer;
-      }
-
-      #arrow-button:before {
-        content: '\25C0';
-      }
-
-      #sidebar.collapsed #arrow-button:before {
-        content: '\25B6';
-      }
-
-      #compile-once-button,
-      #compile-button,
-      #export-button,
-      #import-button,
-      #insert-button,
-      #preview-button,
-      #image-button,
-      #example-button {
-        color: white;
-        border: none;
-        padding: 10px;
-        text-align: center;
-        text-decoration: none;
-        display: block;
-        font-size: 16px;
-        margin-bottom: 10px;
-        width: 100%;
-        transition: background-color 0.3s;
-      }
-
-      #compile-once-button:hover,
-      #compile-button:hover,
-      #export-button:hover,
-      #import-button:hover,
-      #insert-button:hover,
-      #preview-button:hover,
-      #image-button:hover,
-      #example-button:hover {
-        background-color: #777;
-      }
-
-      #compile-once-button:active,
-      #export-button:active,
-      #import-button:active,
-      #insert-button:active,
-      #preview-button:active,
-      #image-button:active,
-      #example-button:active {
-        background-color: #777;
-      }
-
-      #compile-once-button {
-        background-color: #4CAF50;
-      }
-
-      #export-button {
-        background-color: #337ab7;
-      }
-
-      #import-button {
-        background-color: #337ab7;
-      }
-
-      #insert-button {
-        background-color: #f0ad4e;
-      }
-
-      #preview-button {
-        background-color: #4CAF50;
-      }
-
-      #image-button {
-        background-color: #f0ad4e;
-      }
-
-      #example-button {
-        background-color: #d9534f;
-      }
-
-      #compile-button {
-        background-color: #4CAF50;
-      }
-
-      #file-input {
-        display: none;
-      }
-
-      #import-button-label {
-        background-color: #337ab7;
-        color: white;
-        border: none;
-        padding: 10px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        cursor: pointer;
-      }
-
-      #input-container,
-      #output-container {
-        flex: 1;
-        height: 100%;
-        overflow: auto;
-        box-sizing: border-box;
-        padding: 10px;
-        background-color: #222;
-        color: #eee;
-      }
-
-      #input-container {
-        border-right: 1px solid #ccc;
-        background-color: #444;
-      }
-
-      #input {
-        width: 100%;
-        height: 93%;
-        resize: none;
-        background-color: #333;
-        color: #eee;
-      }
-
-      .arrow-left:before {
-        content: '\25C0';
-      }
-
-      #output-container {
-        height: 100%;
-        width: 100%;
-        background-color: #555;
-      }
-
-      #output {
-        height: 99%;
-        width: 99%;
-        background-color: #fff;
-      }
-
-      .preview-mode {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 9999;
-        background-color: #222;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      .preview-mode #output-container {
-        height: 100%;
-      }
-
-      .preview-mode #output {
-        height: 99%;
-      }
-
-      #compile-button.active {
-        background-color: #777;
-      }
-    </style>
     <link rel="stylesheet" type="text/css" href="https://tikzjax.com/v1/fonts.css">
     <script src="https://tikzjax.com/v1/tikzjax.js"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
@@ -280,14 +271,8 @@
     <script>
       MathJax = {
         tex: {
-          inlineMath: [
-            ['$', '$'],
-            ['\\(', '\\)']
-          ],
-          displayMath: [
-            ['$$', '$$'],
-            ['\\[', '\\]']
-          ],
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          displayMath: [['$$', '$$'], ['\\[', '\\]']],
           processEscapes: true,
         },
         options: {
@@ -295,232 +280,262 @@
         },
       };
     </script>
+
     <script>
-      function compile() {
-        var input = document.getElementById("input").value;
-        var outputIframe = document.getElementById("output");
-        // Create the iframe document
-        var iframeDocument = outputIframe.contentDocument || outputIframe.contentWindow.document;
-        // Set the content of the iframe document with updated styles
-        iframeDocument.open();
-        iframeDocument.write(input);
-        iframeDocument.close();
-        // Store input in local storage
-        localStorage.setItem("inputText", input);
-      }
+        function compile() {
+            var input = document.getElementById("input").value;
+            var outputIframe = document.getElementById("output");
 
-      function exportOutput() {
-        var inputContent = document.getElementById("input").value;
-        var filename = "output.html";
-        var element = document.createElement("a");
-        element.setAttribute("href", "data:text/html;charset=utf-8," + encodeURIComponent(inputContent));
-        element.setAttribute("download", filename);
-        element.style.display = "none";
-        document.body.appendChild(element);
-        element.click();
-        document.body.removeChild(element);
-      }
+            // Create the iframe document
+            var iframeDocument = outputIframe.contentDocument || outputIframe.contentWindow.document;
 
-      function handleFileSelect(evt) {
-        var files = evt.target.files; // FileList object
-        if (files.length > 0) {
-          var reader = new FileReader();
-          reader.onload = function(file) {
-            var importedHTML = file.target.result;
-            document.getElementById("input").value = importedHTML;
-            compile();
-          };
-          reader.readAsText(files[0]);
+            // Set the content of the iframe document with updated styles
+            iframeDocument.open();
+            iframeDocument.write(input);
+            iframeDocument.close();
+
+            // Store input in local storage
+            localStorage.setItem("inputText", input);
         }
-      }
 
-      function toggleSidebar() {
-        var sidebar = document.getElementById("sidebar");
-        sidebar.classList.toggle("collapsed");
-        var arrowButton = document.getElementById("arrow-button");
-        arrowButton.classList.toggle("arrow-left");
-      }
+        function exportOutput() {
+            var inputContent = document.getElementById("input").value;
 
-      function addYouTubeVideo(url) {
-        var videoUrl = url;
-        if (videoUrl) {
-          var videoCode = extractYouTubeVideoCode(videoUrl);
-          var htmlCode = ' < iframe width = "100%"
-          height = "99.5%"
-          src = "https://www.youtube.com/embed/' +
-          videoCode + '" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
-          var input = document.getElementById("input");
-          input.value += htmlCode;
-          compile();
+            var filename = "output.html";
+            var element = document.createElement("a");
+            element.setAttribute("href", "data:text/html;charset=utf-8," + encodeURIComponent(inputContent));
+            element.setAttribute("download", filename);
+            element.style.display = "none";
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
         }
-      }
 
-      function addWebsite(url) {
-        var websiteUrl = url;
-        if (websiteUrl) {
-          var htmlCode = ' < iframe src = "' +
-          websiteUrl + '" width="100%" height="100%" frameborder="0"></iframe>';
-          var input = document.getElementById("input");
-          input.value += htmlCode;
-          compile();
+        function handleFileSelect(evt) {
+            var files = evt.target.files; // FileList object
+            if (files.length > 0) {
+                var reader = new FileReader();
+                reader.onload = function (file) {
+                    var importedHTML = file.target.result;
+                    document.getElementById("input").value = importedHTML;
+                    compile();
+                };
+                reader.readAsText(files[0]);
+            }
         }
-      }
 
-      function addImage(url) {
-        var imageUrl = url;
-        if (imageUrl) {
-          var htmlCode = ' < img src = "' + imageUrl + '"
-          width = "100"
-          height = "100"
-          frameborder = "0" > ';
-          var input = document.getElementById("input");
-          input.value += htmlCode;
-          compile();
+        function toggleSidebar() {
+            var sidebar = document.getElementById("sidebar");
+            sidebar.classList.toggle("collapsed");
+
+            var arrowButton = document.getElementById("arrow-button");
+            arrowButton.classList.toggle("arrow-left");
         }
-      }
 
-      function extractYouTubeVideoCode(url) {
-        var match = url.match(/^(?:https?:\/\/)?(?:www\.)?youtu(?:be\.com|\.be)\/(?:watch\?v=|embed\/|v\/)?([^&?/]+)/i);
-        return match && match[1] ? match[1] : null;
-      }
-
-      function insert() {
-        var url = prompt("Enter the URL:");
-        if (url) {
-          if (isYouTubeVideoUrl(url)) {
-            addYouTubeVideo(url);
-          } else if (isImageUrl(url)) {
-            addImage(url);
-          } else {
-            addWebsite(url);
-          }
+        function addYouTubeVideo(url) {
+            var videoUrl = url;
+            if (videoUrl) {
+                var videoCode = extractYouTubeVideoCode(videoUrl);
+                var htmlCode =
+                    '<iframe width="100%" height="99.5%" src="https://www.youtube.com/embed/' +
+                    videoCode +
+                    '" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+                var input = document.getElementById("input");
+                input.value += htmlCode;
+                compile();
+            }
         }
-      }
 
-      function isYouTubeVideoUrl(url) {
-        return url.includes("youtube.com") || url.includes("youtu.be");
-      }
-
-      function isImageUrl(url) {
-        return /\.(jpeg|jpg|gif|png)$/.test(url);
-      }
-
-      function toggleRealTimeCompile() {
-        var compileButton = document.getElementById("compile-button");
-        var input = document.getElementById("input");
-        if (compileButton.classList.contains("active")) {
-          compileButton.classList.remove("active");
-          input.removeEventListener("input", compile);
-        } else {
-          compileButton.classList.add("active");
-          input.addEventListener("input", compile);
-          compile();
+        function addWebsite(url) {
+            var websiteUrl = url;
+            if (websiteUrl) {
+                var htmlCode =
+                    '<iframe src="' +
+                    websiteUrl +
+                    '" width="100%" height="100%" frameborder="0"></iframe>';
+                var input = document.getElementById("input");
+                input.value += htmlCode;
+                compile();
+            }
         }
-      }
 
-      function compileOnce() {
+        function addImage(url) {
+            var imageUrl = url;
+            if (imageUrl) {
+                var htmlCode = '<img src="' + imageUrl + '" width="100" height="100" frameborder="0">';
+                var input = document.getElementById("input");
+                input.value += htmlCode;
+                compile();
+            }
+        }
+
+        function extractYouTubeVideoCode(url) {
+            var match = url.match(
+                /^(?:https?:\/\/)?(?:www\.)?youtu(?:be\.com|\.be)\/(?:watch\?v=|embed\/|v\/)?([^&?/]+)/i
+            );
+            return match && match[1] ? match[1] : null;
+        }
+
+        function insert() {
+            var url = prompt("Enter the URL:");
+            if (url) {
+                if (isYouTubeVideoUrl(url)) {
+                    addYouTubeVideo(url);
+                } else if (isImageUrl(url)) {
+                    addImage(url);
+                } else {
+                    addWebsite(url);
+                }
+            }
+        }
+
+        function isYouTubeVideoUrl(url) {
+            return url.includes("youtube.com") || url.includes("youtu.be");
+        }
+
+        function isImageUrl(url) {
+            return /\.(jpeg|jpg|gif|png)$/.test(url);
+        }
+
+        function toggleRealTimeCompile() {
+            var compileButton = document.getElementById("compile-button");
+            var input = document.getElementById("input");
+
+            if (compileButton.classList.contains("active")) {
+                compileButton.classList.remove("active");
+                input.removeEventListener("input", compile);
+            } else {
+                compileButton.classList.add("active");
+                input.addEventListener("input", compile);
+                compile();
+            }
+        }
+
+function compileOnce() {
+    compile();
+}
+
+        function togglePreview() {
+            var outputContainer = document.getElementById("output-container");
+            outputContainer.classList.toggle("preview-mode");
+
+            if (outputContainer.classList.contains("preview-mode")) {
+                document.documentElement.requestFullscreen().catch((err) => {
+                    alert(
+                        `Error attempting to enable full-screen mode: ${err.message} (${err.name})`
+                    );
+                });
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        document.addEventListener("fullscreenchange", () => {
+            var outputContainer = document.getElementById("output-container");
+            var previewButton = document.getElementById("preview-button");
+
+            if (document.fullscreenElement) {
+                outputContainer.classList.add("preview-mode");
+                previewButton.innerHTML = "Exit Preview";
+            } else {
+                outputContainer.classList.remove("preview-mode");
+                previewButton.innerHTML = "Preview";
+            }
+        });
+
+window.onload = function () {
+  var input = document.getElementById("input");
+
+  // Load input from local storage if available
+  var savedInput = localStorage.getItem("inputText");
+  if (savedInput) {
+    input.value = savedInput;
+  }
+
+  input.addEventListener("input", compile);
+
+  var compileButton = document.getElementById("compile-button");
+  compileButton.addEventListener("click", toggleRealTimeCompile);
+
+  // Disable autocompile by default
+  compileButton.classList.remove("active");
+  input.removeEventListener("input", compile);
+
+  var fileInput = document.getElementById("file-input");
+  fileInput.addEventListener("change", handleFileSelect, false);
+
+  var arrowButton = document.getElementById("arrow-button");
+  arrowButton.addEventListener("click", toggleSidebar, false);
+
+  var insertButton = document.getElementById("insert-button");
+  insertButton.addEventListener("click", insert);
+
+  var previewButton = document.getElementById("preview-button");
+  previewButton.addEventListener("click", togglePreview);
+
+  var imageButton = document.getElementById("image-button");
+  imageButton.addEventListener("click", function () {
+    var imageUrl = prompt("Enter the image URL:");
+    if (imageUrl) {
+      addImage(imageUrl);
+    }
+  });
+
+  var exampleButton = document.getElementById("example-button");
+  exampleButton.addEventListener("click", function () {
+    fetch("Example.html")
+      .then((response) => response.text())
+      .then((html) => {
+        input.value = html;
         compile();
-      }
-
-      function togglePreview() {
-        var outputContainer = document.getElementById("output-container");
-        outputContainer.classList.toggle("preview-mode");
-        if (outputContainer.classList.contains("preview-mode")) {
-          document.documentElement.requestFullscreen().catch((err) => {
-            alert(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
-          });
-        } else {
-          document.exitFullscreen();
-        }
-      }
-      document.addEventListener("fullscreenchange", () => {
-        var outputContainer = document.getElementById("output-container");
-        var previewButton = document.getElementById("preview-button");
-        if (document.fullscreenElement) {
-          outputContainer.classList.add("preview-mode");
-          previewButton.innerHTML = "Exit Preview";
-        } else {
-          outputContainer.classList.remove("preview-mode");
-          previewButton.innerHTML = "Preview";
-        }
       });
-      window.onload = function() {
-        var input = document.getElementById("input");
-        // Load input from local storage if available
-        var savedInput = localStorage.getItem("inputText");
-        if (savedInput) {
-          input.value = savedInput;
-        }
-        input.addEventListener("input", compile);
-        var compileButton = document.getElementById("compile-button");
-        compileButton.addEventListener("click", toggleRealTimeCompile);
-        // Disable autocompile by default
-        compileButton.classList.remove("active");
-        input.removeEventListener("input", compile);
-        var fileInput = document.getElementById("file-input");
-        fileInput.addEventListener("change", handleFileSelect, false);
-        var arrowButton = document.getElementById("arrow-button");
-        arrowButton.addEventListener("click", toggleSidebar, false);
-        var insertButton = document.getElementById("insert-button");
-        insertButton.addEventListener("click", insert);
-        var previewButton = document.getElementById("preview-button");
-        previewButton.addEventListener("click", togglePreview);
-        var imageButton = document.getElementById("image-button");
-        imageButton.addEventListener("click", function() {
-          var imageUrl = prompt("Enter the image URL:");
-          if (imageUrl) {
-            addImage(imageUrl);
-          }
-        });
-        var exampleButton = document.getElementById("example-button");
-        exampleButton.addEventListener("click", function() {
-          fetch("Example.html").then((response) => response.text()).then((html) => {
-            input.value = html;
-            compile();
-          });
-        });
-        var compileOnceButton = document.getElementById("compile-once-button");
-        compileOnceButton.addEventListener("click", compileOnce);
-        var compileOnceButton = document.getElementById("compile-once-button");
-        compileOnceButton.addEventListener("click", compileOnce);
-        // Add keydown event listener to whole window
-        window.addEventListener('keydown', function(event) {
-          // Check if the keys pressed were Ctrl + Enter
-          if (event.ctrlKey && event.keyCode === 13) {
+  });
+
+  var compileOnceButton = document.getElementById("compile-once-button");
+  compileOnceButton.addEventListener("click", compileOnce);
+    var compileOnceButton = document.getElementById("compile-once-button");
+    compileOnceButton.addEventListener("click", compileOnce);
+
+    // Add keydown event listener to whole window
+    window.addEventListener('keydown', function(event) {
+        // Check if the keys pressed were Ctrl + Enter
+        if (event.ctrlKey && event.keyCode === 13) {
             compileOnce();
-          }
-        });
-      };
+        }
+    });
+};
+
     </script>
-  </head>
-  <body>
+</head>
+<body>
     <div id="sidebar" class="collapsed">
-      <button id="arrow-button"></button>
-      <input type="file" id="file-input">
-      <button id="preview-button">Preview</button>
-      <button id="compile-button">Autocompile</button>
-      <button id="import-button" onclick="document.getElementById('file-input').click()">Import</button>
-      <button id="export-button" onclick="exportOutput()">Export</button>
-      <button id="insert-button">Insert</button>
-      <button id="image-button">Image</button>
-      <button id="example-button">Example</button>
+        <button id="arrow-button"></button>
+        <input type="file" id="file-input">
+        <button id="preview-button">Preview</button>
+        <button id="compile-button">Autocompile</button>
+        <button id="import-button" onclick="document.getElementById('file-input').click()">Import</button>
+        <button id="export-button" onclick="exportOutput()">Export</button>
+        <button id="insert-button">Insert</button>
+        <button id="image-button">Image</button>
+        <button id="example-button">Example</button>
     </div>
     <div id="input-container">
-      <button id="compile-once-button">Compile</button>
-      <textarea id="input" class="code-block" rows="10" cols="40"></textarea>
+            <button id="compile-once-button">Compile</button>
+        <textarea id="input" class="code-block" rows="10" cols="40"></textarea>
     </div>
     <div id="output-container">
-      <iframe id="output"></iframe>
+        <iframe id="output"></iframe>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.62.3/lib/codemirror.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.62.3/mode/javascript/javascript.js"></script>
-    <script>
-      var codeTextarea = document.getElementById('input');
-      var codeMirrorEditor = CodeMirror.fromTextArea(codeTextarea, {
-        lineNumbers: true,
-        mode: 'javascript',
-        theme: 'default'
-      });
-    </script>
-  </body>
+  <script src="https://cdn.jsdelivr.net/npm/codemirror@5.62.3/lib/codemirror.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/codemirror@5.62.3/mode/javascript/javascript.js"></script>
+  <script>
+    var codeTextarea = document.getElementById('input');
+
+    var codeMirrorEditor = CodeMirror.fromTextArea(codeTextarea, {
+      lineNumbers: true,
+      mode: 'javascript',
+      theme: 'default'
+    });
+  </script>
+</body>
 </html>
