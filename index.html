@@ -2,6 +2,65 @@
 <html>
 <head>
     <title>MyNoteEditor</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.62.3/lib/codemirror.css">
+  <style>
+    .CodeMirror {
+            width: 100%;
+            height: 93%;
+            resize: none;
+            background-color: #1c2434;
+            color: #eee;
+    }
+/* Comment */
+.cm-s-default .cm-comment {
+  color: #7c8b87; /* Set comment color */
+}
+
+/* Keyword */
+.cm-s-default .cm-keyword {
+  color: #ff6365; /* Set keyword color */
+}
+
+/* String */
+.cm-s-default .cm-string {
+  color: #79bb57; /* Set string color */
+}
+
+/* Number */
+.cm-s-default .cm-number {
+  color: #7c8b87 /* Set number color */
+}
+
+/* Operator */
+.cm-s-default .cm-operator {
+  color: #DE7315; /* Set operator color */
+}
+
+/* Function name */
+.CodeMirror .cm-def {
+      color: #5A78D2; /* Set function name color */
+    }
+
+/* Variable name */
+.cm-s-default .cm-variable {
+  color: #DE7315; /* Set variable name color */
+}
+
+/* Boolean value */
+.cm-s-default .cm-atom {
+  color: #5A78D2; /* Set boolean value color */
+}
+
+.CodeMirror .cm-property {
+      color: #5A78D2; /* Set color for .innerHTML */
+    }
+
+/* Cursor */
+.CodeMirror-cursor {
+  border-left: 2px solid white; /* Set cursor color */
+}
+
+  </style>
     <style>
         body {
             display: flex;
@@ -223,21 +282,22 @@
     </script>
 
     <script>
-        function compile() {
-            var input = document.getElementById("input").value;
-            var outputIframe = document.getElementById("output");
+function compile() {
+  var input = codeMirrorEditor.getValue();
+  var outputIframe = document.getElementById("output");
 
-            // Create the iframe document
-            var iframeDocument = outputIframe.contentDocument || outputIframe.contentWindow.document;
+  // Create the iframe document
+  var iframeDocument = outputIframe.contentDocument || outputIframe.contentWindow.document;
 
-            // Set the content of the iframe document with updated styles
-            iframeDocument.open();
-            iframeDocument.write(input);
-            iframeDocument.close();
+  // Set the content of the iframe document with updated styles
+  iframeDocument.open();
+  iframeDocument.write(input);
+  iframeDocument.close();
 
-            // Store input in local storage
-            localStorage.setItem("inputText", input);
-        }
+  // Store input in local storage
+  localStorage.setItem("inputText", input);
+}
+
 
         function exportOutput() {
             var inputContent = document.getElementById("input").value;
@@ -462,10 +522,21 @@ window.onload = function () {
     </div>
     <div id="input-container">
             <button id="compile-once-button">Compile</button>
-        <textarea id="input" rows="10" cols="40"></textarea>
+        <textarea id="input" class="code-block" rows="10" cols="40"></textarea>
     </div>
     <div id="output-container">
         <iframe id="output"></iframe>
     </div>
+  <script src="https://cdn.jsdelivr.net/npm/codemirror@5.62.3/lib/codemirror.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/codemirror@5.62.3/mode/javascript/javascript.js"></script>
+  <script>
+    var codeTextarea = document.getElementById('input');
+
+    var codeMirrorEditor = CodeMirror.fromTextArea(codeTextarea, {
+      lineNumbers: true,
+      mode: 'javascript',
+      theme: 'default'
+    });
+  </script>
 </body>
 </html>
