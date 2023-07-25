@@ -2,280 +2,147 @@
 <html>
 <head>
     <title>BALLS</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+
+        canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+    </style>
 </head>
 <body>
-    <canvas id="gameCanvas" width="800" height="600"></canvas>
+    <canvas id="canvas"></canvas>
     <script>
-        const WIDTH = 800;
-        const HEIGHT = 600;
-        const PLAYER_SPEED = 5;
-        const BALL_SPEED = 2;
-        const MAX_PLAYER_SPEED = 10;
-        const MAX_BALL_SPEED = 10;
-        const PLAYER_SIZE = 20;
-        const BALL_SIZE = 20;
-        const FRICTION_COEFFICIENT = 0.9;
-        const COEFFICIENT_OF_RESTITUTION = 0.98;
-        const DAMPING_COEFFICIENT = 0.98;
+        const WIDTH = window.innerWidth;
+        const HEIGHT = window.innerHeight;
+        const BALL_SIZE = 3;
+        const DAMPING_COEFFICIENT = 0.99;
+        const MAGNET_STRENGTH = 10000;
+        const TRACE_LENGTH = 30;
 
-        const canvas = document.getElementById("gameCanvas");
+        const canvas = document.getElementById("canvas");
         const ctx = canvas.getContext("2d");
-        ctx.fillStyle = "#000000";
-
-        class Player {
-            constructor() {
-                this.x = WIDTH / 2;
-                this.y = HEIGHT / 2;
-                this.velocity = [0, 0];
-            }
-
-            move(dx, dy) {
-                this.velocity[0] = dx;
-                this.velocity[1] = dy;
-
-                const speed = Math.sqrt(this.velocity[0] ** 2 + this.velocity[1] ** 2);
-                if (speed > MAX_PLAYER_SPEED) {
-                    const ratio = MAX_PLAYER_SPEED / speed;
-                    this.velocity[0] *= ratio;
-                    this.velocity[1] *= ratio;
-                }
-
-                this.velocity[0] *= DAMPING_COEFFICIENT;
-                this.velocity[1] *= DAMPING_COEFFICIENT;
-
-                this.x += this.velocity[0];
-                this.y += this.velocity[1];
-
-                this.x = Math.max(PLAYER_SIZE / 2, Math.min(this.x, WIDTH - PLAYER_SIZE / 2));
-                this.y = Math.max(PLAYER_SIZE / 2, Math.min(this.y, HEIGHT - PLAYER_SIZE / 2));
-            }
-
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, PLAYER_SIZE / 2, 0, 2 * Math.PI);
-                ctx.fillStyle = "#FF0000";
-                ctx.fill();
-                ctx.closePath();
-            }
-        }
+        canvas.width = WIDTH;
+        canvas.height = HEIGHT;
 
         class Ball {
-            constructor(x, y) {
-                this.x = x;
-                this.y = y;
-                this.velocity = [0, 0];
+            constructor(x, y, mass = 1.0) {
+                this.position = { x, y };
+                this.velocity = { x: 0, y: 0 };
+                this.mass = mass;
+                this.trace = [];
             }
 
             move() {
-                const new_x = this.x + this.velocity[0];
-                const new_y = this.y + this.velocity[1];
+                this.position.x += this.velocity.x;
+                this.position.y += this.velocity.y;
 
-                if (new_x - BALL_SIZE / 2 < 0 || new_x + BALL_SIZE / 2 > WIDTH) {
-                    this.velocity[0] = -this.velocity[0];
-                } else {
-                    this.x = new_x;
+                if (this.position.x - BALL_SIZE / 2 < 0 || this.position.x + BALL_SIZE / 2 > WIDTH) {
+                    this.velocity.x = -this.velocity.x;
+                }
+                if (this.position.y - BALL_SIZE / 2 < 0 || this.position.y + BALL_SIZE / 2 > HEIGHT) {
+                    this.velocity.y = -this.velocity.y;
                 }
 
-                if (new_y - BALL_SIZE / 2 < 0 || new_y + BALL_SIZE / 2 > HEIGHT) {
-                    this.velocity[1] = -this.velocity[1];
-                } else {
-                    this.y = new_y;
-                }
-
-                this.velocity[0] *= DAMPING_COEFFICIENT;
-                this.velocity[1] *= DAMPING_COEFFICIENT;
+                this.velocity.x *= DAMPING_COEFFICIENT;
+                this.velocity.y *= DAMPING_COEFFICIENT;
             }
 
             draw() {
+                ctx.fillStyle = "#ffffff";
+                for (let i = 0; i < this.trace.length; i++) {
+                    ctx.beginPath();
+                    ctx.arc(this.trace[i].x, this.trace[i].y, BALL_SIZE / 2, 0, 2 * Math.PI);
+                    ctx.fill();
+                }
+
                 ctx.beginPath();
-                ctx.arc(this.x, this.y, BALL_SIZE / 2, 0, 2 * Math.PI);
-                ctx.fillStyle = "#FFFFFF";
+                ctx.arc(this.position.x, this.position.y, BALL_SIZE / 2, 0, 2 * Math.PI);
                 ctx.fill();
-                ctx.closePath();
             }
         }
 
-        class NPC {
-            constructor() {
-                this.x = Math.floor(Math.random() * (700 - 100 + 1) + 100);
-                this.y = Math.floor(Math.random() * (500 - 100 + 1) + 100);
-                this.velocity = [0, 0];
+        const num_balls = 100;
+        const balls = [];
+        for (let i = 0; i < num_balls; i++) {
+            const x = Math.random() * (WIDTH - BALL_SIZE) + BALL_SIZE / 2;
+            const y = Math.random() * (HEIGHT - BALL_SIZE) + BALL_SIZE / 2;
+            const mass = Math.random() * 1.5 + 0.5;
+            const ball = new Ball(x, y, mass);
+            ball.velocity = { x: Math.random() * 4 - 2, y: Math.random() * 4 - 2 };
+            balls.push(ball);
+        }
+
+        const magneted_ball = new Ball(WIDTH / 2, HEIGHT / 2, 2.0);
+
+        const keys = {};
+        window.addEventListener("keydown", (event) => {
+            keys[event.key] = true;
+        });
+        window.addEventListener("keyup", (event) => {
+            keys[event.key] = false;
+        });
+
+        function update() {
+            if (keys["a"]) {
+                magneted_ball.velocity.x -= 1;
+            }
+            if (keys["d"]) {
+                magneted_ball.velocity.x += 1;
+            }
+            if (keys["w"]) {
+                magneted_ball.velocity.y -= 1;
+            }
+            if (keys["s"]) {
+                magneted_ball.velocity.y += 1;
             }
 
-            moveTowardsBall(ball) {
-                const direction_x = ball.x - this.x;
-                const direction_y = ball.y - this.y;
-                const magnitude = Math.sqrt(direction_x ** 2 + direction_y ** 2);
+            magneted_ball.move();
 
-                let unit_direction_x = 0;
-                let unit_direction_y = 0;
-                if (magnitude !== 0) {
-                    unit_direction_x = direction_x / magnitude;
-                    unit_direction_y = direction_y / magnitude;
+            for (const ball of balls) {
+                ball.trace.push({ x: ball.position.x, y: ball.position.y });
+
+                if (ball.trace.length > TRACE_LENGTH) {
+                    ball.trace.shift();
                 }
 
-                this.velocity[0] = BALL_SPEED * unit_direction_x;
-                this.velocity[1] = BALL_SPEED * unit_direction_y;
-            }
+                const diffX = magneted_ball.position.x - ball.position.x;
+                const diffY = magneted_ball.position.y - ball.position.y;
+                const distance = Math.max(1, Math.sqrt(diffX * diffX + diffY * diffY));
+                const forceMagnitude = MAGNET_STRENGTH / (distance * distance);
+                const forceX = (diffX / distance) * forceMagnitude;
+                const forceY = (diffY / distance) * forceMagnitude;
 
-            shootToPlayer(player) {
-                const direction_x = player.x - this.x;
-                const direction_y = player.y - this.y;
-                const magnitude = Math.sqrt(direction_x ** 2 + direction_y ** 2);
+                ball.velocity.x += forceX / ball.mass;
+                ball.velocity.y += forceY / ball.mass;
 
-                let unit_direction_x = 0;
-                let unit_direction_y = 0;
-                if (magnitude !== 0) {
-                    unit_direction_x = direction_x / magnitude;
-                    unit_direction_y = direction_y / magnitude;
-                }
-
-                this.velocity[0] = BALL_SPEED * 2 * unit_direction_x;
-                this.velocity[1] = BALL_SPEED * 2 * unit_direction_y;
-            }
-
-            move() {
-                this.x += this.velocity[0];
-                this.y += this.velocity[1];
-
-                this.velocity[0] *= DAMPING_COEFFICIENT;
-                this.velocity[1] *= DAMPING_COEFFICIENT;
-
-                this.x = Math.max(BALL_SIZE / 2, Math.min(this.x, WIDTH - BALL_SIZE / 2));
-                this.y = Math.max(BALL_SIZE / 2, Math.min(this.y, HEIGHT - BALL_SIZE / 2));
-            }
-
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, BALL_SIZE / 2, 0, 2 * Math.PI);
-                ctx.fillStyle = "#0000FF";
-                ctx.fill();
-                ctx.closePath();
+                ball.move();
             }
         }
 
-        function distance(x1, y1, x2, y2) {
-            return Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
-        }
+        function draw() {
+            ctx.fillStyle = "#000000";
+            ctx.fillRect(0, 0, WIDTH, HEIGHT);
 
-        function checkCollision(ball1, ball2) {
-            const distanceBetweenCenters = distance(ball1.x, ball1.y, ball2.x, ball2.y);
-            return distanceBetweenCenters < BALL_SIZE / 2 + BALL_SIZE / 2;
-        }
+            magneted_ball.draw();
 
-        function resolveCollision(ball1, ball2, npc_velocity = [0, 0]) {
-            const relativeVelX = ball2.velocity[0] - ball1.velocity[0];
-            const relativeVelY = ball2.velocity[1] - ball1.velocity[1];
-
-            const distanceBetweenCenters = distance(ball1.x, ball1.y, ball2.x, ball2.y);
-
-            if (distanceBetweenCenters <= BALL_SIZE) {
-                const normalX = (ball2.x - ball1.x) / distanceBetweenCenters;
-                const normalY = (ball2.y - ball1.y) / distanceBetweenCenters;
-
-                const impulse = (relativeVelX * normalX + relativeVelY * normalY) * (1 + COEFFICIENT_OF_RESTITUTION);
-
-                ball1.velocity[0] += impulse * normalX + npc_velocity[0];
-                ball1.velocity[1] += impulse * normalY + npc_velocity[1];
-                ball2.velocity[0] -= impulse * normalX + npc_velocity[0];
-                ball2.velocity[1] -= impulse * normalY + npc_velocity[1];
+            for (const ball of balls) {
+                ball.draw();
             }
         }
 
-        function handleNPCCollision(npc, ball, player) {
-            if (checkCollision(npc, ball)) {
-                npc.shootToPlayer(player);
-
-                const dx = ball.x - npc.x;
-                const dy = ball.y - npc.y;
-                const magnitude = Math.sqrt(dx ** 2 + dy ** 2);
-
-                const unitDirectionX = dx / magnitude;
-                const unitDirectionY = dy / magnitude;
-
-                ball.velocity[0] += BALL_SPEED * 2 * unitDirectionX;
-                ball.velocity[1] += BALL_SPEED * 2 * unitDirectionY;
-            }
+        function gameLoop() {
+            update();
+            draw();
+            requestAnimationFrame(gameLoop);
         }
 
-        function main() {
-            const player = new Player();
-            const balls = [new Ball(100, 100), new Ball(300, 200), new Ball(500, 300)];
-            const npc = new NPC();
-
-            function gameLoop() {
-                ctx.clearRect(0, 0, WIDTH, HEIGHT);
-
-                let dx = 0;
-                let dy = 0;
-
-                if (keys["w"]) {
-                    dy = -PLAYER_SPEED;
-                }
-                if (keys["s"]) {
-                    dy = PLAYER_SPEED;
-                }
-                if (keys["a"]) {
-                    dx = -PLAYER_SPEED;
-                }
-                if (keys["d"]) {
-                    dx = PLAYER_SPEED;
-                }
-
-                player.move(dx, dy);
-                npc.moveTowardsBall(balls[0]);
-
-                for (const ball of balls) {
-                    if (checkCollision(ball, player)) {
-                        ball.velocity[0] += player.velocity[0];
-                        ball.velocity[1] += player.velocity[1];
-                    }
-                }
-
-                for (const ball of balls) {
-                    if (checkCollision(ball, npc)) {
-                        npc.shootToPlayer(player);
-                        resolveCollision(ball, npc, npc.velocity);
-                    }
-                }
-
-                for (let i = 0; i < balls.length; i++) {
-                    for (let j = i + 1; j < balls.length; j++) {
-                        const ball_i = balls[i];
-                        const ball_j = balls[j];
-                        if (checkCollision(ball_i, ball_j)) {
-                            resolveCollision(ball_i, ball_j);
-                        }
-                    }
-                }
-
-                for (const ball of balls) {
-                    ball.move();
-                }
-                npc.move();
-
-                player.draw();
-                for (const ball of balls) {
-                    ball.draw();
-                }
-                npc.draw();
-
-                requestAnimationFrame(gameLoop);
-            }
-
-            const keys = {};
-            window.addEventListener("keydown", (event) => {
-                keys[event.key] = true;
-            });
-
-            window.addEventListener("keyup", (event) => {
-                keys[event.key] = false;
-            });
-
-            gameLoop();
-        }
-
-        window.addEventListener("load", main);
+        gameLoop();
     </script>
 </body>
 </html>
