@@ -1,6 +1,6 @@
 <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GR0568 Solution</title>
+  <title>Study Notes Blog</title>
   <style>
     body {
       display: flex;
@@ -849,10 +849,15 @@ Let \(P_1\) be the set of all primes, \(\{2,3,5,7,\dots\}\), and for each intege
 
 </p>
       \begin{align}&(\text{A})P_1\cap P_{23}&&(\text{B})P_7\cap P_{21}\\
-      &(\text{C})P_{12}\cap P_{20}&&(\text{D})P_{20}\cap P_{24}\\
+      &\boxed{(\text{C})P_{12}\cap P_{20}}&&(\text{D})P_{20}\cap P_{24}\\
       &(\text{E})P_5\cap P_{25}\end{align}
       <h2>Solution.</h2>
-      <p></p>
+      <p>
+
+Let \(p\neq q\) be primes, \(m,n\) be positive integers, if \(mp=nq\) then we have the prime factorization
+\[m=p_1p_2\dots p_n q\text{ and }n=p_1p_2\dots p_n p\]
+For \(P_m,P_n\) we need \(m,n\) differs by only one prime factor. The only choice that satisfies this condition is \(P_{12}\cap P_{20}\). Since \(12=2\cdot 2\cdot 3\) and \(20=2\cdot 2\cdot5\), that only differs by one prime i.e. differs in \(3\) and \(5\).
+</p>
     </div>
 
     <div class="post">
@@ -877,7 +882,47 @@ for all \(f,g\in C(\mathbb{R})\) and all \(r,x\in\mathbb{R}\). Which of the foll
       &(\text{C})\text{I and III only}&&(\text{D})\text{II and III only}\\
       &(\text{E})\text{I, II, and III}\end{align}
       <h2>Solution.</h2>
-      <p></p>
+      <p>
+        Let \(f,g\in \text{I.}\) and \(r\) be any scalar, we verify \(\text{I.}\) is closed under vector addition:
+\[\begin{align}
+&(f+g)''(x)\\
+=&f''(x)+g''(x)\\
+=&(2f'(x)-3f(x))+(2g'(x)-3g(x))\\
+=&2f'(x)+g'(x)-3(f(x)+g(x))\\
+=&2(f+g)'(x)-3(f+g)(x)
+\end{align}\]
+This shows \((f+g)''(x)-2(f+g)'(x)+3(f+g)(x)=0\) i.e.  \(f+g\in \text{I.}\) Next, we verify that \(\text{I.}\) is closed under scalar multiplication.
+\[
+  \begin{align}
+  &(rf)''(x)\\
+=&r(f''(x))\\
+=&r(2f'(x)-3f(x))\\
+=&2rf'(x)-3rf(x)\\
+=&2(rf)'(x)-3(rf)(x)
+  \end{align}
+  \]
+This shows \((rf)''(x)-2(rf)'(x)+3(rf)(x)=0\) i.e. \(rf\in\text{I.}\) Therefore, \(\text{I.}\) is a subspace of \(C(\mathbb{R})\).
+Now, we check if  \(\text{II.}\) is closed under vector addition.
+\[
+  \begin{align}
+  &(g+h)''(x)\\
+  =&3g'(x)+3h'(x)\\
+  =&3(g'(x)+g'(x))\\
+  =&3(g+h)'(x)
+  \end{align}
+  \]
+Have \((g+h)''(x)=3(g+h)'(x)\) that \(\text{II.}\)  is closed under vector addition.
+\[
+\begin{align}
+&(rg)''(x)\\
+  =&r(g)''(x)\\
+  =&r(3g'(x))\\
+  =&3rg'(x)\\
+  =&3(rg')(x)
+\end{align}
+\]
+This shows \((rg)''(x)=3(rg')(x)\) that \(\text{II.}\)  is closed under scalar multiplication. Therefore, \(\text{II.}\) is a subspace of \(C(\mathbb{R})\).
+        </p>
     </div>
 
     <div class="post">
