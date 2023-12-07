@@ -1131,7 +1131,7 @@ has the negation \(\lnot(\lnot R\land Q)\) that is \(R\lor \lnot Q\).
     <div class="post">
       <a id = "Q31" href = "#q31"><h2>Question 31.</h2></a>
       <p>
-Which of the following most closely represents the graph of a solution to the differential equation \(\frac{dy}{dx}1+y^4\)
+Which of the following most closely represents the graph of a solution to the differential equation \(\frac{dy}{dx}=1+y^4\)
 </p>
 
 <script type="text/tikz">
@@ -1174,14 +1174,15 @@ Which of the following most closely represents the graph of a solution to the di
 \end{tikzpicture}
 </script>
       <h2>Solution.</h2>
-      <p></p>
+      <p>
+</p>
     </div>
 
     <div class="post">
       <a id = "Q32" href = "#q32"><h2>Question 32.</h2></a>
       <p>Suppose that two binary operations, denoted by \(\oplus\) and \(\odot\), are defined on a nonempty set \(S\), and that the following conditions are satisfied for all \(x,y\) and \(z\) in \(S\):</p>
 \begin{align}
-(1)&\text{\(x+\oplus y\) and \(x\odot y\) are in \(S\)}\\
+(1)&\text{\(x\oplus y\) and \(x\odot y\) are in \(S\)}\\
 (2)&\text{\(x\oplus(y\oplus z)=(x\oplus y)\oplus z\)}\\
 &\text{and \(x\odot(y\odot z)=(x\odot y)\odot z.\)}\\
 (3)&x\oplus y=y\oplus x
@@ -1193,11 +1194,73 @@ Also, for each \(x\) in \(S\) and for each positive integer \(n\), the elements 
 &\text{then \((k+1)x=kx\oplus x\) and \(x^{k+1}=x^k\odot x\)}.
 \end{align}
 Which of the following must be true?
-      \begin{align}&(\text{A})\text{I only}&&(\text{B})\text{II only}\\
-      &(\text{C})\text{III only}&&(\text{D})\text{II and III only}\\
+\begin{align}
+&\text{I.}(x\odot y)^n=x^n\odot y^n\text{ for all \(x\) and \(y\) in \(S\) and for each positive integer \(n\).}\\
+&\text{II.}n(x\oplus y)=nx\oplus ny\text{ for all \(x\) and \(y\) in \(S\) and for each positive integer \(n\).}\\
+&\text{III.}x^m\odot x^n=x^{m+n} \text{ for each \(x\) in \(S\) and for all positive integers \(m\) and \(n\)}.
+\end{align}
+  
+  \begin{align}&(\text{A})\text{I only}&&(\text{B})\text{II only}\\
+      &(\text{C})\text{III only}&&\boxed{(\text{D})\text{II and III only}}\\
       &(\text{E})\text{I,II, and III}\end{align}
       <h2>Solution.</h2>
-      <p></p>
+      <p>
+        
+        For \(\text{I.}\) say \(\odot\) is matrix multiplication. Let \[x=      
+                                                             \begin{pmatrix}
+        1&0\\
+0&1
+\end{pmatrix},
+  y=      
+                                                             \begin{pmatrix}
+        0&1\\
+1&0
+\end{pmatrix} 
+                                                             \]
+        Have that
+        \[
+          \begin{align}
+          (x\odot y)^2=&\left(
+          \begin{pmatrix}
+        1&0\\
+0&1
+\end{pmatrix}
+ \begin{pmatrix}
+        0&1\\
+1&0
+\end{pmatrix}\right)^2 =
+   \begin{pmatrix}
+        0&1\\
+1&0
+\end{pmatrix}\\
+\neq&   \begin{pmatrix}
+        0&0\\
+0&0
+\end{pmatrix}=
+  \left(
+          \begin{pmatrix}
+        1&0\\
+0&1
+\end{pmatrix}\right)^2
+\left(
+ \begin{pmatrix}
+        0&1\\
+1&0
+\end{pmatrix}\right)^2=x^2\odot y^2
+\end{align}
+          \]
+Gives a counterexample. For \(\text{II.}\) by definition \((k+1)x=kx\oplus x\) we can show that
+
+\begin{align}
+&n(x\oplus y)\\
+=&\bigoplus_{k=1}^n x\oplus y\tag*{By Definition}\\
+=&\bigoplus_{k=1}^n\oplus\bigoplus_{k=1}^ny\tag*{By Condition 3}\\
+=&nx+ny\tag*{By Definition}
+\end{align}
+  
+For \(\text{III.}\) by definition  \(x^{k+1}=x^k\odot x\) we can show that
+\[x^m\odot x^n=\bigodot_{k=1}^mx\odot\bigodot_{k=1}^nx=\bigodot_{k=1}^{m+n}x=x^{m+n}\]
+        </p>
     </div>
 
     <div class="post">
@@ -1218,28 +1281,42 @@ Which of the following must be true?
 When the algorithm is used to find the greatest common divisor of \(a=273\) and \(b=110\), which of the following is the sequence of computed values for \(r\)?
 </p>
       \begin{align}&(\text{A})2,26,1,0&&(\text{B})2,53,1,0\\
-      &(\text{C})53,2,1,0&&(\text{D})53,4,1,0\\
+      &(\text{C})53,2,1,0&&\boxed{(\text{D})53,4,1,0}\\
       &(\text{E})53,5,1,0\end{align}
       <h2>Solution.</h2>
-      <p></p>
+      <p>
+        In the first while loop have
+        \[a=273,b=110,r=273\mod 110=53\]
+In the second while loop have
+\[a=110,b=53,r=110\mod 53=4\]
+        </p>
     </div>
 
     <div class="post">
       <a id = "Q34" href = "#q34"><h2>Question 34.</h2></a>
       <p>The minimal distance between any points on the sphere \((x-2)^2+(y-1)^2+(z-3)^2=1\) and any point on the sphere $$(x+3)^2+(y-2)^2+(z-4)^2=4$$ is</p>
       \begin{align}&(\text{A})0&&(\text{B})4&&(\text{C})\sqrt{27}\\
-      &(\text{D})2(\sqrt{2}+1)&&(\text{E})3(\sqrt{3}+1)\end{align}
+      &(\text{D})2(\sqrt{2}+1)&&\boxed{(\text{E})3\left(\sqrt{3}-1\right)}\end{align}
       <h2>Solution.</h2>
-      <p></p>
+      <p>
+      Find distance of centers of two sphere located at \((2,1,3)\) and \((3,-2,4)\)
+      \[\sqrt{(2+3)^2+(1-2)^2+(3-4)^2}=\sqrt{25+1+1}=\sqrt{27}\]
+      The minimal distance is \(\sqrt{27}-1-2=3\left(\sqrt{3}-1\right)\).
+        </p>
     </div>
 
     <div class="post">
       <a id = "Q35" href = "#q35"><h2>Question 35.</h2></a>
       <p>At a banquet, \(9\) women and \(6\) men are to be seated in a row of \(15\) chairs. If the entire seating arrangement is to be chosen at random, what is the probability that all of the men will be seated next to each other in \(6\) consecutive positions?</p>
-      \begin{align}&(\text{A})\frac{1}{\begin{pmatrix}15\\6\end{pmatrix}}&&(\text{B})\frac{6!}{\begin{pmatrix}15&6\end{pmatrix}}&&(\text{C})\frac{10!}{15!}\\
-&(\text{D})\frac{6!9!}{14!}&&(\text{E})\frac{6!10!}{15!}\end{align}
+      \begin{align}&(\text{A})\frac{1}{\begin{pmatrix}15\\6\end{pmatrix}}&&(\text{B})\frac{6!}{\begin{pmatrix}15\\6\end{pmatrix}}&&(\text{C})\frac{10!}{15!}\\
+&(\text{D})\frac{6!9!}{14!}&&\boxed{(\text{E})\frac{6!10!}{15!}}\end{align}
       <h2>Solution.</h2>
-      <p></p>
+      <p>
+        The total possible cases are \(15!\). Consider \(6\) men as one unit,
+          there are 10! possible ccases that men will be seated next to each other
+          in \(6\) consecutive positions. Each cases have \(6!\) possible ways to arrange the seats.
+          The probability is \(6!10!/15!\).
+      </p>
     </div>
 
     <div class="post">
